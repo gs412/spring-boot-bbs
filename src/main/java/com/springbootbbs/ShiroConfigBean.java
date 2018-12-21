@@ -21,20 +21,30 @@ public class ShiroConfigBean {
 		System.out.println("ShiroConfiguration.shirFilter()");
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
+		// 必须设置 SecurityManager
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
+		// 设置login URL
 		shiroFilterFactoryBean.setLoginUrl("/login");
+		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/LoginSuccess.action");
+		// 未授权的页面
 		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized.action");
 
 		// 拦截器
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+		// src="jquery/jquery-3.2.1.min.js" 生效
 		filterChainDefinitionMap.put("/jquery/*", "anon");
+		// 设置登录的URL为匿名访问，因为一开始没有用户验证
 		filterChainDefinitionMap.put("/login.action", "anon");
 		filterChainDefinitionMap.put("/Exception.class", "anon");
+		// 我写的url一般都是xxx.action，根据你的情况自己修改
 		filterChainDefinitionMap.put("/*.action", "authc");
+		// 退出系统的过滤器
 		filterChainDefinitionMap.put("/logout", "logout");
+		// 现在资源的角色
 		filterChainDefinitionMap.put("/templates/admin.html", "roles[admin]");
 		filterChainDefinitionMap.put("/templates/user.html", "roles[user]");
+		// 最后一班都，固定格式
 		filterChainDefinitionMap.put("/**", "authc");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -42,6 +52,10 @@ public class ShiroConfigBean {
 		return shiroFilterFactoryBean;
 	}
 
+	/*
+	 * 凭证匹配器 （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
+	 * 所以我们需要修改下doGetAuthenticationInfo中的代码; )
+	 */
 	@Bean
 	public HashedCredentialsMatcher hashedCredentialsMatcher() {
 		HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
@@ -61,7 +75,9 @@ public class ShiroConfigBean {
 	@Bean
 	public DefaultWebSecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+		// 注入自定义的realm;
 		securityManager.setRealm(myShiroRealm());
+		// 注入缓存管理器;
 		securityManager.setCacheManager(ehCacheManager());
 
 		return securityManager;

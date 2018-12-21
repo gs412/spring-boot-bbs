@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
+/*
+ * 登陆的controller
+ */
 @Controller
 public class LoginHandler {
 
@@ -21,15 +24,21 @@ public class LoginHandler {
 	public String login(String username, String password, Map<String, Object> map, HttpSession session) {
 		System.out.println(username + "---" + password);
 
+		// 获得当前Subject
 		Subject currentUser = SecurityUtils.getSubject();
 
+		// 验证用户是否验证，即是否登录
 		if (!currentUser.isAuthenticated()) {
 			String msg = "";
+			// 把用户名和密码封装为 UsernamePasswordToken 对象
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 
+			// remembermMe记住密码
 			token.setRememberMe(true);
 			try {
+				// 执行登录.
 				currentUser.login(token);
+				// 登录成功...
 				return "redirect:/LoginSuccess.action";
 			} catch (IncorrectCredentialsException e) {
 				msg = "登陆密码错误";
@@ -60,6 +69,7 @@ public class LoginHandler {
 			return "/index";
 		}
 
+		// 登录成功，重定向到LoginSuccess.action
 		return "redirect:/LoginSuccess.action";
 	}
 
