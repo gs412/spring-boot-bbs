@@ -1,0 +1,16 @@
+server:
+  port:
+    8294
+
+spring:
+  profiles:
+    active: product
+  datasource:
+    driver-class-username: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring-boot-bbs?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=PRC
+    username: root
+    password: 412413
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
