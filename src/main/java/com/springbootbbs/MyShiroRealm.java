@@ -36,6 +36,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		Set<String> roles = new HashSet<>();
 		Set<String> permissions = new HashSet<>();
 		roles.add("user");
+		permissions.add("user:query");
 		if ("admin".equals(principal)) {
 			roles.add("admin");
 			permissions.add("admin:query");
