@@ -14,21 +14,15 @@ import java.util.List;
 @Service
 public class UserService {
 
-	// 用户的集合
-	private List<User> users = new ArrayList<>();
-
 	@Autowired
-	UserRepository userRepository;
-
-	public UserService() {
-		// 从数据库查出来的用户名，密码，这是是静态数据(密码是123456)
-		users.add(new User("admin", "038bdaf98f2037b31f1e75b5b4c9b26e"));
-		users.add(new User("user", "098d2c478e9c11555ce2823231e02ec1"));
-	}
+	private UserRepository userRepository;
 
 	// 判断是否用户名是否存在
 	public boolean selectUsername(String username) {
-		return userRepository.existsByUsername(username);
+		//boolean a =  userRepository.existsByUsername(username);
+
+		List<User> users = userRepository.findAll();
+		return true;
 	}
 
 	// 根据用户返回查询的密码
