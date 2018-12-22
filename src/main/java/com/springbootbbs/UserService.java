@@ -19,10 +19,7 @@ public class UserService {
 
 	// 判断是否用户名是否存在
 	public boolean selectUsername(String username) {
-		//boolean a =  userRepository.existsByUsername(username);
-
-		List<User> users = userRepository.findAll();
-		return true;
+		return userRepository.existsByUsername(username);
 	}
 
 	// 根据用户返回查询的密码

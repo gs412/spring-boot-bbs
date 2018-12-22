@@ -6,6 +6,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +17,9 @@ import java.util.Set;
  *
  */
 public class MyShiroRealm extends AuthorizingRealm {
+
+	@Autowired
+	UserService userService;
 
 	/**
 	 * 用于授权
@@ -61,9 +65,6 @@ public class MyShiroRealm extends AuthorizingRealm {
 
 		// 获得从表单传过来的用户名
 		String username = upToken.getUsername();
-
-		// 从数据库查看是否存在用户
-		UserService userService = new UserService();
 
 		// 如果用户不存在，抛此异常
 		if (!userService.selectUsername(username)) {
