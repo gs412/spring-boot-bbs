@@ -17,6 +17,13 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	/**
+	 * 创建用户
+	 */
+	public User createUser(User user) {
+		return userRepository.save(user);
+	}
+
 	// 判断是否用户名是否存在
 	public boolean selectUsername(String username) {
 		return userRepository.existsByUsername(username);

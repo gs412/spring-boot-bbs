@@ -1,20 +1,25 @@
 package com.springbootbbs;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Ahandler {
 
+	@Autowired
+	private UserRepository userRepository;
+
 	// 登录的url
 	@RequestMapping({"/login", "/"})
-	public String indexHtml() {
-		Object result = new SimpleHash("md5", "123456", "user", 1024);
-		System.out.println(result);
+	public String indexHtml(ModelMap m) {
 		return "index";
 	}
 
@@ -41,7 +46,13 @@ public class Ahandler {
 	}
 
 	@RequestMapping("/LoginSuccess.action")
-	public String listHtml() {
+	public String listHtml(ModelMap m) {
+		Subject subject = SecurityUtils.getSubject();
+		String username = (String)subject.getPrincipal();
+		User user = userRepository.findByUsername(username);
+
+		m.addAttribute("user", user);
+
 		return "list";
 	}
 

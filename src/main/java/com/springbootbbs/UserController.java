@@ -19,6 +19,8 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping("/info")
 	@ResponseBody
@@ -55,7 +57,11 @@ public class UserController {
 		} else if (!password.equals(password_confirm)) {
 			msg = "两次密码不一致";
 		} else {
-			Object hashedPassword = new SimpleHash("md5", password, username, 1024);
+			Object result = new SimpleHash("md5", password, username, 1024);
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(result.toString());
+			userService.createUser(user);
 		}
 
 		m.addAttribute("username", username);
