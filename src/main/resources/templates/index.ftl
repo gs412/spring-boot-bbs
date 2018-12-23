@@ -7,7 +7,7 @@
 
 	<script>
 		$(function(){
-			var msg = "${msg}";
+			var msg = "${msg!}";
 			if(msg!="null"&&msg!=null&&msg!=""){
 				alert(msg);
 			}
@@ -21,7 +21,9 @@
 </head>
 <body>
 <h1>Login HTML</h1>
-<h4>${msg}</h4>
+<#if msg??>
+<h4>${msg!}</h4>
+</#if>
 
 <form action="login.action" method="post">
 	用户名：<input type="text" name="username" /><br /> 密码：<input

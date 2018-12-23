@@ -15,7 +15,7 @@ public class Ahandler {
 	public String indexHtml() {
 		Object result = new SimpleHash("md5", "123456", "user", 1024);
 		System.out.println(result);
-		return "/index";
+		return "index";
 	}
 
 	// 属于user角色@RequiresRoles("user")
