@@ -53,6 +53,11 @@
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 			<version>1.4.1.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
