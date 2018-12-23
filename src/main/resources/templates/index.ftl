@@ -1,34 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script type="text/javascript" src="jquery/jquery-3.2.1.min.js"></script>
-
-	<script>
-		$(function(){
-			var msg = "${msg!}";
-			if(msg!="null"&&msg!=null&&msg!=""){
-				alert(msg);
-			}
-
-
-		});
-	</script>
-
-
-
-</head>
-<body>
-<h1>Login HTML</h1>
-<#if msg??>
-<h4>${msg!}</h4>
-</#if>
+<#include "inc/head.ftl">
 
 <form action="login.action" method="post">
 	用户名：<input type="text" name="username" /><br /> 密码：<input
 		type="password" name="password" /><br /> <input type="submit"
 	                                                    value="Submit" />
 </form>
-</body>
-</html>
+
+
+<#include "inc/foot.ftl">

@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>${title!}</title>
 	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+	<script src="/static/_js/jquery.min.js"></script>
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="/static/_css/main.css">
@@ -23,24 +24,27 @@
 				<a class="brand" href="/">Spring Boot BBS</a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="#">社区</a></li>
+						<li <#if springMacroRequestContext.requestUri == "/">class="active"</#if>><a href="/">社区</a></li>
 					</ul>
 					<form class="navbar-search pull-left" action="">
 						<input type="text" class="search-query span2" placeholder="搜索帖子">
 					</form>
 					<ul class="nav pull-right">
-						<li><a href="#">Link</a></li>
-						<li class="divider-vertical"></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">${user.username} <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-							</ul>
-						</li>
+						<#if user??>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">${user.username} <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li class="divider"></li>
+									<li><a href="/logout">退出</a></li>
+								</ul>
+							</li>
+						<#else>
+							<li <#if springMacroRequestContext.requestUri?startsWith("/login")>class="active"</#if>><a href="/login">登陆</a></li>
+							<li <#if springMacroRequestContext.requestUri?startsWith("/user/register")>class="active"</#if>><a href="/user/register">注册</a></li>
+						</#if>
 					</ul>
 				</div><!-- /.nav-collapse -->
 			</div>

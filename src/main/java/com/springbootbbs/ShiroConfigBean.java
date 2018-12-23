@@ -32,8 +32,7 @@ public class ShiroConfigBean {
 
 		// 拦截器
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-		// src="jquery/jquery-3.2.1.min.js" 生效
-		filterChainDefinitionMap.put("/jquery/*", "anon");
+		filterChainDefinitionMap.put("/static/**", "anon");
 		// 设置登录的URL为匿名访问，因为一开始没有用户验证
 		filterChainDefinitionMap.put("/login.action", "anon");
 		filterChainDefinitionMap.put("/Exception.class", "anon");
@@ -47,7 +46,7 @@ public class ShiroConfigBean {
 		// 临时测试
 		filterChainDefinitionMap.put("/user/*", "anon");
 		// 最后一班都，固定格式
-		filterChainDefinitionMap.put("/**", "authc");
+		filterChainDefinitionMap.put("/**", "anon");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
