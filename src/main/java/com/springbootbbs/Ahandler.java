@@ -25,30 +25,30 @@ public class Ahandler {
 	@RequiresRoles(value = {"user", "admin"}, logical = Logical.OR)
 	@RequiresPermissions("user:query")
 	public String userHtml() {
-		return "/user";
+		return "user";
 	}
 
 	@RequestMapping("/showAdminHtml.action")
 	@RequiresRoles("admin")
 	@RequiresPermissions("admin:query")
 	public String adminHtml() {
-		return "/admin";
+		return "admin";
 	}
 
 	@RequestMapping("/unauthorized.action")
 	public String unauthorized() {
-		return "/abc";
+		return "abc";
 	}
 
 	@RequestMapping("/LoginSuccess.action")
 	public String listHtml() {
-		return "/list";
+		return "list";
 	}
 
 	@RequestMapping("/error.action")
 	public String error() {
 		int a = 1/0;
-		return "/abc";
+		return "abc";
 	}
 
 }

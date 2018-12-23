@@ -42,8 +42,8 @@ public class ShiroConfigBean {
 		// 退出系统的过滤器
 		filterChainDefinitionMap.put("/logout", "logout");
 		// 现在资源的角色
-		filterChainDefinitionMap.put("/templates/admin.html", "roles[admin]");
-		filterChainDefinitionMap.put("/templates/user.html", "roles[user]");
+		filterChainDefinitionMap.put("/templates/admin.ftl", "roles[admin]");
+		filterChainDefinitionMap.put("/templates/user.ftl", "roles[user]");
 		// 临时测试
 		filterChainDefinitionMap.put("/user/*", "anon");
 		// 最后一班都，固定格式

@@ -7,7 +7,7 @@
 <body>
 <h1>abc HTML</h1>
 
-<h4 th:text="${msg}"></h4>
+<h4>${msg!}</h4>
 
 </body>
 </html>

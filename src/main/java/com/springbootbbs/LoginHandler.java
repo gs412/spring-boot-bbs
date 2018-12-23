@@ -67,7 +67,7 @@ public class LoginHandler {
 			}
 
 			map.addAttribute("msg", msg);
-			return "/index";
+			return "index";
 		}
 
 		// 登录成功，重定向到LoginSuccess.action
