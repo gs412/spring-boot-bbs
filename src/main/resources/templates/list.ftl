@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-</head>
-<body>
+<#include "inc/head.ftl">
 <h5>hello ${user.getUsername()}</h5>
 <h1>list HTML</h1>
 <a href="showUserHtml.action">user html</a>
@@ -13,5 +7,4 @@
 <a href="logout">退出</a>
 
 
-</body>
-</html>
+<#include "inc/foot.ftl">
