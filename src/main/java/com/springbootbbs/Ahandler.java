@@ -3,6 +3,7 @@ package com.springbootbbs;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +13,8 @@ public class Ahandler {
 	// 登录的url
 	@RequestMapping({"/login", "/"})
 	public String indexHtml() {
+		Object result = new SimpleHash("md5", "123456", 1024);
+		System.out.println(result);
 		return "/index";
 	}
 
