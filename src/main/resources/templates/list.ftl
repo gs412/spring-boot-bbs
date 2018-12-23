@@ -1,4 +1,5 @@
 <#include "inc/head.ftl">
+
 <h5>hello ${user.getUsername()}</h5>
 <h1>list HTML</h1>
 <a href="showUserHtml.action">user html</a>
