@@ -6,6 +6,7 @@ import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,7 @@ public class LoginHandler {
 	private UserService userService;
 
 	@RequestMapping("/login.action")
-	public String login(String username, String password, Map<String, Object> map, HttpSession session) {
+	public String login(String username, String password, ModelMap map, HttpSession session) {
 		System.out.println(username + "---" + password);
 
 		// 获得当前Subject
@@ -65,7 +66,7 @@ public class LoginHandler {
 				System.out.println("出错！！！" + e);
 			}
 
-			map.put("msg", msg);
+			map.addAttribute("msg", msg);
 			return "/index";
 		}
 
