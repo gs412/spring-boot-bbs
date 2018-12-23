@@ -2,6 +2,7 @@ package com.springbootbbs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,6 +23,13 @@ public class UserController {
 		list = userRepository.findAll();
 
 		return list;
+	}
+
+	@RequestMapping("/register")
+	public String register(ModelMap m) {
+		m.addAttribute("name", "haha");
+
+		return "user/register";
 	}
 
 }

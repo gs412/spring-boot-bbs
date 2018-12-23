@@ -13,7 +13,7 @@ public class Ahandler {
 	// 登录的url
 	@RequestMapping({"/login", "/"})
 	public String indexHtml() {
-		Object result = new SimpleHash("md5", "123456", 1024);
+		Object result = new SimpleHash("md5", "123456", "user", 1024);
 		System.out.println(result);
 		return "/index";
 	}

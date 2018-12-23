@@ -44,6 +44,8 @@ public class ShiroConfigBean {
 		// 现在资源的角色
 		filterChainDefinitionMap.put("/templates/admin.html", "roles[admin]");
 		filterChainDefinitionMap.put("/templates/user.html", "roles[user]");
+		// 临时测试
+		filterChainDefinitionMap.put("/user/*", "anon");
 		// 最后一班都，固定格式
 		filterChainDefinitionMap.put("/**", "authc");
 
