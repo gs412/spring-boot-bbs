@@ -1,10 +1,9 @@
-package com.springbootbbs;
+package com.springbootbbs.service;
 
+import com.springbootbbs.entiry.User;
+import com.springbootbbs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User的service,这里面的数据时静态数据，不查询数据库了
@@ -25,7 +24,7 @@ public class UserService {
 	}
 
 	// 判断是否用户名是否存在
-	public boolean selectUsername(String username) {
+	public boolean existsByUsername(String username) {
 		return userRepository.existsByUsername(username);
 	}
 

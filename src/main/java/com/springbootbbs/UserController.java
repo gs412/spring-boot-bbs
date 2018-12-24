@@ -1,5 +1,8 @@
 package com.springbootbbs;
 
+import com.springbootbbs.entiry.User;
+import com.springbootbbs.repository.UserRepository;
+import com.springbootbbs.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;

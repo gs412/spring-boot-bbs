@@ -1,5 +1,8 @@
 package com.springbootbbs;
 
+import com.springbootbbs.entiry.User;
+import com.springbootbbs.repository.UserRepository;
+import com.springbootbbs.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -20,6 +23,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	UserRepository userRepository;
 
 	/**
 	 * 用于授权
@@ -66,13 +71,14 @@ public class MyShiroRealm extends AuthorizingRealm {
 		// 获得从表单传过来的用户名
 		String username = upToken.getUsername();
 
+		User user = userRepository.findByUsername(username);
 		// 如果用户不存在，抛此异常
-		if (!userService.selectUsername(username)) {
+		if (user == null) {
 			throw new UnknownAccountException("无此用户名！");
 		}
 
 		// 认证的实体信息，可以是username，也可以是用户的实体类对象，这里用的用户名
-		Object principal = username;
+		Object principal = user.getId();
 		// 从数据库中查询的密码
 		Object credentials = userService.selectPassword(username);
 		// 颜值加密的颜，可以用用户名

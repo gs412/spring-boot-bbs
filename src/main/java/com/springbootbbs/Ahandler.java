@@ -1,10 +1,11 @@
 package com.springbootbbs;
 
+import com.springbootbbs.entiry.User;
+import com.springbootbbs.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,8 +49,8 @@ public class Ahandler {
 	@RequestMapping("/LoginSuccess.action")
 	public String listHtml(ModelMap m) {
 		Subject subject = SecurityUtils.getSubject();
-		String username = (String)subject.getPrincipal();
-		User user = userRepository.findByUsername(username);
+		Long uid = (Long)subject.getPrincipal();
+		User user = userRepository.findById(uid).get();
 
 		m.addAttribute("user", user);
 

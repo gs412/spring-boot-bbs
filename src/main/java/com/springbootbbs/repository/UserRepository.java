@@ -1,5 +1,6 @@
-package com.springbootbbs;
+package com.springbootbbs.repository;
 
+import com.springbootbbs.entiry.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.springbootbbs;
+package com.springbootbbs.entiry;
 
 
 import javax.persistence.*;
