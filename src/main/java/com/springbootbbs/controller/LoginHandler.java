@@ -1,4 +1,4 @@
-package com.springbootbbs;
+package com.springbootbbs.controller;
 
 import com.springbootbbs.service.UserService;
 import org.apache.shiro.SecurityUtils;

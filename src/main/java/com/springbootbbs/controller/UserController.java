@@ -1,4 +1,4 @@
-package com.springbootbbs;
+package com.springbootbbs.controller;
 
 import com.springbootbbs.entiry.User;
 import com.springbootbbs.repository.UserRepository;

@@ -1,4 +1,4 @@
-package com.springbootbbs;
+package com.springbootbbs.controller;
 
 import com.springbootbbs.entiry.User;
 import com.springbootbbs.repository.UserRepository;
@@ -19,9 +19,9 @@ public class Ahandler {
 	private UserRepository userRepository;
 
 	// 登录的url
-	@RequestMapping({"/login", "/"})
-	public String indexHtml(ModelMap m) {
-		return "index";
+	@RequestMapping("/login")
+	public String login(ModelMap m) {
+		return "login";
 	}
 
 	// 属于user角色@RequiresRoles("user")
