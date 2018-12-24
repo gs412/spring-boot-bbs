@@ -10,8 +10,8 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(length = 20)
-	private Integer id;
+	@Column
+	private Long id;
 
 	@Column(length = 50)
 	private String username;
@@ -19,11 +19,11 @@ public class User implements Serializable {
 	@Column(length = 50)
 	private String password;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

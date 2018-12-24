@@ -78,7 +78,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		}
 
 		// 认证的实体信息，可以是username，也可以是用户的实体类对象，这里用的用户名
-		Object principal = user.getId();
+		Long principal = user.getId();
 		// 从数据库中查询的密码
 		Object credentials = userService.selectPassword(username);
 		// 颜值加密的颜，可以用用户名
