@@ -1,58 +1,41 @@
 package com.springbootbbs.controller;
 
-import com.springbootbbs.entiry.Post;
 import com.springbootbbs.entiry.Topic;
-import com.springbootbbs.entiry.User;
-import com.springbootbbs.repository.PostRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.PostService;
 import com.springbootbbs.service.TopicService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Date;
 
 @Controller
 public class IndexController extends BaseController {
 
 	@Autowired
-	TopicService topicService;
-	@Autowired
-	PostService postService;
-	@Autowired
-	UserRepository userRepository;
+	TopicRepository topicRepository;
 
 	@RequestMapping("/")
-	public String index() {
+	public String index(String p, ModelMap m) {
+		Integer p1 = NumberUtils.toInt(p, 1);
+		Order order = new Order(Direction.DESC, "id");
+
+		Pageable pageable = PageRequest.of(p1-1, 5, Sort.by(order));
+
+		Page<Topic> page = topicRepository.findAll(pageable);
+
+		m.addAttribute("page", page);
+
 		return "index";
-	}
-
-	@RequestMapping("/topic_new")
-	public String topic_new() {
-		return "topic_new";
-	}
-
-	@RequestMapping("/topic_save")
-	public String topic_save(String title, String content) {
-		User user = getUser();
-
-		Topic topic = new Topic();
-		topic.setTitle(title);
-		topic.setReplies(0);
-		topic.setUser(user);
-		topicService.save(topic);
-
-		Post post = new Post();
-		post.setContent(content);
-		post.setTopic(topic);
-		post.setUser(user);
-		postService.save(post);
-
-		return "redirect:/";
 	}
 
 }

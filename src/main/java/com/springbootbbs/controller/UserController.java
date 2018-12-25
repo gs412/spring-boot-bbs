@@ -28,7 +28,6 @@ public class UserController {
 	@ResponseBody
 	public List<User> info() {
 		List<User> list = new ArrayList<User>();
-		list = userRepository.findAll();
 
 		return list;
 	}

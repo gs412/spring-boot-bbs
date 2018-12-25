@@ -15,6 +15,9 @@ public class Post {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 
+	@Column
+	private Boolean isFirst;
+
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "topic_id")
 	private Topic topic;
@@ -24,10 +27,10 @@ public class Post {
 	private User user;
 
 	@Column(nullable = false)
-	private Date created_at;
+	private Date createdAt;
 
 	@Column(nullable = false)
-	private Date updated_at;
+	private Date updatedAt;
 
 	public Long getId() {
 		return id;
@@ -43,6 +46,14 @@ public class Post {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Boolean getIsFirst() {
+		return isFirst;
+	}
+
+	public void setIsFirst(Boolean isFirst) {
+		this.isFirst = isFirst;
 	}
 
 	public Topic getTopic() {
@@ -61,19 +72,19 @@ public class Post {
 		this.user = user;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getUpdated_at() {
-		return updated_at;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 }

@@ -1,4 +1,4 @@
-<#include "inc/head.ftl">
+<#include "../inc/head.ftl">
 
 <form class="form-horizontal" action="/topic_save" method="post">
 	<fieldset>
@@ -21,4 +21,4 @@
 	</fieldset>
 </form>
 
-<#include "inc/foot.ftl">
+<#include "../inc/foot.ftl">
