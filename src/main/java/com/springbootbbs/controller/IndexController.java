@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Date;
 
 @Controller
-public class IndexController {
+public class IndexController extends BaseController {
 
 	@Autowired
 	TopicService topicService;
@@ -38,10 +38,7 @@ public class IndexController {
 
 	@RequestMapping("/topic_save")
 	public String topic_save(String title, String content) {
-		Subject subject = SecurityUtils.getSubject();
-		Long uid = (Long)subject.getPrincipal();
-		User user = userRepository.findById(uid).get();
-
+		User user = getUser();
 		Date date = new Date();
 
 		Topic topic = new Topic();
