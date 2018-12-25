@@ -43,6 +43,9 @@ public class ShiroConfigBean {
 		// 现在资源的角色
 		filterChainDefinitionMap.put("/templates/admin.ftl", "roles[admin]");
 		filterChainDefinitionMap.put("/templates/user.ftl", "roles[user]");
+
+		filterChainDefinitionMap.put("/topic_new", "authc");
+		filterChainDefinitionMap.put("/topic_save", "authc");
 		// 临时测试
 		filterChainDefinitionMap.put("/user/*", "anon");
 		// 最后一班都，固定格式

@@ -1,3 +1,5 @@
 <#include "inc/head.ftl">
-index page
+
+<a class="btn btn-primary" href="/topic_new">发布新帖</a>
+
 <#include "inc/foot.ftl">
