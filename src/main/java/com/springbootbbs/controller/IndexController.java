@@ -39,7 +39,6 @@ public class IndexController extends BaseController {
 	@RequestMapping("/topic_save")
 	public String topic_save(String title, String content) {
 		User user = getUser();
-		Date date = new Date();
 
 		Topic topic = new Topic();
 		topic.setTitle(title);
