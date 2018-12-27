@@ -87,4 +87,14 @@ public class Post {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	public String getContentHtml() {
+		String new_content = content.replace("<", "&lt;");
+		new_content = new_content.replace(">", "&gt;");
+		new_content = new_content.replace("\n", "<br>");
+		new_content = new_content.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+		new_content = new_content.replace(" ", "&nbsp;");
+
+		return new_content;
+	}
 }

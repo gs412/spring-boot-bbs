@@ -10,12 +10,31 @@
 	    <div style="min-height:200px; margin-left:200px; border-left:1px solid #666; word-break:break-all; box-sizing:border-box; padding:1px 20px 20px 20px; position:relative;">
 		    <div style="padding:6px 0 3px; margin:0 0 15px 0; border-bottom:1px solid #ddd;">发布于 ${topic.getCreatedAt()}</div>
 		    <div style="position:absolute; right:20px; top:8px;">#${page.getNumber()*10 + post?index + 1}</div>
-		    ${post.getContent()}
+		    ${post.getContentHtml()}
 	    </div>
     </div>
 </#list>
+<br>
 
-<br><br>
+<#if (page.getTotalPages() > 1)>
+	<div class="pagination">
+		<ul>
+			<li <#if page.isFirst()>class="disabled"</#if>>
+				<a href="/topic/${topic.getId()}/?p=1">«</a>
+			</li>
+			<#list 1..page.getTotalPages() as i>
+				<li <#if i == page.getNumber()+1> class="active"</#if>>
+					<a href="/topic/${topic.getId()}/?p=${i}">${i}</a>
+				</li>
+			</#list>
+			<li <#if page.isLast()>class="disabled"</#if>>
+				<a href="/topic/${topic.getId()}/?p=${page.getTotalPages()}">»</a>
+			</li>
+		</ul>
+	</div>
+</#if>
+
+<br>
 <#if user??>
 	<form class="form-horizontal" action="/topic/${topic.getId()}/reply" method="post">
 		<fieldset>

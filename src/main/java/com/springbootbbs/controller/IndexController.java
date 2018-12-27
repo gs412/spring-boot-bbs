@@ -29,7 +29,7 @@ public class IndexController extends BaseController {
 		Integer p1 = NumberUtils.toInt(p, 1);
 		Order order = new Order(Direction.DESC, "id");
 
-		Pageable pageable = PageRequest.of(p1-1, 5, Sort.by(order));
+		Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
 
 		Page<Topic> page = topicRepository.findAll(pageable);
 
