@@ -16,8 +16,8 @@ public class TopicService {
 	public Topic save(Topic topic) {
 		Date date = new Date();
 
-		topic.setCreated_at(date);
-		topic.setUpdated_at(date);
+		topic.setCreatedAt(date);
+		topic.setUpdatedAt(date);
 
 		return topicRepository.save(topic);
 	}

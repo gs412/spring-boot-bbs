@@ -11,9 +11,9 @@
 	</tr>
 	<#list page.getContent() as topic>
 		<tr>
-			<td><a href="/topic/${topic.getId()}">${topic.getTitle()}</a></td>
+			<td><a href="/topic/${topic.getId()}">${topic.getTitle(50, "..")}</a></td>
 			<td>${topic.user.getUsername()}</td>
-			<td>${topic.getCreated_at()}</td>
+			<td>${topic.getCreatedAt()}</td>
 		</tr>
 	</#list>
 </table>
