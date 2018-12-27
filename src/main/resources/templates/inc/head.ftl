@@ -24,7 +24,8 @@
 				<a class="brand" href="/">Spring Boot BBS</a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li <#if springMacroRequestContext.requestUri == "/">class="active"</#if>><a href="/">社区</a></li>
+						<#assign uri = springMacroRequestContext.requestUri>
+						<li <#if uri == "/" || uri?contains("/topic")>class="active"</#if>><a href="/">社区</a></li>
 					</ul>
 					<form class="navbar-search pull-left" action="">
 						<input type="text" class="search-query span2" placeholder="搜索帖子">
