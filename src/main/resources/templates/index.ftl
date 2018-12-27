@@ -11,7 +11,7 @@
 	</tr>
 	<#list page.getContent() as topic>
 		<tr>
-			<td>${topic.getTitle()}</td>
+			<td><a href="/topic/${topic.getId()}">${topic.getTitle()}</a></td>
 			<td>${topic.user.getUsername()}</td>
 			<td>${topic.getCreated_at()}</td>
 		</tr>
