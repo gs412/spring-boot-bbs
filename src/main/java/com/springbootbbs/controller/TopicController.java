@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class TopicController extends BaseController {
@@ -35,7 +36,9 @@ public class TopicController extends BaseController {
 
 
 	@RequestMapping("/topic_new")
-	public String topic_new() {
+	public String topic_new(ModelMap m) {
+		m.addAttribute("user", getUser());
+
 		return "topic/topic_new";
 	}
 
@@ -71,8 +74,23 @@ public class TopicController extends BaseController {
 
 		m.addAttribute("topic", topic);
 		m.addAttribute("page", page);
+		m.addAttribute("user", getUser());
 
 		return "topic/topic_show";
+	}
+
+	@RequestMapping(value = "/topic/{id}/reply", method = RequestMethod.POST)
+	public String topic_reply(@PathVariable Long id, String content) {
+		Topic topic = topicRepository.findById(id).get();
+
+		Post post = new Post();
+		post.setContent(content);
+		post.setIsFirst(false);
+		post.setTopic(topic);
+		post.setUser(getUser());
+		postService.save(post);
+
+		return "redirect:/topic/"+topic.getId();
 	}
 
 }

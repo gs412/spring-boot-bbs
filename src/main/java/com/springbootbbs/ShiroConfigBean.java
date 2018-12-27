@@ -46,6 +46,7 @@ public class ShiroConfigBean {
 
 		filterChainDefinitionMap.put("/topic_new", "authc");
 		filterChainDefinitionMap.put("/topic_save", "authc");
+		filterChainDefinitionMap.put("/topic_reply", "authc");
 		// 临时测试
 		filterChainDefinitionMap.put("/user/*", "anon");
 		// 最后一班都，固定格式

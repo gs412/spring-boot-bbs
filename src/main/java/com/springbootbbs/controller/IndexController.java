@@ -34,6 +34,7 @@ public class IndexController extends BaseController {
 		Page<Topic> page = topicRepository.findAll(pageable);
 
 		m.addAttribute("page", page);
+		m.addAttribute("user", getUser());
 
 		return "index";
 	}

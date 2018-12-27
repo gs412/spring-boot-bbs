@@ -16,19 +16,21 @@
 </#list>
 
 <br><br>
-<form class="form-horizontal" action="/topic_reply" method="post">
-	<fieldset>
-		<legend>快速回复</legend>
-		<div class="control-group">
-			<label for="content" class="control-label" style="width:180px;">内容</label>
-			<div class="controls" style="margin-left:200px;">
-				<textarea name="content" id="content" style="width:700px; height:155px; resize:none;"></textarea>
+<#if user??>
+	<form class="form-horizontal" action="/topic/${topic.getId()}/reply" method="post">
+		<fieldset>
+			<legend>快速回复</legend>
+			<div class="control-group">
+				<label for="content" class="control-label" style="width:180px;">内容</label>
+				<div class="controls" style="margin-left:200px;">
+					<textarea name="content" id="content" style="width:700px; height:155px; resize:none;"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="form-actions" style="padding-left:200px;">
-			<button type="submit" class="btn btn-primary">回复</button>
-		</div>
-	</fieldset>
-</form>
+			<div class="form-actions" style="padding-left:200px;">
+				<button type="submit" class="btn btn-primary">回复</button>
+			</div>
+		</fieldset>
+	</form>
+</#if>
 
 <#include "../inc/foot.ftl">

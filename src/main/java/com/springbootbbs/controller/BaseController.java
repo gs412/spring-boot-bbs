@@ -6,6 +6,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.NoSuchElementException;
+
 public class BaseController {
 
 	@Autowired
@@ -14,9 +16,12 @@ public class BaseController {
 	public User getUser() {
 		Subject subject = SecurityUtils.getSubject();
 		Long uid = (Long)subject.getPrincipal();
-		User user = userRepository.findById(uid).get();
-
-		return user;
+		if (uid != null) {
+			User user = userRepository.findById(uid).get();
+			return user;
+		} else {
+			return null;
+		}
 	}
 
 }
