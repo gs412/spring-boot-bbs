@@ -1,6 +1,5 @@
 package com.springbootbbs.entiry;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 
