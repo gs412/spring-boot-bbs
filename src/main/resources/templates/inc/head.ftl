@@ -38,6 +38,7 @@
 									<li><a href="#">Action</a></li>
 									<li><a href="#">Another action</a></li>
 									<li><a href="#">Something else here</a></li>
+									<#if user.username == "admin"><li><a href="/admin">管理后台</a></li></#if>
 									<li class="divider"></li>
 									<li><a href="/logout">退出</a></li>
 								</ul>

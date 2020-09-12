@@ -43,6 +43,7 @@ public class ShiroConfigBean {
 		// 现在资源的角色
 		filterChainDefinitionMap.put("/templates/admin.ftl", "roles[admin]");
 		filterChainDefinitionMap.put("/templates/user.ftl", "roles[user]");
+        filterChainDefinitionMap.put("/admin*", "roles[admin]");
 
 		filterChainDefinitionMap.put("/topic_new", "authc");
 		filterChainDefinitionMap.put("/topic_save", "authc");
@@ -80,9 +81,9 @@ public class ShiroConfigBean {
 	@Bean
 	public DefaultWebSecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		// 注入自定义的realm;
+        // 注入自定义的realm;
 		securityManager.setRealm(myShiroRealm());
-		// 注入缓存管理器;
+        // 注入缓存管理器;
 		securityManager.setCacheManager(ehCacheManager());
 
 		return securityManager;
