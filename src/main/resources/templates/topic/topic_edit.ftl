@@ -3,15 +3,22 @@
 <#-- @ftlvariable name="topic" type="com.springbootbbs.entiry.Topic" -->
 <#include "../inc/head.ftl">
 
-<table>
-	<tr>
-		<td>标题：</td>
-		<td><input type="text" value="${topic.getTitle()}"></td>
-	</tr>
-	<tr>
-		<td>内容：</td>
-		<td><textarea>${post.getContent()}</textarea></td>
-	</tr>
-</table>
+<form id="edit_form" class="form-horizontal" autocomplete="off">
+	<fieldset>
+		<legend>编辑帖子</legend>
+		<div class="control-group">
+            <label for="title" class="control-label">标题</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="title" value="${topic.getTitle()}">
+            </div>
+		</div>
+		<div class="control-group">
+            <label for="content" class="control-label">内容</label>
+			<div class="controls">
+				<textarea id="content" style="height:300px; width:700px; resize:vertical;">${post.getContent()}</textarea>
+			</div>
+		</div>
+	</fieldset>
+</form>
 
 <#include "../inc/foot.ftl">
