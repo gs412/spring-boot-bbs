@@ -79,6 +79,18 @@ public class TopicController extends BaseController {
 		return "topic/topic_show";
 	}
 
+    @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
+    public String topic_edit(@PathVariable Long id, String p, ModelMap m) {
+
+        return "topic/topic_edit";
+    }
+
+    @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST)
+    public String topic_edit_post() {
+        
+        return "redirect:/topic/";
+    }
+
 	@RequestMapping(value = "/topic/{id}/reply", method = RequestMethod.POST)
 	public String topic_reply(@PathVariable Long id, String content) {
 		Topic topic = topicRepository.findById(id).get();
