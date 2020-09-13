@@ -18,7 +18,26 @@
 				<textarea id="content" style="height:300px; width:700px; resize:vertical;">${post.getContent()}</textarea>
 			</div>
 		</div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">发布</button> &nbsp;
+            <a class="btn" href="javascript:history.go(-1)">取消</a>
+        </div>
 	</fieldset>
 </form>
+
+<script>
+	$(document).ready(function () {
+		$('#edit_form').submit(function () {
+            let title   = $('#title').val()
+            let content = $('#content').val()
+
+			$.post('/topic/${topic.getId()}/edit_post', {title: title, content: content}, function (json) {
+				//
+			});
+
+			return false;
+        })
+    })
+</script>
 
 <#include "../inc/foot.ftl">
