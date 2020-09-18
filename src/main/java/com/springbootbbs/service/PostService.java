@@ -16,7 +16,6 @@ public class PostService {
 	public Post save(Post post) {
 		Date date = new Date();
 
-		post.setCreatedAt(date);
 		post.setUpdatedAt(date);
 
 		return postRepository.save(post);

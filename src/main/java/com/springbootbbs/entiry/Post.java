@@ -1,5 +1,8 @@
 package com.springbootbbs.entiry;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,9 +29,11 @@ public class Post {
 	@JoinColumn(nullable = false, name = "user_id")
 	private User user;
 
+    @CreationTimestamp
 	@Column(nullable = false)
 	private Date createdAt;
 
+    @UpdateTimestamp
 	@Column(nullable = false)
 	private Date updatedAt;
 

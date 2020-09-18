@@ -32,7 +32,9 @@
             let content = $('#content').val()
 
 			$.post('/topic/${topic.getId()}/edit_post', {title: title, content: content}, function (json) {
-				//
+				if (json.success) {
+					window.location = "/topic/${topic.getId()}";
+                }
 			});
 
 			return false;

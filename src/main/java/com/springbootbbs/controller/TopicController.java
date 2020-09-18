@@ -1,5 +1,7 @@
 package com.springbootbbs.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Post;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
@@ -19,6 +21,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
 
 @Controller
 public class TopicController extends BaseController {
@@ -91,10 +96,23 @@ public class TopicController extends BaseController {
         return "topic/topic_edit";
     }
 
-    @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST)
-    public String topic_edit_post() {
+    @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public String topic_edit_post(@PathVariable Long id, String title, String content) throws JsonProcessingException {
+        Topic topic = topicRepository.findById(id).get();
+        Post post = postRepository.findByIsFirstAndTopic(true, topic);
+        topic.setTitle(title);
+        post.setContent(content);
+        topicService.save(topic);
+        postService.save(post);
 
-        return "redirect:/topic/";
+        HashMap<String, String> map = new HashMap<>();
+        map.put("success", "1");
+        map.put("message", "ok");
+
+        String json = new ObjectMapper().writeValueAsString(map);
+
+        return json;
     }
 
 	@RequestMapping(value = "/topic/{id}/reply", method = RequestMethod.POST)

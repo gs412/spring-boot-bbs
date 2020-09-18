@@ -40,7 +40,7 @@ public class LoginHandler {
 				// 执行登录.
 				currentUser.login(token);
 				// 登录成功...
-				return "redirect:/LoginSuccess.action";
+				return "redirect:/";
 			} catch (IncorrectCredentialsException e) {
 				msg = "登陆密码错误";
 				System.out.println("登录密码错误！！！" + e);
@@ -71,7 +71,7 @@ public class LoginHandler {
 		}
 
 		// 登录成功，重定向到LoginSuccess.action
-		return "redirect:/LoginSuccess.action";
+		return "redirect:/";
 	}
 
 }
