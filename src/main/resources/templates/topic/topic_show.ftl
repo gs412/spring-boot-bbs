@@ -18,8 +18,8 @@
 		    </div>
 		    <div>
 			    <#if user?? && user.username == 'admin'>
-                    <a href="/topic/${topic.getId()}/edit">编辑</a>
-				    删除
+                    <a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>编辑</a>
+				    <a href="/topic/${topic.getId()}/remove"><i class="fa fa-remove"></i>删除</a>
 			    </#if>
 		    </div>
 	    </div>

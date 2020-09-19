@@ -5,9 +5,9 @@
 	<meta charset="UTF-8">
 	<title>${title!}</title>
 	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/font-awesome-4.6.3/css/font-awesome.min.css">
 	<script src="/static/_js/jquery.min.js"></script>
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/static/font-awesome-4.6.3/css/font-awesome.min.css"></script>
 
 	<link rel="stylesheet" href="/static/_css/main.css">
 </head>
