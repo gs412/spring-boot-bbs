@@ -1,5 +1,6 @@
-package com.springbootbbs;
+package com.springbootbbs.config;
 
+import com.springbootbbs.MyShiroRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
