@@ -37,7 +37,7 @@
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">${user.username} <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li><a href="#">Action</a></li>
+									<li><a href="/profile/basic">基本资料</a></li>
 									<li><a href="#">Another action</a></li>
 									<li><a href="#">Something else here</a></li>
 									<#if user.username == "admin"><li><a href="/admin">管理后台</a></li></#if>
