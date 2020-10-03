@@ -2,6 +2,7 @@ package com.springbootbbs.entiry;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,19 +23,20 @@ public class Attach {
     private String path;
 
     @Column
-    private Integer size;
+    private Long size;
 
     @Column(length = 255)
     private String contentType;
 
     @Column
-    private Integer ownerId;
+    private Long ownerId;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(length = 255)
-    private String ownerType;
+    private OwnerType ownerType;
 
     @Column
-    private Integer userId;
+    private Long userId;
 
     @CreationTimestamp
     @Column(nullable = false)
@@ -44,19 +46,21 @@ public class Attach {
     @Column(nullable = false)
     private Date updatedAt;
 
-    public Long getId() {
-        return id;
+    private MultipartFile multipartFile;
+
+    public enum OwnerType {
+        USER_FACE;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -64,15 +68,15 @@ public class Attach {
         return path;
     }
 
-    public void setPath(String path) {
+    private void setPath(String path) {
         this.path = path;
     }
 
-    public Integer getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    private void setSize(Long size) {
         this.size = size;
     }
 
@@ -80,31 +84,31 @@ public class Attach {
         return contentType;
     }
 
-    public void setContentType(String contentType) {
+    private void setContentType(String contentType) {
         this.contentType = contentType;
     }
 
-    public Integer getOwneId() {
+    public Long getOwneId() {
         return ownerId;
     }
 
-    public void setOwnerId(Integer ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 
-    public String getOwnerType() {
+    public OwnerType getOwnerType() {
         return ownerType;
     }
 
-    public void setOwnerType(String ownerType) {
+    public void setOwnerType(OwnerType ownerType) {
         this.ownerType = ownerType;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -122,5 +126,20 @@ public class Attach {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+
+    public void setFile(MultipartFile file) {
+        this.multipartFile = file;
+    }
+
+    public void upload() {
+        MultipartFile file = this.multipartFile;
+
+        this.setName(file.getOriginalFilename());
+        this.setSize(file.getSize());
+        this.setContentType(file.getContentType());
+
+        
     }
 }
