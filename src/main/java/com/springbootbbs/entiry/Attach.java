@@ -181,6 +181,7 @@ public class Attach {
 
     public Boolean deleteFileFromDisk() {
         File file = new File(this.getAbsolutePath());
+        System.out.println(this.getAbsolutePath());
         return file.delete();
     }
 
