@@ -50,4 +50,9 @@ public class User implements Serializable {
 	public User() {
 
 	}
+
+
+    public Long getUserFaceId() {
+        return null;
+    }
 }

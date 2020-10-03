@@ -36,8 +36,9 @@ public class ProfileController extends BaseController {
 
     @RequestMapping("/basic")
     public String basic(ModelMap m) {
+        User user = getUser();
 
-        m.addAttribute("user", getUser());
+        m.addAttribute("user", user);
 
         return "profile/basic";
     }
