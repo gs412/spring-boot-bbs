@@ -4,4 +4,7 @@ import com.springbootbbs.entiry.Attach;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface AttachRepository extends PagingAndSortingRepository<Attach, Long> {
+
+    Attach findByOwnerIdAndOwnerType(Long ownerId, Attach.OwnerType ownerType);
+
 }

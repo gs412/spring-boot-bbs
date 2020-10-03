@@ -58,7 +58,7 @@ public class ProfileController extends BaseController {
             attach.setFile(file);
             attach.setOwnerType(Attach.OwnerType.USER_FACE);
             attach.setOwnerId(user.getId());
-            attach.setUserId(user.getId());
+            attach.setUser(user);
             attachService.save(attach);
         }
 

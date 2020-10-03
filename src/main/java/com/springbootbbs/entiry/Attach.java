@@ -40,8 +40,9 @@ public class Attach {
     @Column(length = 255)
     private OwnerType ownerType;
 
-    @Column
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(nullable = false, name="user_id")
+    private User user;
 
     @CreationTimestamp
     @Column(nullable = false)
@@ -110,12 +111,12 @@ public class Attach {
         this.ownerType = ownerType;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getcreatedAt() {
