@@ -1,4 +1,5 @@
 .idea
 target/
+upload/
 .sass-cache/
 .iml

@@ -17,9 +17,14 @@ public class AttachService {
         Date date = new Date();
 
         attach.setUpdatedAt(date);
-        attach.upload();
 
-        return attachRepository.save(attach);
+        Boolean uploadSuccess = attach.upload();
+
+        if (uploadSuccess) {
+            return attachRepository.save(attach);
+        } else {
+            return null;
+        }
     }
 
 }

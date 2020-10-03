@@ -39,8 +39,6 @@ public class ProfileController extends BaseController {
 
         m.addAttribute("user", getUser());
 
-        //System.out.println(System.getProperty("user.dir"));
-
         return "profile/basic";
     }
 

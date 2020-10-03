@@ -24,4 +24,8 @@ public class Utils {
 		}
 	}
 
+    public static String getBasePath() {
+        return System.getProperty("user.dir");
+    }
+
 }

@@ -1,10 +1,13 @@
 package com.springbootbbs.entiry;
 
+import com.springbootbbs.libs.Utils;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -48,6 +51,7 @@ public class Attach {
     @Column(nullable = false)
     private Date updatedAt;
 
+    @Transient
     private MultipartFile multipartFile;
 
     public enum OwnerType {
@@ -139,7 +143,7 @@ public class Attach {
         this.multipartFile = file;
     }
 
-    public void upload() {
+    public Boolean upload() {
         MultipartFile file = this.multipartFile;
 
         this.setName(file.getOriginalFilename());
@@ -149,6 +153,16 @@ public class Attach {
         String datePath = new SimpleDateFormat("yyyy/MM/dd/HHmmss").format(new Date());
         Random rand = new Random();
         Integer randInt = rand.nextInt(9999 - 1000 + 1) + 1000;
-        String newPath = datePath + "_" + randInt.toString() + "." + this.getSuffix();
+        String newPath = Utils.getBasePath() + "/" +  datePath + "_" + randInt.toString() + "." + this.getSuffix();
+
+        try {
+            file.transferTo(new File(newPath));
+        } catch (IOException e) {
+            System.out.println(e.toString());
+            System.out.println("上传第文件失败");
+            return false;
+        }
+
+        return true;
     }
 }
