@@ -38,6 +38,10 @@ public class ProfileController extends BaseController {
     public String basic(ModelMap m) {
         User user = getUser();
 
+        Attach user_face_id = user.getUserFace();
+        System.out.println("2222222222222222222");
+        System.out.println(user_face_id);
+
         m.addAttribute("user", user);
 
         return "profile/basic";
