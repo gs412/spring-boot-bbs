@@ -1,4 +1,7 @@
 package com.springbootbbs.repository;
 
-public interface AttachRepository {
+import com.springbootbbs.entiry.Attach;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface AttachRepository extends PagingAndSortingRepository<Attach, Long> {
 }
