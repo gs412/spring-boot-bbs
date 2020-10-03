@@ -21,4 +21,9 @@ public class PostService {
 		return postRepository.save(post);
 	}
 
+    public Boolean delete(Post post) {
+        postRepository.delete(post);
+        return true;
+    }
+
 }
