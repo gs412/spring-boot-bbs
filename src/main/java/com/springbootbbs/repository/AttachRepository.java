@@ -10,4 +10,6 @@ public interface AttachRepository extends PagingAndSortingRepository<Attach, Lon
 
     Attach findTopByOwnerIdAndOwnerTypeAndUser(Long ownerId, Attach.OwnerType ownerType, User user);
 
+    //Attach findTopByOwnerIdAndOwnerTypeAndUserId(Long ownerId, Attach.OwnerType ownerType, Long userId);
+
 }
