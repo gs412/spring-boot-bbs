@@ -153,10 +153,16 @@ public class Attach {
         String datePath = new SimpleDateFormat("yyyy/MM/dd/HHmmss").format(new Date());
         Random rand = new Random();
         Integer randInt = rand.nextInt(9999 - 1000 + 1) + 1000;
-        String newPath = Utils.getBasePath() + "/" +  datePath + "_" + randInt.toString() + "." + this.getSuffix();
+        String newFileStr = Utils.getBasePath() + "/" +  datePath + "_" + randInt.toString() + "." + this.getSuffix();
+        File newFile = new File(newFileStr);
+
+        File newFilePath = new File(newFile.getAbsolutePath());
+        if (!newFilePath.exists() || !newFilePath.isDirectory()) {
+            newFilePath.mkdirs();
+        }
 
         try {
-            file.transferTo(new File(newPath));
+            file.transferTo(newFile);
         } catch (IOException e) {
             System.out.println(e.toString());
             System.out.println("上传第文件失败");
