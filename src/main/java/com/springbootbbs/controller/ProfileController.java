@@ -56,13 +56,17 @@ public class ProfileController extends BaseController {
             map.put("success", "0");
             map.put("message", "上传失败，请选择文件");
         } else {
+            Attach oldFace = user.getUserFace(attachRepository);
+
             String fileName = file.getOriginalFilename();
             Attach attach = new Attach();
             attach.setFile(file);
             attach.setOwnerType(Attach.OwnerType.USER_FACE);
             attach.setOwnerId(user.getId());
             attach.setUser(user);
-            attachService.save(attach);
+            if (attachService.save(attach) != null) {
+                attachService.delete(oldFace);
+            }
         }
 
         String json = new ObjectMapper().writeValueAsString(map);

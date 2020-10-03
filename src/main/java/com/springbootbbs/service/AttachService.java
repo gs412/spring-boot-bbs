@@ -27,4 +27,10 @@ public class AttachService {
         }
     }
 
+    public Boolean delete(Attach attach) {
+        attach.deleteFile();
+        attachRepository.delete(attach);
+        return true;
+    }
+
 }

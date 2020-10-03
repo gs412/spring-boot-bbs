@@ -179,6 +179,11 @@ public class Attach {
         return true;
     }
 
+    public Boolean deleteFile() {
+        File file = new File(this.getAbsolutePath());
+        return file.delete();
+    }
+
     public String getAbsolutePath() {
         return Utils.getBasePath() + "/upload/" + this.getPath();
     }
