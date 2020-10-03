@@ -75,7 +75,7 @@ public class Attach {
         return path;
     }
 
-    private void setPath(String path) {
+    public void setPath(String path) {
         this.path = path;
     }
 
@@ -160,7 +160,7 @@ public class Attach {
 
         this.setPath(filePath);
 
-        String newFileStr = Utils.getBasePath() + "/upload/" +  filePath;
+        String newFileStr = this.getBaseDir() +  filePath;
         File newFile = new File(newFileStr);
 
         File newFilePath = new File(newFile.getParentFile().getAbsolutePath());
@@ -181,12 +181,15 @@ public class Attach {
 
     public Boolean deleteFileFromDisk() {
         File file = new File(this.getAbsolutePath());
-        System.out.println(this.getAbsolutePath());
         return file.delete();
     }
 
+    public String getBaseDir() {
+        return Utils.getBasePath() + "/upload/";
+    }
+
     public String getAbsolutePath() {
-        return Utils.getBasePath() + "/upload/" + this.getPath();
+        return getBaseDir() + this.getPath();
     }
 
     public String getLink() {
