@@ -153,11 +153,12 @@ public class Attach {
         String datePath = new SimpleDateFormat("yyyy/MM/dd/HHmmss").format(new Date());
         Random rand = new Random();
         Integer randInt = rand.nextInt(9999 - 1000 + 1) + 1000;
-        String newFileStr = Utils.getBasePath() + "/" +  datePath + "_" + randInt.toString() + "." + this.getSuffix();
+        String newFileStr = Utils.getBasePath() + "/upload/" +  datePath + "_" + randInt.toString() + "." + this.getSuffix();
         File newFile = new File(newFileStr);
 
-        File newFilePath = new File(newFile.getAbsolutePath());
+        File newFilePath = new File(newFile.getParentFile().getAbsolutePath());
         if (!newFilePath.exists() || !newFilePath.isDirectory()) {
+            System.out.println(newFile.getAbsolutePath());
             newFilePath.mkdirs();
         }
 
