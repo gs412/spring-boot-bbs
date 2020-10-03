@@ -5,7 +5,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 @Entity
 @Table(name = "attaches")
@@ -128,6 +130,10 @@ public class Attach {
         this.updatedAt = updatedAt;
     }
 
+    public String getSuffix() {
+        return this.name.substring(this.name.lastIndexOf(".") + 1);
+    }
+
 
     public void setFile(MultipartFile file) {
         this.multipartFile = file;
@@ -140,6 +146,9 @@ public class Attach {
         this.setSize(file.getSize());
         this.setContentType(file.getContentType());
 
-        
+        String datePath = new SimpleDateFormat("yyyy/MM/dd/HHmmss").format(new Date());
+        Random rand = new Random();
+        Integer randInt = rand.nextInt(9999 - 1000 + 1) + 1000;
+        String newPath = datePath + "_" + randInt.toString() + "." + this.getSuffix();
     }
 }
