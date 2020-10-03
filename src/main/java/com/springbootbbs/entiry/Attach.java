@@ -135,10 +135,12 @@ public class Attach {
         this.updatedAt = updatedAt;
     }
 
+
+    // 下面的方法跟属性关系不大
+
     public String getSuffix() {
         return this.name.substring(this.name.lastIndexOf(".") + 1);
     }
-
 
     public void setFile(MultipartFile file) {
         this.multipartFile = file;
@@ -175,5 +177,17 @@ public class Attach {
         }
 
         return true;
+    }
+
+    public String getAbsolutePath() {
+        return Utils.getBasePath() + "/upload/" + this.getPath();
+    }
+
+    public String getLink() {
+        return "/attach/show/" + this.id;
+    }
+
+    public static String getLinkById(Long id) {
+        return "/attach/show/" + id;
     }
 }

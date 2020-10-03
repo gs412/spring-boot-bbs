@@ -6,7 +6,7 @@
         <div class="control-group">
 	        <label for="tel" class="control-label">设置头像</label>
             <div class="controls">
-	            <img src="" id="shop_icon_img">
+	            <img src="${user_face_link}" id="shop_icon_img">
 	            <input type="file" name="user_face" class="input-file shop_icon">
             </div>
         </div>
