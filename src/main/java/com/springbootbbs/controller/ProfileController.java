@@ -58,7 +58,6 @@ public class ProfileController extends BaseController {
         } else {
             Attach oldFace = user.getUserFace(attachRepository);
 
-            String fileName = file.getOriginalFilename();
             Attach attach = new Attach();
             attach.setFile(file);
             attach.setOwnerType(Attach.OwnerType.USER_FACE);
