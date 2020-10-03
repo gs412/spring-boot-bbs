@@ -28,7 +28,7 @@ public class AttachService {
     }
 
     public Boolean delete(Attach attach) {
-        attach.deleteFile();
+        attach.deleteFileFromDisk();
         attachRepository.delete(attach);
         return true;
     }

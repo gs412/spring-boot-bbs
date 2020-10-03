@@ -179,7 +179,7 @@ public class Attach {
         return true;
     }
 
-    public Boolean deleteFile() {
+    public Boolean deleteFileFromDisk() {
         File file = new File(this.getAbsolutePath());
         return file.delete();
     }
