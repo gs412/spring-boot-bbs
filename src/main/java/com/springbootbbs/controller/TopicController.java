@@ -87,7 +87,7 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
     public String topic_edit(@PathVariable Long id, String p, ModelMap m) {
         Topic topic = topicRepository.findById(id).get();
-        Post post = postRepository.findByIsFirstAndTopic(true, topic);
+        Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
 
         m.addAttribute("topic", topic);
         m.addAttribute("post", post);
@@ -100,7 +100,7 @@ public class TopicController extends BaseController {
     @ResponseBody
     public String topic_edit_post(@PathVariable Long id, String title, String content) throws JsonProcessingException {
         Topic topic = topicRepository.findById(id).get();
-        Post post = postRepository.findByIsFirstAndTopic(true, topic);
+        Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
         topic.setTitle(title);
         post.setContent(content);
         topicService.save(topic);

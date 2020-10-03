@@ -6,6 +6,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface AttachRepository extends PagingAndSortingRepository<Attach, Long> {
 
-    Attach findByOwnerIdAndOwnerTypeAndUser(Long ownerId, Attach.OwnerType ownerType, User user);
+    Attach findTopByOwnerIdAndOwnerType(Long ownerId, Attach.OwnerType ownerType);
+
+    Attach findTopByOwnerIdAndOwnerTypeAndUser(Long ownerId, Attach.OwnerType ownerType, User user);
 
 }

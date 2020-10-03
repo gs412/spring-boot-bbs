@@ -1,7 +1,6 @@
 package com.springbootbbs.entiry;
 
 import com.springbootbbs.repository.AttachRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,9 +8,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-
-    @Autowired
-    AttachRepository attachRepository;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,8 +54,7 @@ public class User implements Serializable {
 	}
 
 
-    public Attach getUserFace() {
-        System.out.println("111111111111111");
-        return attachRepository.findByOwnerIdAndOwnerTypeAndUser(this.id, Attach.OwnerType.USER_FACE, this);
+    public Attach getUserFace(AttachRepository attachRepository) {
+        return attachRepository.findTopByOwnerIdAndOwnerTypeAndUser(this.id, Attach.OwnerType.USER_FACE, this);
     }
 }

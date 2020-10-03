@@ -12,6 +12,6 @@ public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 
 	Page<Post> findAllByTopicId(Long id, Pageable pageable);
 
-    Post findByIsFirstAndTopic(Boolean isFirst, Topic topic);
+    Post findTopByIsFirstAndTopic(Boolean isFirst, Topic topic);
 
 }
