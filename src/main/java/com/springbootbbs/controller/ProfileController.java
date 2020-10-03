@@ -53,7 +53,6 @@ public class ProfileController extends BaseController {
             map.put("message", "上传失败，请选择文件");
         } else {
             String fileName = file.getOriginalFilename();
-            // todo https://blog.csdn.net/gnail_oug/article/details/80324120
             Attach attach = new Attach();
             attach.setFile(file);
             attach.setOwnerType(Attach.OwnerType.USER_FACE);
