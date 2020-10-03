@@ -57,4 +57,8 @@ public class User implements Serializable {
     public Attach getUserFace(AttachRepository attachRepository) {
         return attachRepository.findTopByOwnerIdAndOwnerTypeAndUser(this.id, Attach.OwnerType.USER_FACE, this);
     }
+
+    public String getUserFaceLink() {
+        return "/attach/show_user_face/" + this.id;
+    }
 }

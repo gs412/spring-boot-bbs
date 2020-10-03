@@ -9,6 +9,7 @@
     <div style="border:1px solid #666;" class="clearfix">
 	    <div style="min-height:200px; float:left; width:190px; box-sizing:border-box; padding:20px;">
 	        <div style="font-weight:bold;">${post.user.getUsername()}</div>
+		    <div><img src="${post.user.getUserFaceLink()}"></div>
 	    </div>
 	    <div style="min-height:200px; margin-left:200px; border-left:1px solid #666; word-break:break-all; box-sizing:border-box; padding:1px 20px 20px 20px; position:relative;">
 		    <div style="padding:6px 0 3px; margin:0 0 15px 0; border-bottom:1px solid #ddd;">发布于 ${topic.getCreatedAt()}</div>

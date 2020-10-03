@@ -38,10 +38,8 @@ public class ProfileController extends BaseController {
     public String basic(ModelMap m) {
         User user = getUser();
 
-        String user_face_link = user.getUserFace(attachRepository).getLink();
-
         m.addAttribute("user", user);
-        m.addAttribute("user_face_link", user_face_link);
+        m.addAttribute("user_face_link", user.getUserFaceLink());
 
         return "profile/basic";
     }
