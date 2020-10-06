@@ -64,6 +64,9 @@ public class ProfileController extends BaseController {
             if (attachService.save(attach) != null) {
                 attachService.delete(oldFace);
             }
+
+            map.put("success", "1");
+            map.put("message", "上传成功");
         }
 
         String json = new ObjectMapper().writeValueAsString(map);

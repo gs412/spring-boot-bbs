@@ -1,6 +1,6 @@
 <#include "../inc/head.ftl">
 
-<form action="/profile/basic_post" method="post" autocomplete="off" class="form-horizontal" enctype="multipart/form-data">
+<form id="form1" autocomplete="off" class="form-horizontal">
     <fieldset>
         <legend>基本资料</legend>
         <div class="control-group">
@@ -20,7 +20,28 @@
 
 <script>
 	$(document).ready(function () {
-		//
+		$('#form1').submit(function () {
+            var $file = document.querySelector("input[name='user_face']").files[0];
+            var fd = new FormData();
+            fd.append('user_face', $file);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4 && xhr.status==200){
+	                var json = JSON.parse(xhr.responseText);
+	                if (json.success) {
+                        window.location.reload();
+                    } else {
+		                alert(json.message);
+	                }
+                }
+            }
+
+            xhr.open("post","/profile/basic_post");
+            xhr.send(fd);
+
+			return false;
+        })
 	})
 </script>
 
