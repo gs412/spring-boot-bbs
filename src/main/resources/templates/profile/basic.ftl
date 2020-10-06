@@ -29,7 +29,7 @@
             xhr.onreadystatechange = function(){
                 if(xhr.readyState==4 && xhr.status==200){
 	                var json = JSON.parse(xhr.responseText);
-	                if (json.success) {
+	                if (json.success == 1) {
                         window.location.reload();
                     } else {
 		                alert(json.message);

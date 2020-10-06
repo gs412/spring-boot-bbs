@@ -53,6 +53,9 @@ public class ProfileController extends BaseController {
         if (file.isEmpty()) {
             map.put("success", "0");
             map.put("message", "上传失败，请选择文件");
+        } else if (file.getSize() > 1024 * 1024) {
+            map.put("success", "0");
+            map.put("message", "最大不超过1M");
         } else {
             Attach oldFace = user.getUserFace(attachRepository);
 

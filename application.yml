@@ -16,3 +16,7 @@ spring:
     show-sql: true
   mvc:
     static-path-pattern: /static/**
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
