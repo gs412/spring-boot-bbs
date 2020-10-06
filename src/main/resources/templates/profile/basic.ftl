@@ -18,4 +18,10 @@
     </fieldset>
 </form>
 
+<script>
+	$(document).ready(function () {
+		//
+	})
+</script>
+
 <#include "../inc/foot.ftl">
