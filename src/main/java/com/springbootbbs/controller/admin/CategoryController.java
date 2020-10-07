@@ -56,6 +56,7 @@ public class CategoryController extends BaseController {
     public String edit(@PathVariable Long id, ModelMap m) {
         Category category = categoryRepository.findById(id).get();
 
+        m.addAttribute("user", getUser());
         m.addAttribute("category", category);
 
         return "/admin/category/edit";
