@@ -17,7 +17,7 @@ public class CategoryController extends BaseController {
     @RequestMapping("/categories")
     public String categories(ModelMap m) {
 
-        Iterable<Category> categories = categoryRepository.findAll();
+        Iterable<Category> categories = categoryRepository.findByOrderBySortAsc();
 
         m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
@@ -35,8 +35,17 @@ public class CategoryController extends BaseController {
 
     @RequestMapping("/add_post")
     public String add_post(String name) {
+        Category lastCategory = categoryRepository.findTopByOrderBySortDesc();
+        Integer sort;
+        if (lastCategory != null) {
+            sort = lastCategory.getSort() + 1;
+        } else {
+            sort = 1;
+        }
+
         Category category = new Category();
         category.setName(name);
+        category.setSort(sort);
         categoryRepository.save(category);
 
         return "redirect:/admin/category/categories";

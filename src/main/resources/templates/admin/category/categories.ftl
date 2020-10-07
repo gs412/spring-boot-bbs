@@ -28,7 +28,7 @@
                 </table>
             </div>
         </div>
-	    <a href="" class="btn btn-primary btn-sm">添加分类</a>
+	    <a href="/admin/category/add" class="btn btn-primary btn-sm">添加分类</a>
     </div>
 </div>
 
