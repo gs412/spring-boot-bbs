@@ -3,6 +3,16 @@
 <form id="edit_form" class="form-horizontal" autocomplete="off">
 	<fieldset>
 		<legend>编辑帖子</legend>
+        <div class="control-group">
+            <label for="title" class="control-label">节点</label>
+            <div class="controls">
+                <select name="category_id" id="category_id">
+					<#list categories as category>
+	                    <option value="${category.getId()}" <#if category == topic.getCategory()>selected</#if>>${category.getName()}</option>
+					</#list>
+                </select>
+            </div>
+        </div>
 		<div class="control-group">
             <label for="title" class="control-label">标题</label>
             <div class="controls">
@@ -25,10 +35,11 @@
 <script>
 	$(document).ready(function () {
 		$('#edit_form').submit(function () {
-            let title   = $('#title').val()
+            let category_id = $('#category_id').val()
+            let title = $('#title').val()
             let content = $('#content').val()
 
-			$.post('/topic/${topic.getId()}/edit_post', {title: title, content: content}, function (json) {
+			$.post('/topic/${topic.getId()}/edit_post', {category_id: category_id, title: title, content: content}, function (json) {
 				if (json.success) {
 					window.location = "/topic/${topic.getId()}";
                 }

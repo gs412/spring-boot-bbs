@@ -95,21 +95,25 @@ public class TopicController extends BaseController {
 
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
     public String topic_edit(@PathVariable Long id, ModelMap m) {
+        Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
         Topic topic = topicRepository.findById(id).get();
         Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
 
         m.addAttribute("topic", topic);
         m.addAttribute("post", post);
         m.addAttribute("user", getUser());
+        m.addAttribute("categories", categories);
 
         return "topic/topic_edit";
     }
 
     @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String topic_edit_post(@PathVariable Long id, String title, String content) throws JsonProcessingException {
+    public String topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) throws JsonProcessingException {
+        Category category = categoryRepository.findById(category_id).get();
         Topic topic = topicRepository.findById(id).get();
         Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
+        topic.setCategory(category);
         topic.setTitle(title);
         post.setContent(content);
         topicService.save(topic);
