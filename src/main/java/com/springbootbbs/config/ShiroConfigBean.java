@@ -45,6 +45,7 @@ public class ShiroConfigBean {
 		filterChainDefinitionMap.put("/templates/admin.ftl", "roles[admin]");
 		filterChainDefinitionMap.put("/templates/user.ftl", "roles[user]");
         filterChainDefinitionMap.put("/admin*", "roles[admin]");
+        filterChainDefinitionMap.put("/admin/**", "roles[admin]");
 
 		filterChainDefinitionMap.put("/topic_new", "authc");
 		filterChainDefinitionMap.put("/topic_save", "authc");

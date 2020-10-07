@@ -12,7 +12,7 @@ spring:
     password: 412413
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
   mvc:
     static-path-pattern: /static/**
