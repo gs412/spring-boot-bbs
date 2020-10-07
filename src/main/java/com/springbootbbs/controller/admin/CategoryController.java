@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller("admin.CategoryController")
 @RequestMapping("/admin/category")
@@ -60,6 +61,16 @@ public class CategoryController extends BaseController {
         m.addAttribute("category", category);
 
         return "/admin/category/edit";
+    }
+
+    @RequestMapping(value = "/edit_post/{id}", method = RequestMethod.POST)
+    public String edit_post(@PathVariable Long id, String name, Integer sort, ModelMap m) {
+        Category category = categoryRepository.findById(id).get();
+        category.setName(name);
+        category.setSort(sort);
+        categoryRepository.save(category);
+
+        return "/edit/" + id.toString();
     }
 
 }
