@@ -55,13 +55,15 @@ public class TopicController extends BaseController {
     }
 
     @RequestMapping("/topic_save")
-    public String topic_save(String title, String content) {
+    public String topic_save(String title, String content, Long category_id) {
         User user = getUser();
+        Category category = categoryRepository.findById(category_id).get();
 
         Topic topic = new Topic();
         topic.setTitle(title);
         topic.setReplies(0);
         topic.setUser(user);
+        topic.setCategory(category);
         topicService.save(topic);
 
         Post post = new Post();

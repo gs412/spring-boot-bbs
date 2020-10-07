@@ -27,6 +27,10 @@ public class Topic {
 	@JoinColumn(nullable = false, name = "user_id")
 	private User user;
 
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "category_id")
+    private Category category;
+
     @CreationTimestamp
 	@Column(nullable = false)
 	private Date createdAt;
@@ -74,6 +78,14 @@ public class Topic {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
 	public Date getCreatedAt() {
 		return createdAt;

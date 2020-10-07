@@ -7,7 +7,9 @@
             <label for="title" class="control-label">节点</label>
             <div class="controls">
 	            <select name="category_id">
-		            <option>111</option>
+		            <#list categories as category>
+                        <option value="${category.getId()}">${category.getName()}</option>
+		            </#list>
 	            </select>
             </div>
         </div>
