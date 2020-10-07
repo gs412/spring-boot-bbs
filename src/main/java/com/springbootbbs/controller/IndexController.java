@@ -1,6 +1,7 @@
 package com.springbootbbs.controller;
 
 import com.springbootbbs.entiry.Topic;
+import com.springbootbbs.libs.helpers.ShowDate;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.PostService;
@@ -35,6 +36,7 @@ public class IndexController extends BaseController {
 
 		m.addAttribute("page", page);
 		m.addAttribute("user", getUser());
+        m.addAttribute("show_date", new ShowDate());
 
 		return "index";
 	}

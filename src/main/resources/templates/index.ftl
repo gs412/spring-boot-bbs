@@ -1,5 +1,6 @@
 <#-- @ftlvariable name="page" type="org.springframework.data.domain.Page" -->
 <#-- @ftlvariable name="topic" type="com.springbootbbs.entiry.Topic" -->
+<#-- @ftlvariable name="show_date" type="com.springbootbbs.libs.helpers.ShowDate" -->
 <#include "inc/head.ftl">
 
 <a class="btn btn-primary" href="/topic_new">发布新帖</a>
@@ -15,7 +16,7 @@
 		<tr>
 			<td><a href="/topic/${topic.getId()}">${topic.getTitle(50, "..")}</a></td>
 			<td>${topic.user.getUsername()}</td>
-			<td>${topic.getCreatedAt()}</td>
+			<td>${show_date(topic.getCreatedAt())}</td>
 		</tr>
 	</#list>
 </table>

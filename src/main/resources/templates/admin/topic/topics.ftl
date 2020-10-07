@@ -1,5 +1,6 @@
 <#-- @ftlvariable name="page" type="org.springframework.data.domain.Page" -->
 <#-- @ftlvariable name="topic" type="com.springbootbbs.entiry.Topic" -->
+<#-- @ftlvariable name="show_date" type="com.springbootbbs.libs.helpers.ShowDate" -->
 <@override name="content">
 
 <div class="row">
@@ -23,7 +24,7 @@
                             <td>${topic.getId()}.</td>
                             <td>${topic.getTitle()}</td>
                             <td>${topic.user.getUsername()}</td>
-                            <td>${topic.getCreatedAt()}</td>
+                            <td>${show_date(topic.getCreatedAt())}</td>
                             <td>
 	                            删除
                             </td>

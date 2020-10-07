@@ -2,6 +2,7 @@ package com.springbootbbs.controller.admin;
 
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.libs.helpers.ShowDate;
 import com.springbootbbs.repository.TopicRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class TopicController extends BaseController {
 
         m.addAttribute("page", page);
         m.addAttribute("user", getUser());
+        m.addAttribute("show_date", new ShowDate());
 
         return "admin/topic/topics";
     }
