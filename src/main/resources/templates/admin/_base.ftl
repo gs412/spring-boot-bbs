@@ -162,11 +162,11 @@
 			</li>
 			<li class="false treeview">
 				<a href="#">
-					<i class="fa fa-users"></i> <span>用户管理</span>
+					<i class="fa fa-users"></i> <span>分类管理</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="active"><a href="/admin/users"><i class="fa fa-circle-o"></i> 所有用户</a></li>
+					<li class="active"><a href="/admin/category/categories"><i class="fa fa-circle-o"></i> 所有分类</a></li>
 					<li class="false"><a href="/admin/users/user_login_logs"><i class="fa fa-circle-o"></i> 登录记录</a></li>
 				</ul>
 			</li>
