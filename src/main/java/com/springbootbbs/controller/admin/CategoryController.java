@@ -25,4 +25,21 @@ public class CategoryController extends BaseController {
         return "/admin/category/categories";
     }
 
+    @RequestMapping("/add")
+    public String add(ModelMap m) {
+
+        m.addAttribute("user", getUser());
+
+        return "/admin/category/add";
+    }
+
+    @RequestMapping("/add_post")
+    public String add_post(String name) {
+        Category category = new Category();
+        category.setName(name);
+        categoryRepository.save(category);
+
+        return "redirect:/admin/category/categories";
+    }
+
 }
