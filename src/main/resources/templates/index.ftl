@@ -6,13 +6,15 @@
 <table class="table">
 	<tr>
 		<th style="width:50%;">标题</th>
-		<th style="width:30%;">作者</th>
+		<th style="width:15%;">作者</th>
+		<th style="width:15%;">节点</th>
 		<th>发布时间</th>
 	</tr>
 	<#list page.getContent() as topic>
 		<tr>
 			<td><a href="/topic/${topic.getId()}">${topic.getTitle(50, "..")}</a></td>
 			<td>${topic.user.getUsername()}</td>
+			<td>${topic.category.getName()}</td>
 			<td>${show_date(topic.getCreatedAt())}</td>
 		</tr>
 	</#list>
