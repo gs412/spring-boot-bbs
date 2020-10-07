@@ -30,66 +30,66 @@ import java.util.HashMap;
 @Controller
 public class TopicController extends BaseController {
 
-	@Autowired
-	TopicService topicService;
-	@Autowired
-	PostService postService;
-	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	TopicRepository topicRepository;
-	@Autowired
-	PostRepository postRepository;
+    @Autowired
+    TopicService topicService;
+    @Autowired
+    PostService postService;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    TopicRepository topicRepository;
+    @Autowired
+    PostRepository postRepository;
     @Autowired
     CategoryRepository categoryRepository;
 
 
-	@RequestMapping("/topic_new")
-	public String topic_new(ModelMap m) {
+    @RequestMapping("/topic_new")
+    public String topic_new(ModelMap m) {
         Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
 
-		m.addAttribute("user", getUser());
-		m.addAttribute("categories", categories);
+        m.addAttribute("user", getUser());
+        m.addAttribute("categories", categories);
 
-		return "topic/topic_new";
-	}
+        return "topic/topic_new";
+    }
 
-	@RequestMapping("/topic_save")
-	public String topic_save(String title, String content) {
-		User user = getUser();
+    @RequestMapping("/topic_save")
+    public String topic_save(String title, String content) {
+        User user = getUser();
 
-		Topic topic = new Topic();
-		topic.setTitle(title);
-		topic.setReplies(0);
-		topic.setUser(user);
-		topicService.save(topic);
+        Topic topic = new Topic();
+        topic.setTitle(title);
+        topic.setReplies(0);
+        topic.setUser(user);
+        topicService.save(topic);
 
-		Post post = new Post();
-		post.setContent(content);
-		post.setIsFirst(true);
-		post.setTopic(topic);
-		post.setUser(user);
-		postService.save(post);
+        Post post = new Post();
+        post.setContent(content);
+        post.setIsFirst(true);
+        post.setTopic(topic);
+        post.setUser(user);
+        postService.save(post);
 
-		return "redirect:/";
-	}
+        return "redirect:/";
+    }
 
-	@RequestMapping(value = "/topic/{id}")
-	public String topic_show(@PathVariable Long id, String p, ModelMap m) {
-		Topic topic = topicRepository.findById(id).get();
+    @RequestMapping(value = "/topic/{id}")
+    public String topic_show(@PathVariable Long id, String p, ModelMap m) {
+        Topic topic = topicRepository.findById(id).get();
 
-		Integer p1 = NumberUtils.toInt(p, 1);
-		Sort.Order order = new Sort.Order(Sort.Direction.ASC, "id");
-		Pageable pageable = PageRequest.of(p1-1, 10, Sort.by(order));
+        Integer p1 = NumberUtils.toInt(p, 1);
+        Sort.Order order = new Sort.Order(Sort.Direction.ASC, "id");
+        Pageable pageable = PageRequest.of(p1-1, 10, Sort.by(order));
 
-		Page<Post> page = postRepository.findAllByTopicId(id, pageable);
+        Page<Post> page = postRepository.findAllByTopicId(id, pageable);
 
-		m.addAttribute("topic", topic);
-		m.addAttribute("page", page);
-		m.addAttribute("user", getUser());
+        m.addAttribute("topic", topic);
+        m.addAttribute("page", page);
+        m.addAttribute("user", getUser());
 
-		return "topic/topic_show";
-	}
+        return "topic/topic_show";
+    }
 
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
     public String topic_edit(@PathVariable Long id, ModelMap m) {
@@ -122,18 +122,18 @@ public class TopicController extends BaseController {
         return json;
     }
 
-	@RequestMapping(value = "/topic/{id}/reply", method = RequestMethod.POST)
-	public String topic_reply(@PathVariable Long id, String content) {
-		Topic topic = topicRepository.findById(id).get();
+    @RequestMapping(value = "/topic/{id}/reply", method = RequestMethod.POST)
+    public String topic_reply(@PathVariable Long id, String content) {
+        Topic topic = topicRepository.findById(id).get();
 
-		Post post = new Post();
-		post.setContent(content);
-		post.setIsFirst(false);
-		post.setTopic(topic);
-		post.setUser(getUser());
-		postService.save(post);
+        Post post = new Post();
+        post.setContent(content);
+        post.setIsFirst(false);
+        post.setTopic(topic);
+        post.setUser(getUser());
+        postService.save(post);
 
-		return "redirect:/topic/"+topic.getId();
-	}
+        return "redirect:/topic/"+topic.getId();
+    }
 
 }
