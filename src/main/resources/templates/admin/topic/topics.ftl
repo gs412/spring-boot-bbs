@@ -1,7 +1,9 @@
+<#-- @ftlvariable name="page" type="org.springframework.data.domain.Page" -->
+<#-- @ftlvariable name="topic" type="com.springbootbbs.entiry.Topic" -->
 <@override name="content">
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">所有贴子</h3>
@@ -16,26 +18,33 @@
                         <th>发布时间</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td>Update software</td>
-                        <td>
-                            <div class="progress progress-xs">
-                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                            </div>
-                        </td>
-                        <td><span class="badge bg-red">55%</span></td>
-                    </tr>
+	                <#list page.getContent() as topic>
+                        <tr>
+                            <td>${topic.getId()}.</td>
+                            <td>${topic.getTitle()}</td>
+                            <td>${topic.user.getUsername()}</td>
+                            <td>${topic.getCreatedAt()}</td>
+                            <td>
+	                            删除
+                            </td>
+                        </tr>
+	                </#list>
                 </table>
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="#">«</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">»</a></li>
+                <ul class="pagination pagination-sm no-margin pull-left">
+                    <li <#if page.isFirst()>class="disabled"</#if>>
+                        <a href="?p=1">«</a>
+                    </li>
+	                <#list 1..page.getTotalPages() as i>
+                        <li <#if i == page.getNumber()+1> class="active"</#if>>
+                            <a href="?p=${i}">${i}</a>
+                        </li>
+	                </#list>
+                    <li <#if page.isLast()>class="disabled"</#if>>
+                        <a href="?p=${page.getTotalPages()}">»</a>
+                    </li>
                 </ul>
             </div>
         </div>
