@@ -156,7 +156,7 @@
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="false"><a href="/admin/finances/withdraw_cash_record"><i class="fa fa-circle-o"></i> 所有帖子</a></li>
+					<li class="false"><a href="/admin/topic/topics"><i class="fa fa-circle-o"></i> 所有帖子</a></li>
 					<li class="false"><a href="/admin/finances/trade_detail"><i class="fa fa-circle-o"></i> 所有资金流水</a></li>
 				</ul>
 			</li>
