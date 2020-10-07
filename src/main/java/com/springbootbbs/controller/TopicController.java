@@ -2,9 +2,11 @@ package com.springbootbbs.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Post;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.PostRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.repository.UserRepository;
@@ -38,11 +40,16 @@ public class TopicController extends BaseController {
 	TopicRepository topicRepository;
 	@Autowired
 	PostRepository postRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
 
 	@RequestMapping("/topic_new")
 	public String topic_new(ModelMap m) {
+        Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
+
 		m.addAttribute("user", getUser());
+		m.addAttribute("categories", categories);
 
 		return "topic/topic_new";
 	}

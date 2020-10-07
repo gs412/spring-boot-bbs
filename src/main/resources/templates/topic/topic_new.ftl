@@ -3,6 +3,14 @@
 <form class="form-horizontal" action="/topic_save" method="post">
 	<fieldset>
 		<legend>发布新帖</legend>
+        <div class="control-group">
+            <label for="title" class="control-label">节点</label>
+            <div class="controls">
+	            <select name="category_id">
+		            <option>111</option>
+	            </select>
+            </div>
+        </div>
 		<div class="control-group">
 			<label for="title" class="control-label">标题</label>
 			<div class="controls">
