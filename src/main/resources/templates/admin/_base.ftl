@@ -1,4 +1,3 @@
-<#-- @ftlvariable name="user" type="com.springbootbbs.entiry.User" -->
 <!DOCTYPE html>
 <html>
 <head>

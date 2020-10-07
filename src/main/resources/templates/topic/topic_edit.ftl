@@ -1,6 +1,3 @@
-<#-- @ftlvariable name="user" type="com.springbootbbs.entiry.User" -->
-<#-- @ftlvariable name="post" type="com.springbootbbs.entiry.Post" -->
-<#-- @ftlvariable name="topic" type="com.springbootbbs.entiry.Topic" -->
 <#include "../inc/head.ftl">
 
 <form id="edit_form" class="form-horizontal" autocomplete="off">

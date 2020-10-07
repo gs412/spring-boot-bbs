@@ -85,7 +85,7 @@ public class TopicController extends BaseController {
 	}
 
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
-    public String topic_edit(@PathVariable Long id, String p, ModelMap m) {
+    public String topic_edit(@PathVariable Long id, ModelMap m) {
         Topic topic = topicRepository.findById(id).get();
         Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
 

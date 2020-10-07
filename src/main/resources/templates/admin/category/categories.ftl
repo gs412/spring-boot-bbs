@@ -1,4 +1,3 @@
-<#-- @ftlvariable name="categories" type="Iterable<com.springbootbbs.entiry.Category>" -->
 <@override name="content">
 
 <div class="row">

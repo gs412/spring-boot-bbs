@@ -1,6 +1,3 @@
-<#-- @ftlvariable name="user" type="com.springbootbbs.entiry.User" -->
-<#-- @ftlvariable name="page" type="org.springframework.data.domain.Page<com.springbootbbs.entiry.Post>" -->
-<#-- @ftlvariable name="topic" type="com.springbootbbs.entiry.Topic" -->
 <#include "../inc/head.ftl">
 
 <h2>${topic.getTitle(50, "...")}</h2>

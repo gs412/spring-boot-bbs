@@ -5,6 +5,7 @@ import com.springbootbbs.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("admin.CategoryController")
@@ -49,6 +50,15 @@ public class CategoryController extends BaseController {
         categoryRepository.save(category);
 
         return "redirect:/admin/category/categories";
+    }
+
+    @RequestMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, ModelMap m) {
+        Category category = categoryRepository.findById(id).get();
+
+        m.addAttribute("category", category);
+
+        return "/admin/category/edit";
     }
 
 }
