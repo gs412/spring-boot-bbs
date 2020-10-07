@@ -5,9 +5,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("admin.CategoryController")
-@RequestMapping("/admin/catetory")
+@RequestMapping("/admin/category")
 public class CategoryController extends BaseController {
 
+    @RequestMapping("/categories")
     public String categories(ModelMap m) {
 
         m.addAttribute("user", getUser());
