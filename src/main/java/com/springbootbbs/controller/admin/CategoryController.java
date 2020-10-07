@@ -19,7 +19,7 @@ public class CategoryController extends BaseController {
     @RequestMapping("/categories")
     public String categories(ModelMap m) {
 
-        Iterable<Category> categories = categoryRepository.findByOrderBySortAsc();
+        Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
 
         m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
@@ -70,7 +70,7 @@ public class CategoryController extends BaseController {
         category.setSort(sort);
         categoryRepository.save(category);
 
-        return "/edit/" + id.toString();
+        return "redirect:/admin/category/categories";
     }
 
 }
