@@ -26,19 +26,19 @@ import java.util.List;
 @Controller
 public class IndexController extends BaseController {
 
-	@Autowired
-	TopicRepository topicRepository;
+    @Autowired
+    TopicRepository topicRepository;
 
     @Autowired
     CategoryRepository categoryRepository;
 
-	@RequestMapping("/")
-	public String index(String p, String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
+    @RequestMapping("/")
+    public String index(String p, String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
         Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
 
-		Integer p1 = NumberUtils.toInt(p, 1);
-		Order order = new Order(Direction.DESC, "id");
-		Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
+        Integer p1 = NumberUtils.toInt(p, 1);
+        Order order = new Order(Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
 
         if (tab == null) {
             tab = "all";
@@ -70,16 +70,16 @@ public class IndexController extends BaseController {
             }
         }
 
-		m.addAttribute("page", page);
-		m.addAttribute("topics", topics);
-		m.addAttribute("user", getUser());
+        m.addAttribute("page", page);
+        m.addAttribute("topics", topics);
+        m.addAttribute("user", getUser());
         m.addAttribute("show_date", new ShowDate());
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
         m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));
         m.addAttribute("searchWord", searchWord);
 
-		return "index";
-	}
+        return "index";
+    }
 
 }
