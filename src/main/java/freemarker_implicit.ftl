@@ -1,5 +1,6 @@
 [#ftl]
 [#-- @implicitly included --]
+[#-- @ftlvariable name="query_str" type="String" --]
 [#-- @ftlvariable name="user" type="com.springbootbbs.entiry.User" --]
 [#-- @ftlvariable name="category" type="com.springbootbbs.entiry.Category" --]
 [#-- @ftlvariable name="categories" type="Iterable<com.springbootbbs.entiry.Category>" --]

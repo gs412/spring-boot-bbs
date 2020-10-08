@@ -32,17 +32,7 @@
             <!-- /.box-body -->
             <div class="box-footer clearfix">
                 <ul class="pagination pagination-sm no-margin pull-left">
-                    <li <#if page.isFirst()>class="disabled"</#if>>
-                        <a href="?p=1">«</a>
-                    </li>
-	                <#list 1..page.getTotalPages() as i>
-                        <li <#if i == page.getNumber()+1> class="active"</#if>>
-                            <a href="?p=${i}">${i}</a>
-                        </li>
-	                </#list>
-                    <li <#if page.isLast()>class="disabled"</#if>>
-                        <a href="?p=${page.getTotalPages()}">»</a>
-                    </li>
+                    <#include "../../inc/pagestr.ftl">
                 </ul>
             </div>
         </div>

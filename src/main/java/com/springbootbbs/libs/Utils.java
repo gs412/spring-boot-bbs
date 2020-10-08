@@ -1,8 +1,7 @@
 package com.springbootbbs.libs;
 
-import com.springbootbbs.entiry.Topic;
-import org.springframework.data.domain.Page;
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 
 public class Utils {
@@ -33,9 +32,19 @@ public class Utils {
         return System.getProperty("user.dir");
     }
 
-    public static String makePageStr(HashMap<String, String> allRequestParams) {
+    public static String makeQueryStr(HashMap<String, String> allRequestParams) {
+        StringBuilder sb = new StringBuilder();
+        for (HashMap.Entry<String, String> entry : allRequestParams.entrySet()) {
+            if (entry.getKey().equals("p")) {
+                continue;
+            }
+            if (sb.length() > 0) {
+                sb.append('&');
+            }
+            sb.append(entry.getKey()).append('=').append(entry.getValue());
+        }
 
-        return "";
+        return sb.toString();
     }
 
 }

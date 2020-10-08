@@ -6,9 +6,6 @@ import com.springbootbbs.libs.Utils;
 import com.springbootbbs.libs.helpers.ShowDate;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
-import com.springbootbbs.repository.UserRepository;
-import com.springbootbbs.service.PostService;
-import com.springbootbbs.service.TopicService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,13 +50,12 @@ public class IndexController extends BaseController {
             page = topicRepository.findAllByCategoryTabOrderByIdDesc(pageable, tab);
         }
 
-        String pageStr = Utils.makePageStr(allRequestParams);
-
 		m.addAttribute("page", page);
 		m.addAttribute("user", getUser());
         m.addAttribute("show_date", new ShowDate());
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
+        m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));
 
 		return "index";
 	}
