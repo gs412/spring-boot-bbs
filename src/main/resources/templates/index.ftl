@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="searchWord" type="String" -->
 <#-- @ftlvariable name="tab" type="String" -->
 <#include "inc/head.ftl">
 
@@ -31,12 +32,15 @@
 	</tr>
 	<#list topics as topic>
 		<tr>
-			<td><a href="/topic/${topic.getId()}">${topic.getTitle(50, "..")}</a></td>
+			<td><a href="/topic/${topic.getId()}">${topic.getTitle()}</a></td>
 			<td>${topic.user.getUsername()}</td>
 			<td>${topic.category.getName()}</td>
 			<td>${show_date(topic.getCreatedAt())}</td>
 		</tr>
 	</#list>
+	<#if searchWord?has_content && !topics?has_content>
+		no result
+	</#if>
 </table>
 
 <#if (page.getTotalPages() > 1)>

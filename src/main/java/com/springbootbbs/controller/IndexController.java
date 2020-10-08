@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 @Controller
@@ -59,11 +60,13 @@ public class IndexController extends BaseController {
             page = topicRepository.findAllByCategoryTabOrderByIdDesc(pageable, tab);
         }
 
-        Iterable<Topic> topics = page.getContent();
-        if (!searchWord.isEmpty()) {
-            for (Topic topic : topics) {
-                String newTitle = topic.getTitle().replace(searchWord, "<font color=red>"+searchWord+"</font>");
+        List<Topic> topics = page.getContent();
+        for (Topic topic : topics) {
+            if (!searchWord.isEmpty()) {
+                String newTitle = topic.getTitle().replace(searchWord, "<font color=red>" + searchWord + "</font>");
                 topic.setTitle(newTitle);
+            } else {
+                topic.setTitle(topic.getTitle(50, ".."));
             }
         }
 
