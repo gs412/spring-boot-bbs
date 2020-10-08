@@ -11,6 +11,7 @@
                     <tr>
                         <th style="width: 10px">ID</th>
                         <th>分类名称</th>
+                        <th>标签</th>
                         <th>排序</th>
                         <th>管理</th>
                     </tr>
@@ -18,6 +19,7 @@
                         <tr>
                             <td>${category.getId()}.</td>
                             <td>${category.getName()}</td>
+                            <td>${category.getTab()}</td>
                             <td>${category.getSort()}</td>
                             <td>
 	                            <a href="/admin/category/edit/${category.getId()}">编辑</a>

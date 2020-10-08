@@ -14,6 +14,9 @@ public class Category {
     @Column(length = 30)
     private String name;
 
+    @Column(length = 20)
+    private String tab;
+
     @Column
     private Integer sort;
 
@@ -31,6 +34,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTab() {
+        return tab;
+    }
+
+    public void setTab(String tab) {
+        this.tab = tab;
     }
 
     public Integer getSort() {

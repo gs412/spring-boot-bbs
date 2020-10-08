@@ -6,12 +6,18 @@
             <div class="box-header with-border">
                 <h3 class="box-title">添加分类</h3>
             </div>
-            <form action="/admin/category/add_post" method="post" class="form-horizontal">
+            <form id="form1" class="form-horizontal">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">分类名称</label>
+                        <label for="name" class="col-sm-2 control-label">分类名称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" required>
+                            <input type="text" class="form-control" name="name" id="name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tab" class="col-sm-2 control-label">标签</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="tab" id="tab" required>
                         </div>
                     </div>
                 </div>
@@ -23,6 +29,24 @@
         </div>
     </div>
 </div>
+
+<script>
+	$(document).ready(function () {
+        $('#form1').submit(function () {
+	        let name = $('input#name').val()
+	        let tab = $('input#tab').val()
+	        $.post('/admin/category/add_post', {name: name, tab: tab}, function (json) {
+		        json = JSON.parse(json);
+				if (json.success == 1) {
+                    window.location.href = '/admin/category/categories';
+				} else {
+					alert(json.message);
+				}
+	        })
+	        return false;
+        })
+    })
+</script>
 
 </@override>
 

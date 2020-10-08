@@ -1,5 +1,7 @@
 package com.springbootbbs.controller.admin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
 
 @Controller("admin.CategoryController")
 @RequestMapping("/admin/category")
@@ -35,22 +40,38 @@ public class CategoryController extends BaseController {
         return "/admin/category/add";
     }
 
-    @RequestMapping("/add_post")
-    public String add_post(String name) {
-        Category lastCategory = categoryRepository.findTopByOrderBySortDesc();
-        Integer sort;
-        if (lastCategory != null) {
-            sort = lastCategory.getSort() + 1;
+    @RequestMapping(value = "/add_post", method = RequestMethod.POST)
+    @ResponseBody
+    public String add_post(String name, String tab) throws JsonProcessingException {
+        HashMap<String, String> map = new HashMap<>();
+
+        if (categoryRepository.existsByName(name)) {
+            map.put("success", "0");
+            map.put("message", "分来名称已经存在");
+        } else if (categoryRepository.existsByTab(tab)) {
+            map.put("success", "0");
+            map.put("message", "标签已经存在");
         } else {
-            sort = 1;
+            Category lastCategory = categoryRepository.findTopByOrderBySortDesc();
+            Integer sort;
+            if (lastCategory != null) {
+                sort = lastCategory.getSort() + 1;
+            } else {
+                sort = 1;
+            }
+
+            Category category = new Category();
+            category.setName(name);
+            category.setTab(tab);
+            category.setSort(sort);
+            categoryRepository.save(category);
+
+            map.put("success", "1");
+            map.put("message", "添加成功");
         }
 
-        Category category = new Category();
-        category.setName(name);
-        category.setSort(sort);
-        categoryRepository.save(category);
-
-        return "redirect:/admin/category/categories";
+        String json = new ObjectMapper().writeValueAsString(map);
+        return json;
     }
 
     @RequestMapping("/edit/{id}")
@@ -64,9 +85,10 @@ public class CategoryController extends BaseController {
     }
 
     @RequestMapping(value = "/edit_post/{id}", method = RequestMethod.POST)
-    public String edit_post(@PathVariable Long id, String name, Integer sort, ModelMap m) {
+    public String edit_post(@PathVariable Long id, String name, String tab, Integer sort, ModelMap m) {
         Category category = categoryRepository.findById(id).get();
         category.setName(name);
+        category.setTab(tab);
         category.setSort(sort);
         categoryRepository.save(category);
 

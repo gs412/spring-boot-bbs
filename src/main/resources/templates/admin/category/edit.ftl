@@ -9,15 +9,21 @@
             <form action="/admin/category/edit_post/${category.getId()}" method="post" class="form-horizontal">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">分类名称</label>
+                        <label for="name" class="col-sm-2 control-label">分类名称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" value="${category.getName()}" required>
+                            <input type="text" class="form-control" name="name" id="name" value="${category.getName()}" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">排序</label>
+                        <label for="tab" class="col-sm-2 control-label">标签</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="sort" value="${category.getSort()}" min="1" max="1000" step="1">
+                            <input type="text" class="form-control" name="tab" id="tab" value="${category.getTab()}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sort" class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" name="sort" id="sort" value="${category.getSort()}" min="1" max="1000" step="1">
                             <p class="help-block" style="font-size: 12px; color: #888; margin-top: 0;">数字越大越靠后</p>
                         </div>
                     </div>
