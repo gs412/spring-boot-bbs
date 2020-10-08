@@ -9,6 +9,10 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 
     Boolean existsByTab(String tab);
 
+    Boolean existsByNameAndIdNot(String name, Long id);
+
+    Boolean existsByTabAndIdNot(String tab, Long id);
+
     Category findTopByOrderBySortDesc();
 
     Iterable<Category> findByOrderBySortAscIdAsc();

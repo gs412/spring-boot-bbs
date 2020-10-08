@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.repository.CategoryRepository;
+import freemarker.template.ObjectWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -85,14 +86,29 @@ public class CategoryController extends BaseController {
     }
 
     @RequestMapping(value = "/edit_post/{id}", method = RequestMethod.POST)
-    public String edit_post(@PathVariable Long id, String name, String tab, Integer sort, ModelMap m) {
-        Category category = categoryRepository.findById(id).get();
-        category.setName(name);
-        category.setTab(tab);
-        category.setSort(sort);
-        categoryRepository.save(category);
+    @ResponseBody
+    public String edit_post(@PathVariable Long id, String name, String tab, Integer sort, ModelMap m) throws JsonProcessingException {
+        HashMap<String, String> map = new HashMap<>();
 
-        return "redirect:/admin/category/categories";
+        if (categoryRepository.existsByNameAndIdNot(name, id)) {
+            map.put("success", "0");
+            map.put("message", "分来名称已经存在");
+        } else if (categoryRepository.existsByTabAndIdNot(tab, id)) {
+            map.put("success", "0");
+            map.put("message", "标签已经存在");
+        } else {
+            Category category = categoryRepository.findById(id).get();
+            category.setName(name);
+            category.setTab(tab);
+            category.setSort(sort);
+            categoryRepository.save(category);
+
+            map.put("success", "1");
+            map.put("message", "编辑成功");
+        }
+
+        String json = new ObjectMapper().writeValueAsString(map);
+        return json;
     }
 
 }
