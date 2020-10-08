@@ -60,7 +60,7 @@ public class IndexController extends BaseController {
             page = topicRepository.findAllByCategoryTabOrderByIdDesc(pageable, tab);
         }
 
-        List<Topic> topics = page.getContent();
+        Iterable<Topic> topics = page.getContent();
         for (Topic topic : topics) {
             if (!searchWord.isEmpty()) {
                 String newTitle = topic.getTitle().replace(searchWord, "<font color=red>" + searchWord + "</font>");
