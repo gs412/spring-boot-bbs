@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +45,7 @@ public class ProfileController extends BaseController {
         return "profile/basic";
     }
 
-    @RequestMapping("/basic_post")
+    @RequestMapping(value = "/basic_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String basic_post(@RequestParam("user_face") MultipartFile file) throws JsonProcessingException {
         User user = getUser();

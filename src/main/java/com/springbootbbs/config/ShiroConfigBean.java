@@ -44,6 +44,7 @@ public class ShiroConfigBean {
 		// 现在资源的角色
 		filterChainDefinitionMap.put("/templates/admin.ftl", "roles[admin]");
 		filterChainDefinitionMap.put("/templates/user.ftl", "roles[user]");
+        filterChainDefinitionMap.put("/profile/basic", "roles[user]");
         filterChainDefinitionMap.put("/admin*", "roles[admin]");
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
 

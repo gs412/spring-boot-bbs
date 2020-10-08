@@ -4,7 +4,7 @@
     <div class="col-md-8">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">添加分类</h3>
+                <h3 class="box-title">编辑分类</h3>
             </div>
             <form id="form1" class="form-horizontal">
                 <div class="box-body">
@@ -44,7 +44,6 @@
 	        let tab = $('input#tab').val()
 	        let sort = $('input#sort').val()
 	        $.post('/admin/category/edit_post/${category.getId()}', {name: name, tab: tab, sort: sort}, function (json) {
-		        json = JSON.parse(json);
 				if (json.success == 1) {
                     window.location.href = '/admin/category/categories';
 				} else {

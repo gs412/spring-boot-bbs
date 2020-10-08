@@ -36,7 +36,6 @@
 	        let name = $('input#name').val()
 	        let tab = $('input#tab').val()
 	        $.post('/admin/category/add_post', {name: name, tab: tab}, function (json) {
-		        json = JSON.parse(json);
 				if (json.success == 1) {
                     window.location.href = '/admin/category/categories';
 				} else {

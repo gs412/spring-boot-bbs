@@ -41,7 +41,7 @@ public class CategoryController extends BaseController {
         return "/admin/category/add";
     }
 
-    @RequestMapping(value = "/add_post", method = RequestMethod.POST)
+    @RequestMapping(value = "/add_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String add_post(String name, String tab) throws JsonProcessingException {
         HashMap<String, String> map = new HashMap<>();
@@ -85,7 +85,7 @@ public class CategoryController extends BaseController {
         return "/admin/category/edit";
     }
 
-    @RequestMapping(value = "/edit_post/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit_post/{id}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String edit_post(@PathVariable Long id, String name, String tab, Integer sort, ModelMap m) throws JsonProcessingException {
         HashMap<String, String> map = new HashMap<>();
