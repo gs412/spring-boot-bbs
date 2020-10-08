@@ -29,8 +29,8 @@
 						<#assign uri = springMacroRequestContext.requestUri>
 						<li <#if uri == "/" || uri?contains("/topic")>class="active"</#if>><a href="/">社区</a></li>
 					</ul>
-					<form class="navbar-search pull-left" action="">
-						<input type="text" name="searchWord" value="${searchWord}" class="search-query span2" placeholder="搜索帖子" autocomplete="off">
+					<form class="navbar-search pull-left" action="/">
+						<input type="text" name="searchWord" value="<#if searchWord??>${searchWord}</#if>" class="search-query span2" placeholder="搜索帖子" autocomplete="off">
 					</form>
 					<ul class="nav pull-right">
 						<#if user??>

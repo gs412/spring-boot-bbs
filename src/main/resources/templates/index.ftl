@@ -34,7 +34,7 @@
 		<tr>
 			<td><a href="/topic/${topic.getId()}">${topic.getTitle()}</a></td>
 			<td>${topic.user.getUsername()}</td>
-			<td>${topic.category.getName()}</td>
+			<td><a href="/?tab=${topic.category.getTab()}">${topic.category.getName()}</a></td>
 			<td>${show_date(topic.getCreatedAt())}</td>
 		</tr>
 	</#list>
