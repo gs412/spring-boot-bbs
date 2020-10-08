@@ -1,4 +1,23 @@
+<#-- @ftlvariable name="tab" type="String" -->
 <#include "inc/head.ftl">
+
+<style>
+	.navbar .tabs {list-style: none; margin: 0; line-height: 40px;}
+	.navbar .tabs li {display: inline-block;}
+	.navbar .tabs li a {color: #555; padding: 3px 8px; border-radius: 2px;}
+	.navbar .tabs li a:hover {text-decoration: none; background: #e9e9e9; color: #333;}
+	.navbar .tabs li.active a {color: #fff; background: #334;}
+</style>
+<div class="navbar">
+    <div class="navbar-inner">
+        <ul class="tabs">
+	        <#list categories as category>
+	            <li <#if category.getTab() == tab>class="active"</#if>><a href="/?tab=${category.getTab()}">${category.getName()}</a></li>
+	        </#list>
+	        <li <#if tab == "all">class="active"</#if>><a href="/?tab=all">全部</a></li>
+        </ul>
+    </div>
+</div>
 
 <a class="btn btn-primary" href="/topic_new">发布新帖</a>
 
@@ -24,15 +43,15 @@
 	<div class="pagination">
 		<ul>
 			<li <#if page.isFirst()>class="disabled"</#if>>
-				<a href="?p=1">«</a>
+				<a href="/?p=1">«</a>
 			</li>
 			<#list 1..page.getTotalPages() as i>
 				<li <#if i == page.getNumber()+1> class="active"</#if>>
-					<a href="?p=${i}">${i}</a>
+					<a href="/?p=${i}">${i}</a>
 				</li>
 			</#list>
 			<li <#if page.isLast()>class="disabled"</#if>>
-				<a href="?p=${page.getTotalPages()}">»</a>
+				<a href="/?p=${page.getTotalPages()}">»</a>
 			</li>
 		</ul>
 	</div>
