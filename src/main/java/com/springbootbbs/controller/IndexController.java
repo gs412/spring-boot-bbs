@@ -19,6 +19,9 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.HashMap;
 
 
 @Controller
@@ -31,7 +34,7 @@ public class IndexController extends BaseController {
     CategoryRepository categoryRepository;
 
 	@RequestMapping("/")
-	public String index(String p, String tab, ModelMap m) {
+	public String index(String p, String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
         Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
 
 		Integer p1 = NumberUtils.toInt(p, 1);

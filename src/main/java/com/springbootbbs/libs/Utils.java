@@ -28,4 +28,9 @@ public class Utils {
         return System.getProperty("user.dir");
     }
 
+    public static String makePageStr() {
+
+        return "";
+    }
+
 }
