@@ -1,5 +1,10 @@
 package com.springbootbbs.libs;
 
+import com.springbootbbs.entiry.Topic;
+import org.springframework.data.domain.Page;
+
+import java.util.HashMap;
+
 public class Utils {
 
 	public static String subTextString(String str,int len) {
@@ -28,7 +33,7 @@ public class Utils {
         return System.getProperty("user.dir");
     }
 
-    public static String makePageStr() {
+    public static String makePageStr(HashMap<String, String> allRequestParams) {
 
         return "";
     }

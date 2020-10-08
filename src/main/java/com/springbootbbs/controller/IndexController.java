@@ -2,6 +2,7 @@ package com.springbootbbs.controller;
 
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Topic;
+import com.springbootbbs.libs.Utils;
 import com.springbootbbs.libs.helpers.ShowDate;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
@@ -51,6 +52,8 @@ public class IndexController extends BaseController {
         } else {
             page = topicRepository.findAllByCategoryTabOrderByIdDesc(pageable, tab);
         }
+
+        String pageStr = Utils.makePageStr(allRequestParams);
 
 		m.addAttribute("page", page);
 		m.addAttribute("user", getUser());
