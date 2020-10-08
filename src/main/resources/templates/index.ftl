@@ -39,7 +39,9 @@
 		</tr>
 	</#list>
 	<#if searchWord?has_content && !topics?has_content>
-		no result
+		<tr>
+			<td colspan="4" style="font-weight: bold; text-align: center; padding: 30px;">没有 “${searchWord}” 相关的主题</td>
+		</tr>
 	</#if>
 </table>
 
