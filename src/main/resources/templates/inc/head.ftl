@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="searchWord" type="String" -->
 <!doctype html>
 <html>
 <head>
@@ -29,7 +30,7 @@
 						<li <#if uri == "/" || uri?contains("/topic")>class="active"</#if>><a href="/">社区</a></li>
 					</ul>
 					<form class="navbar-search pull-left" action="">
-						<input type="text" class="search-query span2" placeholder="搜索帖子">
+						<input type="text" name="searchWord" value="${searchWord}" class="search-query span2" placeholder="搜索帖子" autocomplete="off">
 					</form>
 					<ul class="nav pull-right">
 						<#if user??>

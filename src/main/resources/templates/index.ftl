@@ -29,7 +29,7 @@
 		<th style="width:15%;">节点</th>
 		<th>发布时间</th>
 	</tr>
-	<#list page.getContent() as topic>
+	<#list topics as topic>
 		<tr>
 			<td><a href="/topic/${topic.getId()}">${topic.getTitle(50, "..")}</a></td>
 			<td>${topic.user.getUsername()}</td>

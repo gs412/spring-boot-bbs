@@ -43,19 +43,38 @@ public class IndexController extends BaseController {
             tab = "all";
         }
 
+        String searchWord;
+        if (allRequestParams.containsKey("searchWord")) {
+            searchWord = allRequestParams.get("searchWord");
+        } else {
+            searchWord = "";
+        }
+
         Page<Topic> page;
-        if (tab.equals("all")) {
+        if (!searchWord.isEmpty()) {
+            page = topicRepository.findAllByTitleLikeOrderByIdDesc(pageable, "%" + searchWord + "%");
+        } else if (tab.equals("all")) {
             page = topicRepository.findAll(pageable);
         } else {
             page = topicRepository.findAllByCategoryTabOrderByIdDesc(pageable, tab);
         }
 
+        Iterable<Topic> topics = page.getContent();
+        if (!searchWord.isEmpty()) {
+            for (Topic topic : topics) {
+                String newTitle = topic.getTitle().replace(searchWord, "<font color=red>"+searchWord+"</font>");
+                topic.setTitle(newTitle);
+            }
+        }
+
 		m.addAttribute("page", page);
+		m.addAttribute("topics", topics);
 		m.addAttribute("user", getUser());
         m.addAttribute("show_date", new ShowDate());
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
         m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));
+        m.addAttribute("searchWord", searchWord);
 
 		return "index";
 	}

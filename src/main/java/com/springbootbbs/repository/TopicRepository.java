@@ -9,4 +9,6 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>
 
     Page<Topic> findAllByCategoryTabOrderByIdDesc(Pageable page, String categoryTab);
 
+    Page<Topic> findAllByTitleLikeOrderByIdDesc(Pageable page, String title);
+
 }
