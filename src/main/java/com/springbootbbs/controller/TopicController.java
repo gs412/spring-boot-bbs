@@ -142,4 +142,10 @@ public class TopicController extends BaseController {
         return "redirect:/topic/"+topic.getId();
     }
 
+    @RequestMapping(value = "/topic/{id}/remove", method = RequestMethod.POST)
+    public String topic_remove() {
+
+        return "redirect:/";
+    }
+
 }
