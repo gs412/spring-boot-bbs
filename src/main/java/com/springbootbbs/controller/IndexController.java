@@ -53,11 +53,11 @@ public class IndexController extends BaseController {
 
         Page<Topic> page;
         if (!searchWord.isEmpty()) {
-            page = topicRepository.findAllByTitleLikeOrderByIdDesc(pageable, "%" + searchWord + "%");
+            page = topicRepository.findAllByTitleLikeAndDeletedOrderByIdDesc(pageable, "%" + searchWord + "%", false);
         } else if (tab.equals("all")) {
-            page = topicRepository.findAll(pageable);
+            page = topicRepository.findAllByDeletedOrderByIdDesc(pageable, false);
         } else {
-            page = topicRepository.findAllByCategoryTabOrderByIdDesc(pageable, tab);
+            page = topicRepository.findAllByCategoryTabAndDeletedOrderByIdDesc(pageable, tab, false);
         }
 
         Iterable<Topic> topics = page.getContent();

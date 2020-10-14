@@ -17,7 +17,11 @@
 		    <div>
 			    <#if user?? && user.username == 'admin'>
                     <a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>编辑</a>
-				    <a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
+				    <#if post.isFirst >
+				        <a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
+				    <#else>
+				        <a href="/post/${post.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
+				    </#if>
 			    </#if>
 		    </div>
 	    </div>

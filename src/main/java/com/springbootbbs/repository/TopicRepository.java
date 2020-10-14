@@ -7,8 +7,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface TopicRepository extends PagingAndSortingRepository<Topic, Long> {
 
-    Page<Topic> findAllByCategoryTabOrderByIdDesc(Pageable page, String categoryTab);
+    Page<Topic> findAllByDeletedOrderByIdDesc(Pageable page, Boolean deleted);
 
-    Page<Topic> findAllByTitleLikeOrderByIdDesc(Pageable page, String title);
+    Page<Topic> findAllByCategoryTabAndDeletedOrderByIdDesc(Pageable page, String categoryTab, Boolean deleted);
+
+    Page<Topic> findAllByTitleLikeAndDeletedOrderByIdDesc(Pageable page, String title, Boolean deleted);
 
 }

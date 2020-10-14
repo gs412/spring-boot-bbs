@@ -21,4 +21,14 @@ public class TopicService {
 		return topicRepository.save(topic);
 	}
 
+    public Boolean soft_delete(Topic topic) {
+        topic.setDeleted(true);
+        topicRepository.save(topic);
+        return true;
+    }
+
+    public Boolean delete(Topic topic) {
+        topicRepository.delete(topic);
+        return true;
+    }
 }

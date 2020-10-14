@@ -21,6 +21,12 @@ public class PostService {
 		return postRepository.save(post);
 	}
 
+    public Boolean soft_delete(Post post) {
+        post.setDeleted(true);
+        postRepository.save(post);
+        return true;
+    }
+
     public Boolean delete(Post post) {
         postRepository.delete(post);
         return true;

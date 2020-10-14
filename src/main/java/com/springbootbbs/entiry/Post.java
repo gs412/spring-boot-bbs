@@ -18,8 +18,11 @@ public class Post {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 
-	@Column
+	@Column(nullable = false)
 	private Boolean isFirst;
+
+    @Column(nullable = false)
+    private Boolean deleted = false;
 
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "topic_id")
@@ -60,6 +63,14 @@ public class Post {
 	public void setIsFirst(Boolean isFirst) {
 		this.isFirst = isFirst;
 	}
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
 	public Topic getTopic() {
 		return topic;

@@ -31,6 +31,9 @@ public class Topic {
     @JoinColumn(nullable = false, name = "category_id")
     private Category category;
 
+    @Column(nullable = false)
+    private Boolean deleted = false;
+
     @CreationTimestamp
 	@Column(nullable = false)
 	private Date createdAt;
@@ -85,6 +88,14 @@ public class Topic {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
 	public Date getCreatedAt() {

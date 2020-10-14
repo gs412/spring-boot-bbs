@@ -84,7 +84,7 @@ public class TopicController extends BaseController {
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "id");
         Pageable pageable = PageRequest.of(p1-1, 10, Sort.by(order));
 
-        Page<Post> page = postRepository.findAllByTopicId(id, pageable);
+        Page<Post> page = postRepository.findAllByTopicIdAndDeleted(id, pageable, false);
 
         m.addAttribute("topic", topic);
         m.addAttribute("page", page);
@@ -144,14 +144,19 @@ public class TopicController extends BaseController {
 
     @RequestMapping(value = "/topic/{id}/remove", method = RequestMethod.POST)
     public String topic_remove(@PathVariable Long id) {
+        Topic topic = topicRepository.findById(id).get();
+        topicService.soft_delete(topic);
 
         return "redirect:/";
     }
 
     @RequestMapping(value = "/post/{id}/remove", method = RequestMethod.POST)
     public String post_remove(@PathVariable Long id) {
+        Post post = postRepository.findById(id).get();
+        Long topic_id = post.getTopic().getId();
+        postService.soft_delete(post);
 
-        return "redirect:/";
+        return "redirect:/topic/" + topic_id;
     }
 
 }

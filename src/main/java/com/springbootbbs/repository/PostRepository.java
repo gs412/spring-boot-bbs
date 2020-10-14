@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 
-	Page<Post> findAllByTopicId(Long id, Pageable pageable);
+	Page<Post> findAllByTopicIdAndDeleted(Long id, Pageable pageable, Boolean deleted);
 
     Post findTopByIsFirstAndTopic(Boolean isFirst, Topic topic);
 
