@@ -143,7 +143,13 @@ public class TopicController extends BaseController {
     }
 
     @RequestMapping(value = "/topic/{id}/remove", method = RequestMethod.POST)
-    public String topic_remove() {
+    public String topic_remove(@PathVariable Long id) {
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/post/{id}/remove", method = RequestMethod.POST)
+    public String post_remove(@PathVariable Long id) {
 
         return "redirect:/";
     }
