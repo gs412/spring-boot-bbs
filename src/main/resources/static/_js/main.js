@@ -131,7 +131,7 @@ $(document).ready(apply_post_method_on_a);
 $.ajaxSetup({
 	beforeSend: function(xhr, settings) {
 		try {
-			xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+			xhr.setRequestHeader($('meta[name=csrftoken_header_name]').attr("content"), $.cookie('csrftoken'));
 		} catch (e) {
 			console.log('main.js，ajax预先设置csrftoken失败，jys 2018-07-28')
 		}
