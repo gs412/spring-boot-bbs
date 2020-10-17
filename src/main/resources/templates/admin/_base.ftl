@@ -4,8 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title><@block name="title">后台管理</@block></title>
-	<meta name="csrf-param" content="authenticity_token" />
-	<meta name="csrf-token" content="d2VyB8Pe8TIpfjdMvmM/qV4K/1adiEyX9uy+MCrsSr5H3d2TB7oSw22d+8BzTmm6sxlOsthINYy0VNQGbwqUiQ==" />
+    <meta content="${_csrf.token}" name="csrftoken">
+    <meta content="${_csrf.headerName}" name="csrftoken_header_name">
+    <meta content="${_csrf.parameterName}" name="csrftoken_parameter_name">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.7 -->
@@ -45,6 +46,7 @@
 	<script src="/static/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 	<script src="/static/layui/layer/layer.js"></script>
+	<script src="/static/_js/main.js"></script>
 
 	<@block name="head"></@block>
 	
