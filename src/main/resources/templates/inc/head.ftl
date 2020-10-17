@@ -6,6 +6,7 @@
 	<title>${title!}</title>
     <meta content="${_csrf.token}" name="csrftoken">
     <meta content="${_csrf.headerName}" name="csrftoken_header_name">
+    <meta content="${_csrf.parameterName}" name="csrftoken_parameter_name">
 	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/font-awesome-4.6.3/css/font-awesome.min.css">
 	<script src="/static/_js/jquery.min.js"></script>

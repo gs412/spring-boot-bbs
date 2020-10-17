@@ -75,7 +75,7 @@ jQuery(function ($) {
                 }
             };
 
-	        addData('csrfmiddlewaretoken', $.cookie('csrftoken'));
+	        addData($('meta[name=csrftoken_parameter_name]').attr("content"), $.cookie('csrftoken'));
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
                     addData(key, data[key]);
