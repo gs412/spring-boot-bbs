@@ -40,6 +40,7 @@
 <br>
 <#if user??>
 	<form class="form-horizontal" action="/topic/${topic.getId()}/reply" method="post">
+        <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 		<fieldset>
 			<legend>快速回复</legend>
 			<div class="control-group">

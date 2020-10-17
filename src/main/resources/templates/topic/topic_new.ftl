@@ -1,6 +1,7 @@
 <#include "../inc/head.ftl">
 
 <form class="form-horizontal" action="/topic_save" method="post">
+    <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 	<fieldset>
 		<legend>发布新帖</legend>
         <div class="control-group">

@@ -1,6 +1,7 @@
 <#include "../inc/head.ftl">
 
 <form id="edit_form" class="form-horizontal" autocomplete="off">
+    <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 	<fieldset>
 		<legend>编辑帖子</legend>
         <div class="control-group">
