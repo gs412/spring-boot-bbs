@@ -1,6 +1,7 @@
 <#include "../inc/head.ftl">
 
 <form class="form-horizontal" action="/user/register_save" method="post">
+    <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 	<fieldset>
 		<legend>注册</legend>
 		<div class="control-group">
