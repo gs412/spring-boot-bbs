@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<a class="btn btn-primary" href="/topic_new">发布新帖</a>
+<a class="btn btn-primary" href="/topic_new<#if tab != "all">?tab=${tab}</#if>">发布新帖</a>
 
 <br><br>
 <table class="table">

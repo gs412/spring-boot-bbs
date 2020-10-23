@@ -1,6 +1,7 @@
+<#-- @ftlvariable name="tab" type="String" -->
 <#include "../inc/head.ftl">
 
-<form class="form-horizontal" action="/topic_save" method="post">
+<form class="form-horizontal" action="/topic_save" method="post" autocomplete="off">
     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 	<fieldset>
 		<legend>发布新帖</legend>
@@ -9,7 +10,7 @@
             <div class="controls">
 	            <select name="category_id">
 		            <#list categories as category>
-                        <option value="${category.getId()}">${category.getName()}</option>
+                        <option value="${category.getId()}" <#if category.getTab() == tab>selected</#if>>${category.getName()}</option>
 		            </#list>
 	            </select>
             </div>

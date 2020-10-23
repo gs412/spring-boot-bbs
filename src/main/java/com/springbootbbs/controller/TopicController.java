@@ -45,11 +45,12 @@ public class TopicController extends BaseController {
 
 
     @RequestMapping("/topic_new")
-    public String topic_new(ModelMap m) {
+    public String topic_new(String tab, ModelMap m) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
+        m.addAttribute("tab", tab);
 
         return "topic/topic_new";
     }
