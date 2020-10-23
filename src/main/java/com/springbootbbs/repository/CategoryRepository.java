@@ -15,6 +15,8 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 
     Category findTopByOrderBySortDesc();
 
-    Iterable<Category> findByOrderBySortAscIdAsc();
+    Iterable<Category> findAllByOrderBySortAscIdAsc();
+
+    Iterable<Category> findAllByIdNotOrderBySortAscIdAsc(Long id);
 
 }

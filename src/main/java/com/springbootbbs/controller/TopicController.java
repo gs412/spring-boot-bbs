@@ -46,7 +46,7 @@ public class TopicController extends BaseController {
 
     @RequestMapping("/topic_new")
     public String topic_new(ModelMap m) {
-        Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
+        Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
@@ -95,7 +95,7 @@ public class TopicController extends BaseController {
 
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
     public String topic_edit(@PathVariable Long id, ModelMap m) {
-        Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
+        Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
         Topic topic = topicRepository.findById(id).get();
         Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
 

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
-import freemarker.template.ObjectWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 
@@ -30,7 +28,7 @@ public class CategoryController extends BaseController {
     @RequestMapping("/categories")
     public String categories(ModelMap m) {
 
-        Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
+        Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
@@ -116,14 +114,24 @@ public class CategoryController extends BaseController {
         return json;
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        if (topicRepository.countByCategoryIdAndDeleted(id, false) > 0) {
-            redirectAttributes.addFlashAttribute("message", "该分类下存在帖子，无法删除");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "已删除");
-        }
+    @RequestMapping("/merge/{id}")
+    public String merge(@PathVariable Long id, ModelMap m) {
+        Category category = categoryRepository.findById(id).get();
+        Iterable<Category> categories = categoryRepository.findAllByIdNotOrderBySortAscIdAsc(id);
 
+        m.addAttribute("user", getUser());
+        m.addAttribute("category", category);
+        m.addAttribute("categories", categories);
+
+        return "/admin/category/merge";
+    }
+
+    @RequestMapping(value = "/merge_post/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public String merge_post(@PathVariable Long id, Long target_id) throws JsonProcessingException {
+        HashMap<String, String> map = new HashMap<>();
+
+        String json = new ObjectMapper().writeValueAsString(map);
         return "redirect:/admin/category/categories";
     }
 

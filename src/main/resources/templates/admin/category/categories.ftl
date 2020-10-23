@@ -23,7 +23,7 @@
                             <td>${category.getSort()}</td>
                             <td>
 	                            <a href="/admin/category/edit/${category.getId()}">编辑</a>
-	                            <a href="/admin/category/delete/${category.getId()}" data-method="post" data-confirm="确定删除？">删除</a>
+	                            <a href="/admin/category/merge/${category.getId()}" title="当你想删除这个分类的时候，可以把它合并到别的分类，合并后该分类下的贴子也会合并到目标分类中">合并</a>
                             </td>
                         </tr>
 	                </#list>

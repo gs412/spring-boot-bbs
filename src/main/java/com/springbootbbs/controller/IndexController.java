@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
-import java.util.List;
 
 
 @Controller
@@ -34,7 +33,7 @@ public class IndexController extends BaseController {
 
     @RequestMapping("/")
     public String index(String p, String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
-        Iterable<Category> categories = categoryRepository.findByOrderBySortAscIdAsc();
+        Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         Integer p1 = NumberUtils.toInt(p, 1);
         Order order = new Order(Direction.DESC, "id");
