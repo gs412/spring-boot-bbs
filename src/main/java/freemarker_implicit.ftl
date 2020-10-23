@@ -1,5 +1,6 @@
 [#ftl]
 [#-- @implicitly included --]
+[#-- @ftlvariable name="message" type="String" --]
 [#-- @ftlvariable name="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken" --]
 [#-- @ftlvariable name="topics" type="Iterable<com.springbootbbs.entiry.Topic>" --]
 [#-- @ftlvariable name="query_str" type="String" --]

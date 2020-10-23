@@ -49,7 +49,10 @@
 	<script src="/static/_js/main.js"></script>
 
 	<@block name="head"></@block>
-	
+
+	<#if message??>
+	    <script>alert("${message}")</script>
+	</#if>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

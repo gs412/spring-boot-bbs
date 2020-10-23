@@ -23,7 +23,7 @@
                             <td>${category.getSort()}</td>
                             <td>
 	                            <a href="/admin/category/edit/${category.getId()}">编辑</a>
-	                            <a href="">删除</a>
+	                            <a href="/admin/category/delete/${category.getId()}" data-method="post" data-confirm="确定删除？">删除</a>
                             </td>
                         </tr>
 	                </#list>

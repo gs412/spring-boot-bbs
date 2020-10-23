@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 
@@ -109,6 +110,13 @@ public class CategoryController extends BaseController {
 
         String json = new ObjectMapper().writeValueAsString(map);
         return json;
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("message", "已删除");
+        return "redirect:/admin/category/categories";
     }
 
 }
