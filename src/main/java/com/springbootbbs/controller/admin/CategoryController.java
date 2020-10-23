@@ -128,10 +128,8 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/merge_post/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public String merge_post(@PathVariable Long id, Long target_id) throws JsonProcessingException {
-        HashMap<String, String> map = new HashMap<>();
+    public String merge_post(@PathVariable Long id, Long target_id) {
 
-        String json = new ObjectMapper().writeValueAsString(map);
         return "redirect:/admin/category/categories";
     }
 

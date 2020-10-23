@@ -10,8 +10,8 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label" style="white-space: nowrap;">将分类 “${category.getName()}” 合并到</label>
-                        <div class="col-sm-10">
-                            <select name="target_id">
+                        <div class="col-sm-4">
+                            <select name="target_id" class="form-control">
 	                            <#list categories as category>
 									<option value="${category.getId()}">${category.getName()}</option>
 	                            </#list>
