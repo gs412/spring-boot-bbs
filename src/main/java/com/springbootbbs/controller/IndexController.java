@@ -32,16 +32,12 @@ public class IndexController extends BaseController {
     CategoryRepository categoryRepository;
 
     @RequestMapping("/")
-    public String index(String p, String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
+    public String index(String p, @RequestParam(defaultValue = "all") String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         Integer p1 = NumberUtils.toInt(p, 1);
         Order order = new Order(Direction.DESC, "id");
         Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
-
-        if (tab == null) {
-            tab = "all";
-        }
 
         String searchWord;
         if (allRequestParams.containsKey("searchWord")) {
