@@ -127,7 +127,6 @@ public class CategoryController extends BaseController {
     }
 
     @RequestMapping(value = "/merge_post/{id}", method = RequestMethod.POST)
-    @ResponseBody
     public String merge_post(@PathVariable Long id, Long target_id) {
 
         return "redirect:/admin/category/categories";

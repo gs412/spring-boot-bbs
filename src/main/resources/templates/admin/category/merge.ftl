@@ -6,7 +6,8 @@
             <div class="box-header with-border">
                 <h3 class="box-title">合并分类</h3>
             </div>
-            <form id="form1" class="form-horizontal">
+            <form action="/admin/category/merge_post/${category.getId()}" method="post" class="form-horizontal">
+                <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
                 <div class="box-body">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label" style="white-space: nowrap;">将分类 “${category.getName()}” 合并到</label>
@@ -27,24 +28,6 @@
         </div>
     </div>
 </div>
-
-<script>
-	$(document).ready(function () {
-        $('#form1').submit(function () {
-	        let name = $('input#name').val()
-	        let tab = $('input#tab').val()
-	        let sort = $('input#sort').val()
-	        $.post('/admin/category/edit_post/${category.getId()}', {name: name, tab: tab, sort: sort}, function (json) {
-				if (json.success == 1) {
-                    window.location.href = '/admin/category/categories';
-				} else {
-					alert(json.message);
-				}
-	        })
-	        return false;
-        })
-    })
-</script>
 
 </@override>
 
