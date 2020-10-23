@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
+import com.springbootbbs.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,9 +22,10 @@ public class CategoryController extends BaseController {
 
     @Autowired
     CategoryRepository categoryRepository;
-
     @Autowired
     TopicRepository topicRepository;
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping("/categories")
     public String categories(ModelMap m) {
@@ -128,6 +130,11 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/merge_post/{id}", method = RequestMethod.POST)
     public String merge_post(@PathVariable Long id, Long target_id) {
+        Category sourceCategory = categoryRepository.findById(id).get();
+        Category targetCategory = categoryRepository.findById(target_id).get();
+        categoryRepository.updateCategoryByCategory(targetCategory, sourceCategory);
+
+        categoryService.delete(sourceCategory);
 
         return "redirect:/admin/category/categories";
     }

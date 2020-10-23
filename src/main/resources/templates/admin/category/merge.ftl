@@ -10,7 +10,7 @@
                 <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label" style="white-space: nowrap;">将分类 “${category.getName()}” 合并到</label>
+                        <label for="name" class="col-sm-2 control-label" style="white-space: nowrap; width: auto !important; padding-right: 0;">将分类 “${category.getName()}” 合并到</label>
                         <div class="col-sm-4">
                             <select name="target_id" class="form-control">
 	                            <#list categories as category>
@@ -19,6 +19,7 @@
                             </select>
                         </div>
                     </div>
+                    <p class="help-block">合并后本分类下的贴子会一并转移到目标分类</p>
                 </div>
                 <div class="box-footer">
                     <button type="button" class="btn btn-default btn-sm pull-right" onclick="history.go(-1)">取消</button>
