@@ -61,7 +61,7 @@ public class CategoryController extends BaseController {
             Category lastCategory = categoryRepository.findTopByOrderBySortDesc();
             Integer sort;
             if (lastCategory != null) {
-                sort = lastCategory.getSort() + 1;
+                sort = (lastCategory.getSort()/10)*10 + 10;
             } else {
                 sort = 1;
             }
