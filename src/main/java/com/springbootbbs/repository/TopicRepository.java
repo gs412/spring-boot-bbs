@@ -13,4 +13,6 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>
 
     Page<Topic> findAllByTitleLikeAndDeletedOrderByIdDesc(Pageable page, String title, Boolean deleted);
 
+    int countByCategoryIdAndDeleted(Long categoryId, Boolean deleted);
+
 }

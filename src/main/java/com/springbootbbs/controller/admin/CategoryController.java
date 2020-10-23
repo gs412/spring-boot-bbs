@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.repository.CategoryRepository;
+import com.springbootbbs.repository.TopicRepository;
 import freemarker.template.ObjectWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class CategoryController extends BaseController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    TopicRepository topicRepository;
 
     @RequestMapping("/categories")
     public String categories(ModelMap m) {
@@ -114,8 +118,12 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        if (topicRepository.countByCategoryIdAndDeleted(id, false) > 0) {
+            redirectAttributes.addFlashAttribute("message", "该分类下存在帖子，无法删除");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "已删除");
+        }
 
-        redirectAttributes.addFlashAttribute("message", "已删除");
         return "redirect:/admin/category/categories";
     }
 
