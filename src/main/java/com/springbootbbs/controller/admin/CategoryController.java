@@ -132,7 +132,7 @@ public class CategoryController extends BaseController {
     public String merge_post(@PathVariable Long id, Long target_id) {
         Category sourceCategory = categoryRepository.findById(id).get();
         Category targetCategory = categoryRepository.findById(target_id).get();
-        categoryRepository.updateCategoryByCategory(targetCategory, sourceCategory);
+        topicRepository.moveCategoryToCategory(sourceCategory, targetCategory);
 
         categoryService.delete(sourceCategory);
 
