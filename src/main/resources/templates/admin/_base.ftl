@@ -161,7 +161,6 @@
 				</a>
 				<ul class="treeview-menu">
 					<li class="false"><a href="/admin/topic/topics"><i class="fa fa-circle-o"></i> 所有帖子</a></li>
-					<li class="false"><a href="/admin/finances/trade_detail"><i class="fa fa-circle-o"></i> 所有资金流水</a></li>
 				</ul>
 			</li>
 			<li class="false treeview">
@@ -171,7 +170,6 @@
 				</a>
 				<ul class="treeview-menu">
 					<li class="active"><a href="/admin/category/categories"><i class="fa fa-circle-o"></i> 所有分类</a></li>
-					<li class="false"><a href="/admin/users/user_login_logs"><i class="fa fa-circle-o"></i> 登录记录</a></li>
 				</ul>
 			</li>
 		</ul>
