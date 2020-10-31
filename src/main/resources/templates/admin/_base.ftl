@@ -154,7 +154,7 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu" data-widget="tree">
 			<li class="header">MAIN NAVIGATION</li>
-			<li class="false treeview">
+			<li class="treeview <#if springMacroRequestContext.requestUri?starts_with("/admin/topic/")>active menu-open</#if>">
 				<a href="#">
 					<i class="fa fa-credit-card"></i> <span>帖子管理</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -163,7 +163,7 @@
 					<li class="false"><a href="/admin/topic/topics"><i class="fa fa-circle-o"></i> 所有帖子</a></li>
 				</ul>
 			</li>
-			<li class="false treeview">
+			<li class="treeview <#if springMacroRequestContext.requestUri?starts_with("/admin/category/")>active menu-open</#if>">
 				<a href="#">
 					<i class="fa fa-users"></i> <span>分类管理</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
