@@ -1,3 +1,5 @@
 body #body_container {
   width: 980px;
   margin: 0 auto; }
+  body #body_container .pagination ul li a:focus {
+    outline: none; }
