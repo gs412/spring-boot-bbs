@@ -1,4 +1,4 @@
-<#assign page_num=page.getNumber()+1>
+<#assign page_num=[page.getNumber()+1, page.getTotalPages()]?min>
 
 <#if page.isFirst()>
 	<li class="disabled">
