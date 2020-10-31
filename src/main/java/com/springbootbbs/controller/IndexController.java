@@ -39,12 +39,7 @@ public class IndexController extends BaseController {
         Order order = new Order(Direction.DESC, "id");
         Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
 
-        String searchWord;
-        if (allRequestParams.containsKey("searchWord")) {
-            searchWord = allRequestParams.get("searchWord");
-        } else {
-            searchWord = "";
-        }
+        String searchWord = allRequestParams.getOrDefault("searchWord", "");
 
         Page<Topic> page;
         if (!searchWord.isEmpty()) {

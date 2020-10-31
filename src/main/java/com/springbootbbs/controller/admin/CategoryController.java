@@ -70,7 +70,7 @@ public class CategoryController extends BaseController {
             category.setName(name);
             category.setTab(tab);
             category.setSort(sort);
-            categoryRepository.save(category);
+            categoryService.save(category);
 
             map.put("success", "1");
             map.put("message", "添加成功");
