@@ -35,7 +35,7 @@ public class IndexController extends BaseController {
     public String index(String p, @RequestParam(defaultValue = "all") String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
-        Integer p1 = NumberUtils.toInt(p, 1);
+        int p1 = NumberUtils.toInt(p, 1);
         Order order = new Order(Direction.DESC, "id");
         Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
 
