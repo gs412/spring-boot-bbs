@@ -1,5 +1,3 @@
-<#-- @ftlvariable name="searchWord" type="String" -->
-<#-- @ftlvariable name="tab" type="String" -->
 <#include "inc/head.ftl">
 
 <style>
