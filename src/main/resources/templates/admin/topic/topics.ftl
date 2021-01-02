@@ -23,7 +23,7 @@
                             <td>${topic.user.getUsername()}</td>
                             <td>${show_date(topic.getCreatedAt())}</td>
                             <td>
-	                            删除
+                                <a href="/admin/topic/topic/${topic.getId()}/remove" data-method="post">删除</a>
                             </td>
                         </tr>
 	                </#list>
