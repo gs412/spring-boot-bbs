@@ -25,7 +25,7 @@ public class TopicController extends BaseController {
 
     @RequestMapping("/topics")
     public String topics(String p, ModelMap m) {
-        Integer p1 = NumberUtils.toInt(p, 1);
+        int p1 = NumberUtils.toInt(p, 1);
         Order order = new Order(Direction.DESC, "id");
 
         Pageable pageable = PageRequest.of(p1 - 1, 20, Sort.by(order));
