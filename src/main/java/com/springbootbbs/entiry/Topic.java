@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "topics")
+@Table(name = "bbs_topics")
 public class Topic {
 
 	@Id

@@ -3,7 +3,7 @@ package com.springbootbbs.entiry;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "bbs_categories")
 public class Category {
 
     @Id

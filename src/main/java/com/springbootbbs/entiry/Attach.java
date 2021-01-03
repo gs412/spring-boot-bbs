@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Random;
 
 @Entity
-@Table(name = "attaches")
+@Table(name = "bbs_attaches")
 public class Attach {
 
     @Id
