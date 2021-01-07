@@ -86,7 +86,7 @@ public class TopicController extends BaseController {
         Optional<Topic> topic = topicRepository.findById(id);
 
         if (topic.isEmpty()) {
-            throw new PageNotFoundException("entity not found");
+            throw new PageNotFoundException("帖子不存在");
         }
 
         int p1 = NumberUtils.toInt(p, 1);

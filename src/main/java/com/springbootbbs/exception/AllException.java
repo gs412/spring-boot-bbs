@@ -29,7 +29,7 @@ public class AllException {
 	public ResponseEntity<Object> pageNotFoundException(PageNotFoundException e) {
 		return ResponseEntity
 				.status(HttpStatus.NOT_FOUND)
-				.body(e.getMessage());
+				.body("<h3>404 " + e.getMessage() + "</h3>");
 	}
 
 	// 其它异常异常捕捉
