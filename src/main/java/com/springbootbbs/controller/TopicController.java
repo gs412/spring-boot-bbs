@@ -6,6 +6,7 @@ import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Post;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.exception.PageNotFoundException;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.PostRepository;
 import com.springbootbbs.repository.TopicRepository;
@@ -85,8 +86,7 @@ public class TopicController extends BaseController {
         Optional<Topic> topic = topicRepository.findById(id);
 
         if (topic.isEmpty()) {
-            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
-            return "404";
+            throw new PageNotFoundException("entity not found");
         }
 
         int p1 = NumberUtils.toInt(p, 1);
