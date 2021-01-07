@@ -105,10 +105,15 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
     public String topic_edit(@PathVariable Long id, ModelMap m) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
-        Topic topic = topicRepository.findById(id).get();
-        Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
+        Optional<Topic> topic = topicRepository.findById(id);
 
-        m.addAttribute("topic", topic);
+        if (topic.isEmpty()) {
+            throw new PageNotFoundException("帖子不存在");
+        }
+
+        Post post = postRepository.findTopByIsFirstAndTopic(true, topic.get());
+
+        m.addAttribute("topic", topic.get());
         m.addAttribute("post", post);
         m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
@@ -119,10 +124,22 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) throws JsonProcessingException {
-        Category category = categoryRepository.findById(category_id).get();
-        Topic topic = topicRepository.findById(id).get();
+        Optional<Category> category = categoryRepository.findById(category_id);
+
+        if (category.isEmpty()) {
+            throw new PageNotFoundException("分类不存在");
+        }
+
+        Optional<Topic> topicOptional = topicRepository.findById(id);
+        Topic topic;
+        if (topicOptional.isEmpty()) {
+            throw new PageNotFoundException("铁子不存在");
+        } else {
+            topic = topicOptional.get();
+        }
+
         Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
-        topic.setCategory(category);
+        topic.setCategory(category.get());
         topic.setTitle(title);
         post.setContent(content);
         topicService.save(topic);
@@ -139,31 +156,45 @@ public class TopicController extends BaseController {
 
     @RequestMapping(value = "/topic/{id}/reply", method = RequestMethod.POST)
     public String topic_reply(@PathVariable Long id, String content) {
-        Topic topic = topicRepository.findById(id).get();
+        Optional<Topic> topic = topicRepository.findById(id);
+
+        if (topic.isEmpty()) {
+            throw new PageNotFoundException("帖子不存在");
+        }
 
         Post post = new Post();
         post.setContent(content);
         post.setIsFirst(false);
-        post.setTopic(topic);
+        post.setTopic(topic.get());
         post.setUser(getUser());
         postService.save(post);
 
-        return "redirect:/topic/"+topic.getId();
+        return "redirect:/topic/"+topic.get().getId();
     }
 
     @RequestMapping(value = "/topic/{id}/remove", method = RequestMethod.POST)
     public String topic_remove(@PathVariable Long id) {
-        Topic topic = topicRepository.findById(id).get();
-        topicService.soft_delete(topic);
+        Optional<Topic> topic = topicRepository.findById(id);
+
+        if (topic.isEmpty()) {
+            throw new PageNotFoundException("帖子不存在");
+        }
+
+        topicService.soft_delete(topic.get());
 
         return "redirect:/";
     }
 
     @RequestMapping(value = "/post/{id}/remove", method = RequestMethod.POST)
     public String post_remove(@PathVariable Long id) {
-        Post post = postRepository.findById(id).get();
-        Long topic_id = post.getTopic().getId();
-        postService.soft_delete(post);
+        Optional<Post> post = postRepository.findById(id);
+
+        if (post.isEmpty()) {
+            throw new PageNotFoundException("回帖不存在");
+        }
+
+        Long topic_id = post.get().getTopic().getId();
+        postService.soft_delete(post.get());
 
         return "redirect:/topic/" + topic_id;
     }
