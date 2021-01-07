@@ -18,12 +18,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -83,7 +85,8 @@ public class TopicController extends BaseController {
         Optional<Topic> topic = topicRepository.findById(id);
 
         if (topic.isEmpty()) {
-            return "帖子不存在";
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+            return "404";
         }
 
         int p1 = NumberUtils.toInt(p, 1);

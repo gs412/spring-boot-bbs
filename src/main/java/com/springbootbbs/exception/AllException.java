@@ -1,4 +1,4 @@
-package com.springbootbbs;
+package com.springbootbbs.exception;
 
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
