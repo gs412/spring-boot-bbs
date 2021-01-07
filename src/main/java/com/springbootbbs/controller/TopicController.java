@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Controller
 public class TopicController extends BaseController {
@@ -79,15 +80,19 @@ public class TopicController extends BaseController {
 
     @RequestMapping(value = "/topic/{id}")
     public String topic_show(@PathVariable Long id, String p, ModelMap m) {
-        Topic topic = topicRepository.findById(id).get();
+        Optional<Topic> topic = topicRepository.findById(id);
 
-        Integer p1 = NumberUtils.toInt(p, 1);
+        if (topic.isEmpty()) {
+            return "帖子不存在";
+        }
+
+        int p1 = NumberUtils.toInt(p, 1);
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "id");
         Pageable pageable = PageRequest.of(p1-1, 10, Sort.by(order));
 
         Page<Post> page = postRepository.findAllByTopicIdAndDeleted(id, pageable, false);
 
-        m.addAttribute("topic", topic);
+        m.addAttribute("topic", topic.get());
         m.addAttribute("page", page);
         m.addAttribute("user", getUser());
 
