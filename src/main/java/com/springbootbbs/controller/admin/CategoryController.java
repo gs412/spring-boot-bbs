@@ -3,6 +3,7 @@ package com.springbootbbs.controller.admin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
+import com.springbootbbs.exception.PageNotFoundException;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.service.CategoryService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Controller("admin.CategoryController")
 @RequestMapping("/admin/category")
@@ -59,7 +61,7 @@ public class CategoryController extends BaseController {
             map.put("message", "标签已经存在");
         } else {
             Category lastCategory = categoryRepository.findTopByOrderBySortDesc();
-            Integer sort;
+            int sort;
             if (lastCategory != null) {
                 sort = (lastCategory.getSort()/10)*10 + 10;
             } else {
@@ -102,7 +104,13 @@ public class CategoryController extends BaseController {
             map.put("success", "0");
             map.put("message", "标签已经存在");
         } else {
-            Category category = categoryRepository.findById(id).get();
+            Optional<Category> categoryOptional = categoryRepository.findById(id);
+
+            if (categoryOptional.isEmpty()) {
+                throw new PageNotFoundException("分类不存在");
+            }
+
+            Category category = categoryOptional.get();
             category.setName(name);
             category.setTab(tab);
             category.setSort(sort);
