@@ -1,0 +1,13 @@
+server:
+  port: 9494
+
+spring:
+  datasource:
+    name: dev
+    url: jdbc:mysql://localhost:3306/springbootbbs
+    username: root
+    password: root
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/

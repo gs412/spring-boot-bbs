@@ -3,4 +3,3 @@ target/
 upload/
 .sass-cache/
 *.iml
-application.yml
