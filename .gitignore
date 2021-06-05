@@ -2,5 +2,5 @@
 target/
 upload/
 .sass-cache/
-.iml
+*.iml
 application.yml
