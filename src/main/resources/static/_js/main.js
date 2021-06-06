@@ -33,7 +33,7 @@ jQuery.cookie = function(name, value, options) {
 				}
 			}
 		}
-		if(name=="csrftoken" && cookieValue==null){
+		if(name==="csrftoken"){
 			return $('meta[name=csrftoken]').attr("content");
 		}
 		return cookieValue;
@@ -110,17 +110,7 @@ function apply_post_method_on_a() {
 		}
 		var $method = $this.data('method');
 		if ($method && $method.toLowerCase() == 'post') {
-			var $json = $this.data('json');
-			if ($json) {
-				if (typeof $json == 'object') {
-					$json.csrfmiddlewaretoken = $.cookie('csrftoken');
-				} else {
-					alert("非json数据:\n\n"+$json);
-					return false;
-				}
-			} else {
-				$json = {csrfmiddlewaretoken:$.cookie('csrftoken')};
-			}
+			var $json = $this.data('json') || {};
 			$.form($this.attr('href'), $json, 'POST').submit();
 			return false;
 		}
