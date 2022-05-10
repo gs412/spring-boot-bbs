@@ -1,4 +1,4 @@
-<#include "inc/head.ftl">
+<#include "inc/head.ftlh">
 
 <form class="form-horizontal" action="login.action" method="post">
     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
@@ -23,4 +23,4 @@
 </form>
 
 
-<#include "inc/foot.ftl">
+<#include "inc/foot.ftlh">

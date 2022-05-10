@@ -1,4 +1,4 @@
-<#include "../inc/head.ftl">
+<#include "../inc/head.ftlh">
 
 <form id="form1" autocomplete="off" class="form-horizontal">
     <fieldset>
@@ -46,4 +46,4 @@
 	})
 </script>
 
-<#include "../inc/foot.ftl">
+<#include "../inc/foot.ftlh">

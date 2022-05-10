@@ -1,4 +1,4 @@
-<#include "inc/head.ftl">
+<#include "inc/head.ftlh">
 
 <h5>hello ${user.getUsername()}</h5>
 <h1>list HTML</h1>
@@ -8,4 +8,4 @@
 <a href="logout">退出</a>
 
 
-<#include "inc/foot.ftl">
+<#include "inc/foot.ftlh">

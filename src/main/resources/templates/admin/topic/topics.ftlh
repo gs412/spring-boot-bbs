@@ -32,7 +32,7 @@
             <!-- /.box-body -->
             <div class="box-footer clearfix">
                 <ul class="pagination pagination-sm no-margin pull-left">
-                    <#include "../../inc/pagestr.ftl">
+                    <#include "../../inc/pagestr.ftlh">
                 </ul>
             </div>
         </div>

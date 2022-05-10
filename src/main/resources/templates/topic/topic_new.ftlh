@@ -1,5 +1,5 @@
 <#-- @ftlvariable name="tab" type="String" -->
-<#include "../inc/head.ftl">
+<#include "../inc/head.ftlh">
 
 <form class="form-horizontal" action="/topic_save" method="post" autocomplete="off">
     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
@@ -33,4 +33,4 @@
 	</fieldset>
 </form>
 
-<#include "../inc/foot.ftl">
+<#include "../inc/foot.ftlh">

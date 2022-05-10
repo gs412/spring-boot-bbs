@@ -1,4 +1,4 @@
-<#include "../inc/head.ftl">
+<#include "../inc/head.ftlh">
 
 <h2>${topic.getTitle(50, "...")}</h2>
 
@@ -32,7 +32,7 @@
 <#if (page.getTotalPages() > 1)>
 	<div class="pagination">
 		<ul>
-			<#include "../inc/pagestr.ftl">
+			<#include "../inc/pagestr.ftlh">
 		</ul>
 	</div>
 </#if>
@@ -56,4 +56,4 @@
 	</form>
 </#if>
 
-<#include "../inc/foot.ftl">
+<#include "../inc/foot.ftlh">

@@ -1,4 +1,4 @@
-<#include "inc/head.ftl">
+<#include "inc/head.ftlh">
 
 <style>
 	.navbar .tabs {list-style: none; margin: 0; line-height: 40px;}
@@ -46,9 +46,9 @@
 <#if (page.getTotalPages() > 1)>
 	<div class="pagination">
 		<ul>
-			<#include "inc/pagestr.ftl">
+			<#include "inc/pagestr.ftlh">
 		</ul>
 	</div>
 </#if>
 
-<#include "inc/foot.ftl">
+<#include "inc/foot.ftlh">

@@ -1,4 +1,4 @@
-<#include "../inc/head.ftl">
+<#include "../inc/head.ftlh">
 
 <form id="edit_form" class="form-horizontal" autocomplete="off">
     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
@@ -51,4 +51,4 @@
     })
 </script>
 
-<#include "../inc/foot.ftl">
+<#include "../inc/foot.ftlh">

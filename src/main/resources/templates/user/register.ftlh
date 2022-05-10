@@ -1,4 +1,4 @@
-<#include "../inc/head.ftl">
+<#include "../inc/head.ftlh">
 
 <form class="form-horizontal" action="/user/register_save" method="post">
     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
@@ -28,4 +28,4 @@
 	</fieldset>
 </form>
 
-<#include "../inc/foot.ftl">
+<#include "../inc/foot.ftlh">
