@@ -12,7 +12,7 @@
 		    <div style="padding:6px 0 3px; margin:0 0 15px 0; border-bottom:1px solid #ddd;">发布于 ${topic.getCreatedAt()}</div>
 		    <div style="position:absolute; right:20px; top:8px;">#${page.getNumber()*10 + post?index + 1}</div>
 		    <div style="min-height: 140px;">
-		        ${post.getContentHtml()}
+		        ${post.getContentHtml()?no_esc}
 		    </div>
 		    <div>
 			    <#if user?? && user.username == 'admin'>
