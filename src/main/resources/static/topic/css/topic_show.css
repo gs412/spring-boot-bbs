@@ -1,0 +1,40 @@
+.post {
+  border: 1px solid #666;
+}
+.post .user_info {
+  min-height: 200px;
+  float: left;
+  width: 190px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.post .user_info .user_name {
+  font-weight: bold;
+}
+.post .main {
+  min-height: 200px;
+  margin-left: 200px;
+  border-left: 1px solid #666;
+  word-break: break-all;
+  box-sizing: border-box;
+  padding: 1px 20px 20px 20px;
+  position: relative;
+}
+.post .main .post_info {
+  padding: 6px 0 3px;
+  margin: 0 0 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+.post .main .floor {
+  position: absolute;
+  right: 20px;
+  top: 8px;
+}
+.post .main .post_content {
+  min-height: 140px;
+}
+.post .main .post_content img {
+  max-height: 400px;
+}
+
+/*# sourceMappingURL=topic_show.css.map */
