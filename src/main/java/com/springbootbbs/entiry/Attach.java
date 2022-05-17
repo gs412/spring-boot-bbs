@@ -56,7 +56,8 @@ public class Attach {
     private MultipartFile multipartFile;
 
     public enum OwnerType {
-        USER_FACE;
+        USER_FACE,
+        TOPIC_FILE;
     }
 
     public Long getId() {

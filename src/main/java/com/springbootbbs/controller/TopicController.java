@@ -2,15 +2,13 @@ package com.springbootbbs.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springbootbbs.entiry.Category;
-import com.springbootbbs.entiry.Post;
-import com.springbootbbs.entiry.Topic;
-import com.springbootbbs.entiry.User;
+import com.springbootbbs.entiry.*;
 import com.springbootbbs.exception.PageNotFoundException;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.PostRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.repository.UserRepository;
+import com.springbootbbs.service.AttachService;
 import com.springbootbbs.service.PostService;
 import com.springbootbbs.service.TopicService;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -22,10 +20,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
@@ -38,6 +34,8 @@ public class TopicController extends BaseController {
     TopicService topicService;
     @Autowired
     PostService postService;
+    @Autowired
+    AttachService attachService;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -197,6 +195,39 @@ public class TopicController extends BaseController {
         postService.soft_delete(post.get());
 
         return "redirect:/topic/" + topic_id;
+    }
+
+    @RequestMapping(value = "/topic_upload", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public String topic_upload(@RequestParam("file")MultipartFile file) throws JsonProcessingException {
+        User user = getUser();
+        HashMap<String, String> map = new HashMap<>();
+
+        if (file.isEmpty()) {
+            map.put("success", "0");
+            map.put("message", "上传失败，请选择文件");
+        } else if (file.getSize() > 1024 * 1024 * 10) {
+            map.put("success", "0");
+            map.put("message", "最大不超过10M");
+        } else {
+            Attach attach = new Attach();
+            attach.setFile(file);
+            attach.setOwnerType(Attach.OwnerType.TOPIC_FILE);
+            attach.setOwnerId(0L);
+            attach.setUser(user);
+            Attach attach_result = attachService.save(attach);
+            if (attach_result == null) {
+                map.put("success", "0");
+                map.put("message", "上传文件失败");
+            } else {
+                map.put("success", "1");
+                map.put("message", "上传成功");
+                map.put("id", String.valueOf(attach_result.getId()));
+            }
+        }
+
+        String json = new ObjectMapper().writeValueAsString(map);
+        return json;
     }
 
 }

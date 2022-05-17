@@ -1,0 +1,15 @@
+.control-group .controls .toolbar {
+  margin-bottom: 3px;
+}
+.control-group .controls .toolbar i.fa {
+  display: inline-block;
+}
+.control-group .controls .toolbar i.fa-image {
+  cursor: pointer;
+  padding: 3px 5px;
+}
+.control-group .controls .toolbar i.fa-image:hover {
+  background: #dbedff;
+}
+
+/*# sourceMappingURL=topic_edit.css.map */
