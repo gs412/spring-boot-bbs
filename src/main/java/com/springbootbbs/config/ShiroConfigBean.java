@@ -90,7 +90,7 @@ public class ShiroConfigBean {
 		securityManager.setRealm(myShiroRealm());
         // 注入缓存管理器;
 		securityManager.setCacheManager(ehCacheManager());
-
+		// 注入rememberMe管理器
 		securityManager.setRememberMeManager(rememberMeManager());
 
 		return securityManager;
