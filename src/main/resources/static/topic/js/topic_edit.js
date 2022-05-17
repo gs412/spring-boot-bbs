@@ -20,7 +20,7 @@ $(document).ready(function () {
                 if (json.success) {
                     let text;
                     if (json.isImage) {
-                        text = `![${json.fileName}](${json.url})`;
+                        text = `![](${json.url})`;
                     } else {
                         text = `[${json.fileName}](${json.url})`;
                     }
