@@ -17,7 +17,7 @@ public class Utils {
 	public static String subTextString(String str,int len, String suffix){
 		if(str.length()<len/2)return str;
 		int count = 0;
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		String[] ss = str.split("");
 		for(int i=1;i<ss.length;i++){
 			count+=ss[i].getBytes().length>1?2:1;
