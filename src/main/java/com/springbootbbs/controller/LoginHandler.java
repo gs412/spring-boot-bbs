@@ -34,7 +34,7 @@ public class LoginHandler {
 			// 把用户名和密码封装为 UsernamePasswordToken 对象
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 
-			// remembermMe记住密码
+			// rememberMe记住密码
 			token.setRememberMe(true);
 			try {
 				// 执行登录.
