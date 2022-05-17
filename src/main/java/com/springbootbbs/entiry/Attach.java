@@ -57,7 +57,7 @@ public class Attach {
 
     public enum OwnerType {
         USER_FACE,
-        TOPIC_FILE;
+        POST_ATTACH;
     }
 
     public Long getId() {

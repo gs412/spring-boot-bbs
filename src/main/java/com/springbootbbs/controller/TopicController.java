@@ -212,7 +212,7 @@ public class TopicController extends BaseController {
         } else {
             Attach attach = new Attach();
             attach.setFile(file);
-            attach.setOwnerType(Attach.OwnerType.TOPIC_FILE);
+            attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
             attach.setOwnerId(0L);
             attach.setUser(user);
             Attach attach_result = attachService.save(attach);
