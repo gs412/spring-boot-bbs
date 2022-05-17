@@ -201,7 +201,7 @@ public class TopicController extends BaseController {
     @ResponseBody
     public String topic_upload(@RequestParam("file")MultipartFile file) throws JsonProcessingException {
         User user = getUser();
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
 
         if (file.isEmpty()) {
             map.put("success", "0");
@@ -222,7 +222,9 @@ public class TopicController extends BaseController {
             } else {
                 map.put("success", "1");
                 map.put("message", "上传成功");
-                map.put("id", String.valueOf(attach_result.getId()));
+                map.put("isImage", Boolean.valueOf(attach.getContentType().startsWith("image/")));
+                map.put("fileName", attach.getName());
+                map.put("url", "/attach/show/" + String.valueOf(attach_result.getId()));
             }
         }
 

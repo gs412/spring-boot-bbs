@@ -17,7 +17,17 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (json) {
-                console.log(json)
+                if (json.success) {
+                    let text;
+                    if (json.isImage) {
+                        text = `![${json.fileName}](${json.url})`;
+                    } else {
+                        text = `[${json.fileName}](${json.url})`;
+                    }
+                    $('textarea#content').insertAtCaret(text)
+                } else {
+                    show_msg(json.message)
+                }
             },
         })
     });

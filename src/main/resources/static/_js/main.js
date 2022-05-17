@@ -85,6 +85,52 @@ jQuery(function ($) {
             return form.appendTo('body');
         }
     });
+
+	$.fn.extend({
+		/**
+		 * 初始化对象以支持光标处插入内容
+		 */
+		setCaret: function(){
+			if(/msie/.test(navigator.userAgent.toLowerCase())==false) return;
+			let initSetCaret = function(){
+				let textObj = $(this).get(0);
+				textObj.caretPos = document.selection.createRange().duplicate();
+			};
+			$(this)
+				.click(initSetCaret)
+				.select(initSetCaret)
+				.keyup(initSetCaret);
+		},
+		/**
+		 * 在当前对象光标处插入指定的内容
+		 */
+		insertAtCaret: function(textFeildValue){
+			let textObj = $(this).get(0);
+			if(document.all && textObj.createTextRange && textObj.caretPos){
+				let caretPos=textObj.caretPos;
+				caretPos.text = caretPos.text.charAt(caretPos.text.length-1) == '' ?
+					textFeildValue+'' : textFeildValue;
+				caretPos.select();
+			}else if(textObj.setSelectionRange){
+				let rangeStart=textObj.selectionStart;
+				let rangeEnd=textObj.selectionEnd;
+				let tempStr1=textObj.value.substring(0,rangeStart);
+				let tempStr2=textObj.value.substring(rangeEnd);
+				if ((tempStr1.split('[').last()+tempStr2.split(']').first()).match(/^附件\d+$/i)) { //jys
+					let $move = tempStr2.split(']').first().length+1;
+					rangeStart += $move;
+					tempStr1=textObj.value.substring(0,rangeStart);
+					tempStr2=textObj.value.substring(rangeEnd+$move);
+				}
+				textObj.value=tempStr1+textFeildValue+tempStr2;
+				textObj.focus();
+				let len=textFeildValue.length;
+				textObj.setSelectionRange(rangeStart+len,rangeStart+len);
+			}else {
+				textObj.value+=textFeildValue;
+			}
+		}
+	})
 });
 // 调用方式： $.form('xxxurl', $json, 'POST').submit();
 
