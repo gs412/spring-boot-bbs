@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("/attach")
@@ -29,8 +33,14 @@ public class AttachController extends BaseController {
     public void show(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Attach attach = attachRepository.findById(id).get();
 
-        File file = new File(attach.getAbsolutePath());
         response.setContentType(attach.getContentType());
+        if (!attach.getContentType().startsWith("image/")) {
+            String fileName = URLEncoder.encode(attach.getName(), "UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+            response.setContentLengthLong(attach.getSize());
+        }
+
+        File file = new File(attach.getAbsolutePath());
         InputStream in=new FileInputStream(file);
         IOUtils.copy(in, response.getOutputStream());
     }
