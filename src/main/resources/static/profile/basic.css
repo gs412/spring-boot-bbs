@@ -2,5 +2,8 @@
   max-height: 150px;
   max-width: 150px;
 }
+.control-group .controls input[name=user_face] {
+  vertical-align: bottom;
+}
 
 /*# sourceMappingURL=basic.css.map */

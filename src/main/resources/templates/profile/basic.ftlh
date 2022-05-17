@@ -1,5 +1,7 @@
 <#include "../inc/head.ftlh">
 
+<link rel="stylesheet" href="/static/profile/basic.css">
+
 <form id="form1" autocomplete="off" class="form-horizontal">
   <fieldset>
     <legend>基本资料</legend>
