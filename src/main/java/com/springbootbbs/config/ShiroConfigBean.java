@@ -40,7 +40,7 @@ public class ShiroConfigBean {
 		filterChainDefinitionMap.put("/login.action", "anon");
 		filterChainDefinitionMap.put("/Exception.class", "anon");
 		// 我写的url一般都是xxx.action，根据你的情况自己修改
-		filterChainDefinitionMap.put("/*.action", "authc");
+		filterChainDefinitionMap.put("/*.action", "roles[user]");
 		// 退出系统的过滤器
 		filterChainDefinitionMap.put("/logout", "logout");
 		// 现在资源的角色
@@ -50,9 +50,9 @@ public class ShiroConfigBean {
         filterChainDefinitionMap.put("/admin*", "roles[admin]");
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
 
-		filterChainDefinitionMap.put("/topic_new", "authc");
-		filterChainDefinitionMap.put("/topic_save", "authc");
-		filterChainDefinitionMap.put("/topic_reply", "authc");
+		filterChainDefinitionMap.put("/topic_new", "roles[user]");
+		filterChainDefinitionMap.put("/topic_save", "roles[user]");
+		filterChainDefinitionMap.put("/topic_reply", "roles[user]");
 		// 临时测试
 		filterChainDefinitionMap.put("/user/*", "anon");
 		// 最后一班都，固定格式
