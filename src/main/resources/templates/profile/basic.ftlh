@@ -21,15 +21,15 @@
 <script>
 	$(document).ready(function () {
 		$('#form1').submit(function () {
-            var $file = document.querySelector("input[name='user_face']").files[0];
-            var fd = new FormData();
+            const $file = document.querySelector("input[name='user_face']").files[0];
+            const fd = new FormData();
             fd.append('user_face', $file);
 
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function(){
                 if(xhr.readyState==4 && xhr.status==200){
-	                var json = JSON.parse(xhr.responseText);
-	                if (json.success == 1) {
+                    const json = JSON.parse(xhr.responseText);
+                    if (json.success == 1) {
                         window.location.reload();
                     } else {
 		                alert(json.message);
