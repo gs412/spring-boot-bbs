@@ -1,5 +1,6 @@
 package com.springbootbbs.entiry;
 
+import com.springbootbbs.libs.Utils;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -110,6 +111,7 @@ public class Post {
 		new_content = new_content.replace("\n", "<br>");
 		new_content = new_content.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
 		new_content = new_content.replace(" ", "&nbsp;");
+		new_content = Utils.markDown(new_content);
 
 		return new_content;
 	}
