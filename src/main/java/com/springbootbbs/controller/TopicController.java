@@ -172,7 +172,7 @@ public class TopicController extends BaseController {
         List<Long> aids = pickAidsFromContent(content);
         for (Long aid : aids) {
             Optional<Attach> oAttach = attachRepository.findById(aid);
-            if (!oAttach.isEmpty()) {
+            if (oAttach.isPresent()) {
                 Attach attach = oAttach.get();
                 if (attach.getOwneId() == 0L) {
                     attach.setOwnerId(post.getId());
