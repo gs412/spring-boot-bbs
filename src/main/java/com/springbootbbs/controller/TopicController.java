@@ -153,7 +153,7 @@ public class TopicController extends BaseController {
         Optional<Topic> topicOptional = topicRepository.findById(id);
         Topic topic;
         if (topicOptional.isEmpty()) {
-            throw new PageNotFoundException("铁子不存在");
+            throw new PageNotFoundException("帖子不存在");
         } else {
             topic = topicOptional.get();
         }
