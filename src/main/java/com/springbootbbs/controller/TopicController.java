@@ -91,6 +91,7 @@ public class TopicController extends BaseController {
             }
         }
 
+        // 把无主(ownerId=0)的附件都查出来删除
         List<Attach> noOwnerAttaches = attachRepository.findAllByOwnerIdAndOwnerTypeAndUser(0L, Attach.OwnerType.POST_ATTACH, user);
         for (Attach attach : noOwnerAttaches) {
             attachService.delete(attach);
