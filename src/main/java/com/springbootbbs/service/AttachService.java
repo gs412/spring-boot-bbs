@@ -18,7 +18,12 @@ public class AttachService {
 
         attach.setUpdatedAt(date);
 
-        Boolean uploadSuccess = attach.upload();
+        Boolean uploadSuccess;
+        if (attach.getId() == null) {           // 新上传的
+            uploadSuccess = attach.upload();
+        } else {                                // 已经存在的，当然默认上传成功
+            uploadSuccess = true;
+        }
 
         if (uploadSuccess) {
             return attachRepository.save(attach);

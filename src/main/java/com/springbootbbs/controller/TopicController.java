@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.*;
 import com.springbootbbs.exception.PageNotFoundException;
-import com.springbootbbs.repository.CategoryRepository;
-import com.springbootbbs.repository.PostRepository;
-import com.springbootbbs.repository.TopicRepository;
-import com.springbootbbs.repository.UserRepository;
+import com.springbootbbs.repository.*;
 import com.springbootbbs.service.AttachService;
 import com.springbootbbs.service.PostService;
 import com.springbootbbs.service.TopicService;
@@ -17,15 +14,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class TopicController extends BaseController {
@@ -44,6 +43,8 @@ public class TopicController extends BaseController {
     PostRepository postRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    AttachRepository attachRepository;
 
 
     @RequestMapping("/topic_new")
@@ -75,6 +76,25 @@ public class TopicController extends BaseController {
         post.setTopic(topic);
         post.setUser(user);
         postService.save(post);
+
+        List<Long> aids = pickAidsFromContent(content);
+        for (Long aid : aids) {
+            Optional<Attach> oAttach = attachRepository.findById(aid);
+            if (!oAttach.isEmpty()) {
+                Attach attach = oAttach.get();
+                if (attach.getOwneId() == 0L) {
+                    attach.setOwnerId(post.getId());
+                    attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
+                    attach.setUser(user);
+                    attachService.save(attach);
+                }
+            }
+        }
+
+        List<Attach> noOwnerAttaches = attachRepository.findAllByOwnerIdAndOwnerTypeAndUser(0L, Attach.OwnerType.POST_ATTACH, user);
+        for (Attach attach : noOwnerAttaches) {
+            attachService.delete(attach);
+        }
 
         return "redirect:/";
     }
@@ -215,8 +235,7 @@ public class TopicController extends BaseController {
             attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
             attach.setOwnerId(0L);
             attach.setUser(user);
-            Attach attach_result = attachService.save(attach);
-            if (attach_result == null) {
+            if (attachService.save(attach) == null) {
                 map.put("success", "0");
                 map.put("message", "上传文件失败");
             } else {
@@ -224,12 +243,24 @@ public class TopicController extends BaseController {
                 map.put("message", "上传成功");
                 map.put("isImage", Boolean.valueOf(attach.getContentType().startsWith("image/")));
                 map.put("fileName", attach.getName());
-                map.put("url", "/attach/show/" + String.valueOf(attach_result.getId()));
+                map.put("url", "/attach/show/" + String.valueOf(attach.getId()));
             }
         }
 
         String json = new ObjectMapper().writeValueAsString(map);
         return json;
+    }
+
+    private List<Long> pickAidsFromContent(String content) {
+        List<Long> adis = new ArrayList<>();
+
+        System.out.println(content);
+        Matcher m = Pattern.compile("\\]\\(/attach/show/(\\d+)\\)").matcher(content);
+        while (m.find()) {
+            adis.add(Long.valueOf(m.group(1)));
+        }
+
+        return adis;
     }
 
 }
