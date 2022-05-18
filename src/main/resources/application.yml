@@ -12,3 +12,5 @@ spring:
   web:
     resources:
       static-locations: file:D:\111\javafiles\spring-boot-bbs\src\main\resources\static
+  jpa:
+    show-sql: false

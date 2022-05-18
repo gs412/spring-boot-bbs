@@ -143,6 +143,7 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) throws JsonProcessingException {
+        User user = getUser();
         Optional<Category> category = categoryRepository.findById(category_id);
 
         if (category.isEmpty()) {
@@ -163,6 +164,30 @@ public class TopicController extends BaseController {
         post.setContent(content);
         topicService.save(topic);
         postService.save(post);
+
+        // 先把该post的所有attach设为无主
+        attachRepository.updateOwnerIdByOwnerIdAndOwnerTypeAndUser(0L, post.getId(), Attach.OwnerType.POST_ATTACH, user);
+
+        // 把aid在内容中出现的设置为有主(本post)
+        List<Long> aids = pickAidsFromContent(content);
+        for (Long aid : aids) {
+            Optional<Attach> oAttach = attachRepository.findById(aid);
+            if (!oAttach.isEmpty()) {
+                Attach attach = oAttach.get();
+                if (attach.getOwneId() == 0L) {
+                    attach.setOwnerId(post.getId());
+                    attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
+                    attach.setUser(user);
+                    attachService.save(attach);
+                }
+            }
+        }
+
+        // 把无主(ownerId=0)的附件都查出来删除
+        List<Attach> noOwnerAttaches = attachRepository.findAllByOwnerIdAndOwnerTypeAndUser(0L, Attach.OwnerType.POST_ATTACH, user);
+        for (Attach attach : noOwnerAttaches) {
+            attachService.delete(attach);
+        }
 
         HashMap<String, String> map = new HashMap<>();
         map.put("success", "1");

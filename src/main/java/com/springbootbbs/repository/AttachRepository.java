@@ -2,9 +2,11 @@ package com.springbootbbs.repository;
 
 import com.springbootbbs.entiry.Attach;
 import com.springbootbbs.entiry.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,7 +20,9 @@ public interface AttachRepository extends PagingAndSortingRepository<Attach, Lon
 
     List<Attach> findAllByOwnerIdAndOwnerTypeAndUser(Long ownerId, Attach.OwnerType ownerType, User user);
 
-    @Query("update bbs_attach set owner_id = :ownerId where owner_id = :oldOwnerId and owner_type = :ownerType and user_id = :#{#user.getId()}")
+    @Modifying
+    @Transactional
+    @Query("update Attach set ownerId = :ownerId where ownerId = :oldOwnerId and ownerType = :ownerType and user = :user")
     void updateOwnerIdByOwnerIdAndOwnerTypeAndUser(
             @Param("ownerId") Long ownerId,
             @Param("oldOwnerId") Long oldOwnerId,
