@@ -267,7 +267,7 @@ public class TopicController extends BaseController {
             } else {
                 map.put("success", "1");
                 map.put("message", "上传成功");
-                map.put("isImage", Boolean.valueOf(attach.getContentType().startsWith("image/")));
+                map.put("isImage", attach.getContentType().startsWith("image/"));
                 map.put("fileName", attach.getName());
                 map.put("url", "/attach/show/" + String.valueOf(attach.getId()));
             }
