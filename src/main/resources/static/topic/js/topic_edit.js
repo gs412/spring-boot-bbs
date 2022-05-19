@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    // 上传附件的相关逻辑
     let input_upload_file = $('.toolbar input#upload_file');
 
     $('.toolbar .fa-image').click(function () {

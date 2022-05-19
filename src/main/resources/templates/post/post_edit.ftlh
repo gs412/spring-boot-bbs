@@ -8,22 +8,6 @@
   <fieldset>
     <legend>编辑回帖</legend>
     <div class="control-group">
-      <label for="title" class="control-label">节点</label>
-      <div class="controls">
-        <select name="category_id" id="category_id">
-            <#list categories as category>
-              <option value="${category.getId()}" <#if category == topic.getCategory()>selected</#if>>${category.getName()}</option>
-            </#list>
-        </select>
-      </div>
-    </div>
-    <div class="control-group">
-      <label for="title" class="control-label">标题</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge" id="title" value="${topic.getTitle()}">
-      </div>
-    </div>
-    <div class="control-group">
       <label for="content" class="control-label">内容</label>
       <div class="controls">
         <div class="toolbar">
@@ -43,17 +27,11 @@
 <script>
     $(document).ready(function () {
         $('#edit_form').submit(function () {
-            let category_id = $('#category_id').val()
-            let title = $('#title').val()
             let content = $('#content').val()
 
-            $.post('/topic/${topic.getId()}/edit_post', {
-                category_id: category_id,
-                title: title,
-                content: content
-            }, function (json) {
+            $.post('/post/${post.getId()}/edit_post', {content: content}, function (json) {
                 if (json.success) {
-                    window.location = "/topic/${topic.getId()}";
+                    window.location = "/topic/${post.topic.getId()}#post_${post.getId()}";
                 }
             });
 

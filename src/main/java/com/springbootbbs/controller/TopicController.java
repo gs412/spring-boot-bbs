@@ -230,18 +230,42 @@ public class TopicController extends BaseController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/post/{id}/edit", method = RequestMethod.POST)
-    public String post_edit(@PathVariable Long id) {
-        Optional<Post> post = postRepository.findById(id);
+    @RequestMapping(value = "/post/{id}/edit")
+    public String post_edit(@PathVariable Long id, ModelMap m) {
+        Optional<Post> oPost = postRepository.findById(id);
 
-        if (post.isEmpty()) {
+        if (oPost.isEmpty()) {
             throw new PageNotFoundException("回帖不存在");
         }
 
-        Long topic_id = post.get().getTopic().getId();
-        postService.soft_delete(post.get());
+        Post post = oPost.get();
+
+        m.addAttribute("post", post);
 
         return "post/post_edit";
+    }
+
+    @RequestMapping(value = "/post/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public String post_edit_post(@PathVariable Long id, String content) throws JsonProcessingException {
+        Optional<Post> oPost = postRepository.findById(id);
+
+        if (oPost.isEmpty()) {
+            throw new PageNotFoundException("回帖不存在");
+        }
+
+        Post post = oPost.get();
+        post.setContent(content);
+        System.out.println("更新成功post");
+        postService.save(post);
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("success", "1");
+        map.put("message", "ok");
+
+        String json = new ObjectMapper().writeValueAsString(map);
+
+        return json;
     }
 
     @RequestMapping(value = "/post/{id}/remove", method = RequestMethod.POST)
