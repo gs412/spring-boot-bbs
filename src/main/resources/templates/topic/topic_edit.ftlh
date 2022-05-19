@@ -4,17 +4,16 @@
 <script src="/static/topic/js/topic_edit.js"></script>
 
 <form id="edit_form" class="form-horizontal" autocomplete="off">
-    <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
+  <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 	<fieldset>
 		<legend>编辑帖子</legend>
     <div class="control-group">
       <label for="title" class="control-label">节点</label>
       <div class="controls">
         <select name="category_id" id="category_id">
-            <#list categories as category>
-              <option value="${category.getId()}"
-                      <#if category == topic.getCategory()>selected</#if>>${category.getName()}</option>
-            </#list>
+          <#list categories as category>
+            <option value="${category.getId()}" <#if category == topic.getCategory()>selected</#if>>${category.getName()}</option>
+          </#list>
         </select>
       </div>
     </div>
@@ -42,19 +41,23 @@
 </form>
 
 <script>
-	$(document).ready(function () {
-		$('#edit_form').submit(function () {
+    $(document).ready(function () {
+        $('#edit_form').submit(function () {
             let category_id = $('#category_id').val()
             let title = $('#title').val()
             let content = $('#content').val()
 
-			$.post('/topic/${topic.getId()}/edit_post', {category_id: category_id, title: title, content: content}, function (json) {
-				if (json.success) {
-					window.location = "/topic/${topic.getId()}";
+            $.post('/topic/${topic.getId()}/edit_post', {
+                category_id: category_id,
+                title: title,
+                content: content
+            }, function (json) {
+                if (json.success) {
+                    window.location = "/topic/${topic.getId()}";
                 }
-			});
+            });
 
-			return false;
+            return false;
         })
     })
 </script>

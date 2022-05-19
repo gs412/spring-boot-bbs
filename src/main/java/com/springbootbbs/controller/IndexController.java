@@ -60,6 +60,7 @@ public class IndexController extends BaseController {
             }
         }
 
+        m.addAttribute("title", "Spring Boot BBS - 首页");
         m.addAttribute("page", page);
         m.addAttribute("topics", topics);
         m.addAttribute("user", getUser());
