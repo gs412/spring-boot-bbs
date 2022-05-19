@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" href="/static/topic/css/topic_show.css">
 <script src="/static/topic/js/topic_show.js"></script>
+<script src="/static/topic/js/topic_edit.js"></script>
 
 <h2>${topic.getTitle(50, "...")}</h2>
 
@@ -50,6 +51,10 @@
 			<div class="control-group">
 				<label for="content" class="control-label" style="width:180px;">内容</label>
 				<div class="controls" style="margin-left:200px;">
+					<div class="toolbar">
+						<i class="fa fa-image" title="上传图片，也可以上传其它类型文件"></i>
+						<input type="file" id="upload_file" style="display: none;">
+					</div>
 					<textarea name="content" id="content" style="width:700px; height:155px; resize:none;"></textarea>
 				</div>
 			</div>
