@@ -1,0 +1,22 @@
+@mixin toolbar {
+  .control-group {
+    .controls {
+      .toolbar {
+        margin-bottom: 3px;
+
+        i.fa {
+          display: inline-block;
+        }
+
+        i.fa-image {
+          cursor: pointer;
+          padding: 3px 5px;
+
+          &:hover {
+            background: #dbedff;
+          }
+        }
+      }
+    }
+  }
+}
