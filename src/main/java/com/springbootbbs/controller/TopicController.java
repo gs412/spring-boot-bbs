@@ -77,25 +77,7 @@ public class TopicController extends BaseController {
         post.setUser(user);
         postService.save(post);
 
-        List<Long> aids = pickAidsFromContent(content);
-        for (Long aid : aids) {
-            Optional<Attach> oAttach = attachRepository.findById(aid);
-            if (!oAttach.isEmpty()) {
-                Attach attach = oAttach.get();
-                if (attach.getOwneId() == 0L) {
-                    attach.setOwnerId(post.getId());
-                    attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
-                    attach.setUser(user);
-                    attachService.save(attach);
-                }
-            }
-        }
-
-        // 把无主(ownerId=0)的附件都查出来删除
-        List<Attach> noOwnerAttaches = attachRepository.findAllByOwnerIdAndOwnerTypeAndUser(0L, Attach.OwnerType.POST_ATTACH, user);
-        for (Attach attach : noOwnerAttaches) {
-            attachService.delete(attach);
-        }
+        manageAttachForPostCreate(post);
 
         return "redirect:/";
     }
@@ -166,29 +148,7 @@ public class TopicController extends BaseController {
         topicService.save(topic);
         postService.save(post);
 
-        // 先把该post的所有attach设为无主
-        attachRepository.updateOwnerIdByOwnerIdAndOwnerTypeAndUser(0L, post.getId(), Attach.OwnerType.POST_ATTACH, user);
-
-        // 把aid在内容中出现的设置为有主(本post)
-        List<Long> aids = pickAidsFromContent(content);
-        for (Long aid : aids) {
-            Optional<Attach> oAttach = attachRepository.findById(aid);
-            if (oAttach.isPresent()) {
-                Attach attach = oAttach.get();
-                if (attach.getOwneId() == 0L) {
-                    attach.setOwnerId(post.getId());
-                    attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
-                    attach.setUser(user);
-                    attachService.save(attach);
-                }
-            }
-        }
-
-        // 把无主(ownerId=0)的附件都查出来删除
-        List<Attach> noOwnerAttaches = attachRepository.findAllByOwnerIdAndOwnerTypeAndUser(0L, Attach.OwnerType.POST_ATTACH, user);
-        for (Attach attach : noOwnerAttaches) {
-            attachService.delete(attach);
-        }
+        manageAttachForPostUpdate(post);
 
         HashMap<String, String> map = new HashMap<>();
         map.put("success", "1");
@@ -213,6 +173,8 @@ public class TopicController extends BaseController {
         post.setTopic(topic.get());
         post.setUser(getUser());
         postService.save(post);
+
+        manageAttachForPostCreate(post);
 
         return "redirect:/topic/"+topic.get().getId();
     }
@@ -258,6 +220,8 @@ public class TopicController extends BaseController {
         post.setContent(content);
         System.out.println("更新成功post");
         postService.save(post);
+
+        manageAttachForPostUpdate(post);
 
         HashMap<String, String> map = new HashMap<>();
         map.put("success", "1");
@@ -326,6 +290,54 @@ public class TopicController extends BaseController {
         }
 
         return adis;
+    }
+
+    private void manageAttachForPostCreate(Post post) {
+        List<Long> aids = pickAidsFromContent(post.getContent());
+        for (Long aid : aids) {
+            Optional<Attach> oAttach = attachRepository.findById(aid);
+            if (!oAttach.isEmpty()) {
+                Attach attach = oAttach.get();
+                if (attach.getOwneId() == 0L) {
+                    attach.setOwnerId(post.getId());
+                    attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
+                    attach.setUser(post.getUser());
+                    attachService.save(attach);
+                }
+            }
+        }
+
+        // 把无主(ownerId=0)的附件都查出来删除
+        List<Attach> noOwnerAttaches = attachRepository.findAllByOwnerIdAndOwnerTypeAndUser(0L, Attach.OwnerType.POST_ATTACH, post.getUser());
+        for (Attach attach : noOwnerAttaches) {
+            attachService.delete(attach);
+        }
+    }
+
+    private void manageAttachForPostUpdate(Post post) {
+        // 先把该post的所有attach设为无主
+        attachRepository.updateOwnerIdByOwnerIdAndOwnerTypeAndUser(0L, post.getId(), Attach.OwnerType.POST_ATTACH, post.getUser());
+
+        // 把aid在内容中出现的设置为有主(本post)
+        List<Long> aids = pickAidsFromContent(post.getContent());
+        for (Long aid : aids) {
+            Optional<Attach> oAttach = attachRepository.findById(aid);
+            if (oAttach.isPresent()) {
+                Attach attach = oAttach.get();
+                if (attach.getOwneId() == 0L) {
+                    attach.setOwnerId(post.getId());
+                    attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
+                    attach.setUser(post.getUser());
+                    attachService.save(attach);
+                }
+            }
+        }
+
+        // 把无主(ownerId=0)的附件都查出来删除
+        List<Attach> noOwnerAttaches = attachRepository.findAllByOwnerIdAndOwnerTypeAndUser(0L, Attach.OwnerType.POST_ATTACH, post.getUser());
+        for (Attach attach : noOwnerAttaches) {
+            attachService.delete(attach);
+        }
     }
 
 }
