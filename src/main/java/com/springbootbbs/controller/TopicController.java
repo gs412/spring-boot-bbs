@@ -114,6 +114,7 @@ public class TopicController extends BaseController {
 
         Page<Post> page = postRepository.findAllByTopicIdAndDeleted(id, pageable, false);
 
+        m.addAttribute("title", topic.get().getTitle());
         m.addAttribute("topic", topic.get());
         m.addAttribute("page", page);
         m.addAttribute("user", getUser());
