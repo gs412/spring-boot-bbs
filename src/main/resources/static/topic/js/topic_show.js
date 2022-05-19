@@ -4,5 +4,16 @@ $(document).ready(function () {
         if ($this.prop("naturalHeight") > $this.height()) {
             $this.wrap(`<a href="${$this.attr("src")}" target="_blank" style="cursor: zoom-in">`)
         }
+
+        moveToHash();
     });
+
+    function moveToHash() {
+        let urlHash = window.location.hash;
+
+        if(urlHash) {
+            window.location.hash = '';
+            window.location.hash = urlHash;
+        }
+    }
 });
