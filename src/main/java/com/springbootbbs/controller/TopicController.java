@@ -229,6 +229,20 @@ public class TopicController extends BaseController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/post/{id}/edit", method = RequestMethod.POST)
+    public String post_edit(@PathVariable Long id) {
+        Optional<Post> post = postRepository.findById(id);
+
+        if (post.isEmpty()) {
+            throw new PageNotFoundException("回帖不存在");
+        }
+
+        Long topic_id = post.get().getTopic().getId();
+        postService.soft_delete(post.get());
+
+        return "post/post_edit";
+    }
+
     @RequestMapping(value = "/post/{id}/remove", method = RequestMethod.POST)
     public String post_remove(@PathVariable Long id) {
         Optional<Post> post = postRepository.findById(id);

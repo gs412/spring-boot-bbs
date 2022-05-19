@@ -17,16 +17,17 @@
 		    <div class="post_content">
 		        ${post.getContentHtml()?no_esc}
 		    </div>
-		    <div>
-			    <#if user?? && user.username == 'admin'>
-                    <a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>编辑</a>
-				    <#if post.isFirst >
-				        <a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
-				    <#else>
-				        <a href="/post/${post.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
-				    </#if>
-			    </#if>
-		    </div>
+				<div>
+					<#if user?? && user.username == 'admin'>
+						<#if post.isFirst >
+							<a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>编辑</a>
+							<a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
+						<#else>
+							<a href="/post/${post.getId()}/edit" data-method="post"><i class="fa fa-edit"></i>编辑</a>
+							<a href="/post/${post.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
+						</#if>
+					</#if>
+				</div>
 	    </div>
     </div>
 </#list>
