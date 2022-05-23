@@ -181,13 +181,13 @@ public class TopicController extends BaseController {
 
     @RequestMapping(value = "/topic/{id}/remove", method = RequestMethod.POST)
     public String topic_remove(@PathVariable Long id) {
-        Optional<Topic> topic = topicRepository.findById(id);
+        Optional<Topic> oTopic = topicRepository.findById(id);
 
-        if (topic.isEmpty()) {
+        if (oTopic.isEmpty()) {
             throw new PageNotFoundException("帖子不存在");
         }
 
-        topicService.soft_delete(topic.get());
+        topicService.soft_delete(oTopic.get());
 
         return "redirect:/";
     }
