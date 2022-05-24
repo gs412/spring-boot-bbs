@@ -84,11 +84,13 @@ public class TopicController extends BaseController {
 
     @RequestMapping(value = "/topic/{id}")
     public String topic_show(@PathVariable Long id, String p, ModelMap m) {
-        Optional<Topic> topic = topicRepository.findById(id);
+        Optional<Topic> oTopic = topicRepository.findById(id);
 
-        if (topic.isEmpty()) {
+        if (oTopic.isEmpty()) {
             throw new PageNotFoundException("帖子不存在");
         }
+
+        Topic topic = oTopic.get();
 
         int p1 = NumberUtils.toInt(p, 1);
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "id");
@@ -96,8 +98,8 @@ public class TopicController extends BaseController {
 
         Page<Post> page = postRepository.findAllByTopicIdAndDeleted(id, pageable, false);
 
-        m.addAttribute("title", topic.get().getTitle());
-        m.addAttribute("topic", topic.get());
+        m.addAttribute("title", topic.getTitle());
+        m.addAttribute("topic", topic);
         m.addAttribute("page", page);
         m.addAttribute("user", getUser());
 
