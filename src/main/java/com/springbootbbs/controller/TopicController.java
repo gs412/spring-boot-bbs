@@ -128,7 +128,6 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) throws JsonProcessingException {
-        User user = getUser();
         Optional<Category> category = categoryRepository.findById(category_id);
 
         if (category.isEmpty()) {
@@ -274,7 +273,7 @@ public class TopicController extends BaseController {
                 map.put("message", "上传成功");
                 map.put("isImage", attach.getContentType().startsWith("image/"));
                 map.put("fileName", attach.getName());
-                map.put("url", "/attach/show/" + String.valueOf(attach.getId()));
+                map.put("url", "/attach/show/" + attach.getId());
             }
         }
 
@@ -298,7 +297,7 @@ public class TopicController extends BaseController {
         List<Long> aids = pickAidsFromContent(post.getContent());
         for (Long aid : aids) {
             Optional<Attach> oAttach = attachRepository.findById(aid);
-            if (!oAttach.isEmpty()) {
+            if (oAttach.isPresent()) {
                 Attach attach = oAttach.get();
                 if (attach.getOwneId() == 0L) {
                     attach.setOwnerId(post.getId());
