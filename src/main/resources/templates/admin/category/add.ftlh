@@ -9,9 +9,15 @@
             <form id="form1" class="form-horizontal">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">分类名称</label>
+                        <label for="nameCn" class="col-sm-2 control-label">中文名称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" id="name" required>
+                            <input type="text" class="form-control" name="nameCn" id="nameCn" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nameEn" class="col-sm-2 control-label">英文名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="nameEn" id="nameEn" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -33,9 +39,10 @@
 <script>
 	$(document).ready(function () {
         $('#form1').submit(function () {
-	        let name = $('input#name').val()
+	        let nameCn = $('input#nameCn').val()
+	        let nameEn = $('input#nameEn').val()
 	        let tab = $('input#tab').val()
-	        $.post('/admin/category/add_post', {name: name, tab: tab}, function (json) {
+	        $.post('/admin/category/add_post', {nameCn: nameCn, nameEn: nameEn, tab: tab}, function (json) {
 				if (json.success == 1) {
                     window.location.href = '/admin/category/categories';
 				} else {
@@ -49,4 +56,4 @@
 
 </@override>
 
-<@extends name="../_base.ftl"/>
+<@extends name="../_base.ftlh"/>

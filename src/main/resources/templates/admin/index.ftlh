@@ -497,4 +497,4 @@
 <!-- /.row (main row) -->
 </@override>
 
-<@extends name="_base.ftl"/>
+<@extends name="_base.ftlh"/>

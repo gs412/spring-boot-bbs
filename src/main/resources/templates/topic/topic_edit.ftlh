@@ -12,7 +12,7 @@
       <div class="controls">
         <select name="category_id" id="category_id">
           <#list categories as category>
-            <option value="${category.getId()}" <#if category == topic.getCategory()>selected</#if>>${category.getName()}</option>
+            <option value="${category.getId()}" <#if category == topic.getCategory()>selected</#if>>${category.getNameCn()}</option>
           </#list>
         </select>
       </div>

@@ -50,12 +50,15 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/add_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String add_post(String name, String tab) throws JsonProcessingException {
+    public String add_post(String nameCn, String nameEn, String tab) throws JsonProcessingException {
         HashMap<String, String> map = new HashMap<>();
 
-        if (categoryRepository.existsByName(name)) {
+        if (categoryRepository.existsByNameCn(nameCn)) {
             map.put("success", "0");
-            map.put("message", "分来名称已经存在");
+            map.put("message", "中文名称已经存在");
+        } else if (categoryRepository.existsByNameEn(nameEn)) {
+            map.put("success", "0");
+            map.put("message", "英文名称已经存在");
         } else if (categoryRepository.existsByTab(tab)) {
             map.put("success", "0");
             map.put("message", "标签已经存在");
@@ -69,7 +72,8 @@ public class CategoryController extends BaseController {
             }
 
             Category category = new Category();
-            category.setName(name);
+            category.setNameCn(nameCn);
+            category.setNameEn(nameEn);
             category.setTab(tab);
             category.setSort(sort);
             categoryService.save(category);
@@ -94,12 +98,15 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/edit_post/{id}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String edit_post(@PathVariable Long id, String name, String tab, Integer sort, ModelMap m) throws JsonProcessingException {
+    public String edit_post(@PathVariable Long id, String nameCn, String nameEn, String tab, Integer sort, ModelMap m) throws JsonProcessingException {
         HashMap<String, String> map = new HashMap<>();
 
-        if (categoryRepository.existsByNameAndIdNot(name, id)) {
+        if (categoryRepository.existsByNameCnAndIdNot(nameCn, id)) {
             map.put("success", "0");
-            map.put("message", "分来名称已经存在");
+            map.put("message", "中文名称已经存在");
+        } else if (categoryRepository.existsByNameEnAndIdNot(nameEn, id)) {
+            map.put("success", "0");
+            map.put("message", "英文名称已经存在");
         } else if (categoryRepository.existsByTabAndIdNot(tab, id)) {
             map.put("success", "0");
             map.put("message", "标签已经存在");
@@ -111,7 +118,8 @@ public class CategoryController extends BaseController {
             }
 
             Category category = categoryOptional.get();
-            category.setName(name);
+            category.setNameCn(nameCn);
+            category.setNameEn(nameEn);
             category.setTab(tab);
             category.setSort(sort);
             categoryRepository.save(category);

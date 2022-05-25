@@ -5,11 +5,15 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Long> {
 
-    Boolean existsByName(String name);
+    Boolean existsByNameCn(String name);
+
+    Boolean existsByNameEn(String name);
 
     Boolean existsByTab(String tab);
 
-    Boolean existsByNameAndIdNot(String name, Long id);
+    Boolean existsByNameCnAndIdNot(String name, Long id);
+
+    Boolean existsByNameEnAndIdNot(String name, Long id);
 
     Boolean existsByTabAndIdNot(String tab, Long id);
 

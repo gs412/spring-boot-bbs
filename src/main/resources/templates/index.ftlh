@@ -11,7 +11,7 @@
     <div class="navbar-inner">
         <ul class="tabs">
 	        <#list categories as category>
-	            <li <#if category.getTab() == tab>class="active"</#if>><a href="/?tab=${category.getTab()}">${category.getName()}</a></li>
+	            <li <#if category.getTab() == tab>class="active"</#if>><a href="/?tab=${category.getTab()}">${category.getNameCn()}</a></li>
 	        </#list>
 	        <li <#if tab == "all">class="active"</#if>><a href="/?tab=all">全部</a></li>
         </ul>
@@ -32,7 +32,7 @@
 		<tr>
 			<td><a href="/topic/${topic.getId()}">${topic.getTitle()}</a></td>
 			<td>${topic.user.getUsername()}</td>
-			<td><a href="/?tab=${topic.category.getTab()}">${topic.category.getName()}</a></td>
+			<td><a href="/?tab=${topic.category.getTab()}">${topic.category.getNameCn()}</a></td>
 			<td>${show_date(topic.getCreatedAt())}</td>
 		</tr>
 	</#list>

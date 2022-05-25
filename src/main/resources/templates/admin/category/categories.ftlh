@@ -10,7 +10,8 @@
                 <table class="table">
                     <tr>
                         <th style="width: 10px">ID</th>
-                        <th>分类名称</th>
+                        <th>中文名称</th>
+                        <th>英文名称</th>
                         <th>标签</th>
                         <th>排序</th>
                         <th>管理</th>
@@ -18,7 +19,8 @@
 	                <#list categories as category>
                         <tr>
                             <td>${category.getId()}.</td>
-                            <td>${category.getName()}</td>
+                            <td>${category.getNameCn()}</td>
+                            <td>${category.getNameEn()}</td>
                             <td>${category.getTab()}</td>
                             <td>${category.getSort()}</td>
                             <td>
@@ -36,4 +38,4 @@
 
 </@override>
 
-<@extends name="../_base.ftl"/>
+<@extends name="../_base.ftlh"/>

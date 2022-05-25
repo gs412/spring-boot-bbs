@@ -12,7 +12,10 @@ public class Category {
     private Long id;
 
     @Column(length = 30)
-    private String name;
+    private String nameCn;
+
+    @Column(length = 30)
+    private String nameEn;
 
     @Column(length = 20)
     private String tab;
@@ -28,12 +31,20 @@ public class Category {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNameCn() {
+        return nameCn;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameCn(String name) {
+        this.nameCn = name;
+    }
+
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public void setNameEn(String name) {
+        this.nameEn = name;
     }
 
     public String getTab() {

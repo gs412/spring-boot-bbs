@@ -10,11 +10,11 @@
                 <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label" style="white-space: nowrap; width: auto !important; padding-right: 0;">将分类 “${category.getName()}” 合并到</label>
+                        <label for="name" class="col-sm-2 control-label" style="white-space: nowrap; width: auto !important; padding-right: 0;">将分类 “${category.getNameCn()}” 合并到</label>
                         <div class="col-sm-4">
                             <select name="target_id" class="form-control">
 	                            <#list categories as category>
-									<option value="${category.getId()}">${category.getName()}</option>
+									<option value="${category.getId()}">${category.getNameCn()}[${category.getNameEn()}]</option>
 	                            </#list>
                             </select>
                         </div>
@@ -32,4 +32,4 @@
 
 </@override>
 
-<@extends name="../_base.ftl"/>
+<@extends name="../_base.ftlh"/>

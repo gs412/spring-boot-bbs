@@ -9,9 +9,15 @@
             <form id="form1" class="form-horizontal">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">分类名称</label>
+                        <label for="nameCn" class="col-sm-2 control-label">中文名称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" id="name" value="${category.getName()}" required>
+                            <input type="text" class="form-control" name="nameCn" id="nameCn" value="${category.getNameCn()}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nameEn" class="col-sm-2 control-label">英文名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="nameEn" id="nameEn" value="${category.getNameEn()}" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -40,10 +46,11 @@
 <script>
 	$(document).ready(function () {
         $('#form1').submit(function () {
-	        let name = $('input#name').val()
+	        let nameCn = $('input#nameCn').val()
+	        let nameEn = $('input#nameEn').val()
 	        let tab = $('input#tab').val()
 	        let sort = $('input#sort').val()
-	        $.post('/admin/category/edit_post/${category.getId()}', {name: name, tab: tab, sort: sort}, function (json) {
+	        $.post('/admin/category/edit_post/${category.getId()}', {nameCn: nameCn, nameEn: nameEn, tab: tab, sort: sort}, function (json) {
 				if (json.success == 1) {
                     window.location.href = '/admin/category/categories';
 				} else {
@@ -57,4 +64,4 @@
 
 </@override>
 
-<@extends name="../_base.ftl"/>
+<@extends name="../_base.ftlh"/>
