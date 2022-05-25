@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 @RequestMapping("/attach")
@@ -34,7 +35,7 @@ public class AttachController extends BaseController {
 
         response.setContentType(attach.getContentType());
         if (!attach.getContentType().startsWith("image/")) {
-            String fileName = URLEncoder.encode(attach.getName(), "UTF-8");
+            String fileName = URLEncoder.encode(attach.getName(), StandardCharsets.UTF_8);
             response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
             response.setContentLengthLong(attach.getSize());
         }
