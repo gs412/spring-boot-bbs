@@ -120,7 +120,7 @@ public class Attach {
         this.user = user;
     }
 
-    public Date getcreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
