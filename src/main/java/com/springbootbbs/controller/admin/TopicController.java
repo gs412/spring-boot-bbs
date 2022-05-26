@@ -42,6 +42,7 @@ public class TopicController extends BaseController {
         Page<Topic> page = topicRepository.findAllByDeletedOrderByIdDesc(pageable, false);
 
         m.addAttribute("page", page);
+        m.addAttribute("user", getUser());
 
         return "admin/topic/topics";
     }

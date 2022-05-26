@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController extends BaseController {
 
 	@RequestMapping("/admin")
-	public String index() {
+	public String index(ModelMap m) {
+        User user = this.getUser();
+
+        m.addAttribute("user", user);
 
 		return "admin/index";
 	}

@@ -39,9 +39,4 @@ public class BaseController {
 		return new ShowDate();
 	}
 
-	@ModelAttribute("user")
-	public User user() {
-		return getUser();
-	}
-
 }

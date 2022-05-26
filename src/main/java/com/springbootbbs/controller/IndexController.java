@@ -64,6 +64,7 @@ public class IndexController extends BaseController {
         m.addAttribute("title", "Spring Boot BBS - 首页");
         m.addAttribute("page", page);
         m.addAttribute("topics", topics);
+        m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
         m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));
