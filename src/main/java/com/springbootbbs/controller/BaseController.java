@@ -1,13 +1,18 @@
 package com.springbootbbs.controller;
 
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.libs.helpers.Local;
+import com.springbootbbs.libs.helpers.ShowDate;
 import com.springbootbbs.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.NoSuchElementException;
 
+@ControllerAdvice
 public class BaseController {
 
 	@Autowired
@@ -22,6 +27,21 @@ public class BaseController {
 		} else {
 			return null;
 		}
+	}
+
+	@ModelAttribute("local")
+	public Local local() {
+		return new Local("zn-CN");
+	}
+
+	@ModelAttribute("show_date")
+	public ShowDate show_date() {
+		return new ShowDate();
+	}
+
+	@ModelAttribute("user")
+	public User user() {
+		return getUser();
 	}
 
 }

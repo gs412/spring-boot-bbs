@@ -13,12 +13,12 @@
 	        <#list categories as category>
 	            <li <#if category.getTab() == tab>class="active"</#if>><a href="/?tab=${category.getTab()}">${category.getNameCn()}</a></li>
 	        </#list>
-	        <li <#if tab == "all">class="active"</#if>><a href="/?tab=all">全部</a></li>
+	        <li <#if tab == "all">class="active"</#if>><a href="/?tab=all">${local("tab_all")}</a></li>
         </ul>
     </div>
 </div>
 
-<a class="btn btn-primary" href="/topic_new?tab=${tab}">${local("zh-CN", "new_topic")}</a>
+<a class="btn btn-primary" href="/topic_new?tab=${tab}">${local("new_topic")}</a>
 
 <br><br>
 <table class="table">

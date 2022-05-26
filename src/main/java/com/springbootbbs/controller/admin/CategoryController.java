@@ -34,7 +34,6 @@ public class CategoryController extends BaseController {
 
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
-        m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
 
         return "/admin/category/categories";
@@ -42,8 +41,6 @@ public class CategoryController extends BaseController {
 
     @RequestMapping("/add")
     public String add(ModelMap m) {
-
-        m.addAttribute("user", getUser());
 
         return "/admin/category/add";
     }
@@ -90,7 +87,6 @@ public class CategoryController extends BaseController {
     public String edit(@PathVariable Long id, ModelMap m) {
         Category category = categoryRepository.findById(id).get();
 
-        m.addAttribute("user", getUser());
         m.addAttribute("category", category);
 
         return "/admin/category/edit";
@@ -137,7 +133,6 @@ public class CategoryController extends BaseController {
         Category category = categoryRepository.findById(id).get();
         Iterable<Category> categories = categoryRepository.findAllByIdNotOrderBySortAscIdAsc(id);
 
-        m.addAttribute("user", getUser());
         m.addAttribute("category", category);
         m.addAttribute("categories", categories);
 

@@ -51,7 +51,6 @@ public class TopicController extends BaseController {
     public String topic_new(String tab, ModelMap m) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
-        m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
 
@@ -101,7 +100,6 @@ public class TopicController extends BaseController {
         m.addAttribute("title", topic.getTitle());
         m.addAttribute("topic", topic);
         m.addAttribute("page", page);
-        m.addAttribute("user", getUser());
 
         return "topic/topic_show";
     }
@@ -119,7 +117,6 @@ public class TopicController extends BaseController {
 
         m.addAttribute("topic", topic.get());
         m.addAttribute("post", post);
-        m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
 
         return "topic/topic_edit";

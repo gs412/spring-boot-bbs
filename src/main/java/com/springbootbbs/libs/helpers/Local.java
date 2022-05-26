@@ -6,10 +6,11 @@ import freemarker.template.TemplateModelException;
 
 import java.util.List;
 
-public class Local implements TemplateMethodModelEx {
+public record Local(String lang) implements TemplateMethodModelEx {
+
     @Override
     public Object exec(List list) throws TemplateModelException {
-        String message = I18nUtil.getMessage(list.get(1).toString(), list.get(0).toString());
+        String message = I18nUtil.getMessage(list.get(0).toString(), this.lang);
 
         return message;
     }
