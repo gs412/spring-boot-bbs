@@ -3,6 +3,7 @@ package com.springbootbbs.controller;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.libs.Utils;
+import com.springbootbbs.libs.helpers.Local;
 import com.springbootbbs.libs.helpers.ShowDate;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
@@ -65,6 +66,7 @@ public class IndexController extends BaseController {
         m.addAttribute("topics", topics);
         m.addAttribute("user", getUser());
         m.addAttribute("show_date", new ShowDate());
+        m.addAttribute("local", new Local());
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
         m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));

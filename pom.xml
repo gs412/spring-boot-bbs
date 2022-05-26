@@ -82,6 +82,10 @@
 			<artifactId>flexmark-all</artifactId>
 			<version>0.64.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
 	</dependencies>
 

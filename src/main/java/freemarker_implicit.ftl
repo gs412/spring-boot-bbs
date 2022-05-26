@@ -11,3 +11,4 @@
 [#-- @ftlvariable name="topic" type="com.springbootbbs.entiry.Topic" --]
 [#-- @ftlvariable name="post" type="com.springbootbbs.entiry.Post" --]
 [#-- @ftlvariable name="show_date" type="com.springbootbbs.libs.helpers.ShowDate" --]
+[#-- @ftlvariable name="local" type="com.springbootbbs.libs.helpers.Local" --]
