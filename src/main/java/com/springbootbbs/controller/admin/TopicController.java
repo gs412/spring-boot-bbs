@@ -1,9 +1,6 @@
 package com.springbootbbs.controller.admin;
 
 import com.springbootbbs.entiry.Topic;
-import com.springbootbbs.entiry.User;
-import com.springbootbbs.libs.AjaxResult;
-import com.springbootbbs.libs.helpers.ShowDate;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.service.TopicService;
 import org.apache.commons.lang3.math.NumberUtils;
