@@ -16,3 +16,7 @@ spring:
     show-sql: false
   messages:
     basename: i18n/messages
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB

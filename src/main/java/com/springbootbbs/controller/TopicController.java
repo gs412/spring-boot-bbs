@@ -256,9 +256,9 @@ public class TopicController extends BaseController {
         if (file.isEmpty()) {
             map.put("success", "0");
             map.put("message", "上传失败，请选择文件");
-        } else if (file.getSize() > 1024 * 1024 * 10) {
+        } else if (file.getSize() > 1024 * 1024 * 30) {
             map.put("success", "0");
-            map.put("message", "最大不超过10M");
+            map.put("message", "最大不超过30M");
         } else {
             Attach attach = new Attach();
             attach.setFile(file);
