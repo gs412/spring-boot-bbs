@@ -25,6 +25,9 @@
 .post .user_info .user_name {
   font-weight: bold;
 }
+.post .user_info img {
+  max-height: 160px;
+}
 .post .main {
   min-height: 200px;
   margin-left: 200px;
