@@ -29,7 +29,7 @@ public class BaseController {
 
 	@ModelAttribute("local")
 	public Local local() {
-		return new Local("zn-CN");
+		return new Local("zh-CN");
 	}
 
 	@ModelAttribute("show_date")
