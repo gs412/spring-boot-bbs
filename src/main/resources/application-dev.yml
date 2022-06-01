@@ -11,7 +11,6 @@ spring:
     static-path-pattern: /static/**
   web:
     resources:
-      # static-locations: classpath:/static/
       static-locations: file:D:\111\javafiles\spring-boot-bbs\src\main\resources\static
   jpa:
     show-sql: false
