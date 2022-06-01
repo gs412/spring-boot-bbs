@@ -5,8 +5,10 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
+import org.springframework.util.ClassUtils;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Utils {
 
@@ -33,7 +35,7 @@ public class Utils {
 	}
 
     public static String getBasePath() {
-        return System.getProperty("user.dir");
+        return Objects.requireNonNull(Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).getResource("")).getPath();
     }
 
     public static String makeQueryStr(HashMap<String, String> allRequestParams) {
