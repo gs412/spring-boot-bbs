@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/font-awesome-4.6.3/css/font-awesome.min.css">
 	<script src="/static/_js/jquery.min.js"></script>
+	<script src="/static/layui/layer/layer.js"></script>
 	<script src="/static/_js/main.js"></script>
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 
