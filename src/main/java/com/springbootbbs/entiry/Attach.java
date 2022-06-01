@@ -156,8 +156,8 @@ public class Attach {
 
         String datePath = new SimpleDateFormat("yyyy/MM/dd/HHmmss").format(new Date());
         Random rand = new Random();
-        Integer randInt = rand.nextInt(9999 - 1000 + 1) + 1000;
-        String filePath = this.getOwnerType() + "/" + datePath + "_" + randInt.toString() + "." + this.getSuffix();
+        int randInt = rand.nextInt(9999 - 1000 + 1) + 1000;
+        String filePath = this.getOwnerType() + "/" + datePath + "_" + randInt + "." + this.getSuffix();
 
         this.setPath(filePath);
 
