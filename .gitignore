@@ -4,3 +4,4 @@ upload/
 .sass-cache/
 *.iml
 application-prod.yml
+push-update-to-server.sh
