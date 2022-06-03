@@ -12,6 +12,7 @@
 	<script src="/static/_js/jquery.min.js"></script>
 	<script src="/static/layui/layer/layer.js"></script>
 	<script src="/static/_js/main.js"></script>
+	<script src="/static/_js/head.js"></script>
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="/static/_css/main.css">

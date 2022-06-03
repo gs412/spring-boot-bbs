@@ -11,5 +11,46 @@ body {
                 }
             }
         }
+
+        .select-language {
+            position: relative;
+            text-align: right;
+            margin-bottom: 40px;
+            span {
+                margin-right: 10px;
+            }
+            a {
+                user-select: none;
+                &:hover, &:active, &:focus {
+                    text-decoration: none;
+                    outline: none;
+                }
+            }
+            .fa-angle-up {
+                //font-size: 18px;
+                font-weight: bold;
+            }
+            ul#language_menu {
+                position: absolute;
+                right: 0;
+                bottom: 20px;
+                list-style: none;
+                box-shadow: 1px 1px 8px #aaa;
+                border-radius: 5px;
+                padding: 5px 0;
+                display: none;
+                background: #fff;
+                li {
+                    line-height: 200%;
+                    a {
+                        display: block;
+                        padding: 0 13px 0 18px;
+                        &:hover {
+                            background: #efefef;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

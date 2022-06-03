@@ -1,5 +1,48 @@
 body #body_container {
   width: 980px;
-  margin: 0 auto; }
-  body #body_container .pagination ul li a:focus {
-    outline: none; }
+  margin: 0 auto;
+}
+body #body_container .pagination ul li a:focus {
+  outline: none;
+}
+body #body_container .select-language {
+  position: relative;
+  text-align: right;
+  margin-bottom: 40px;
+}
+body #body_container .select-language span {
+  margin-right: 10px;
+}
+body #body_container .select-language a {
+  user-select: none;
+}
+body #body_container .select-language a:hover, body #body_container .select-language a:active, body #body_container .select-language a:focus {
+  text-decoration: none;
+  outline: none;
+}
+body #body_container .select-language .fa-angle-up {
+  font-weight: bold;
+}
+body #body_container .select-language ul#language_menu {
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  list-style: none;
+  box-shadow: 1px 1px 8px #aaa;
+  border-radius: 5px;
+  padding: 5px 0;
+  display: none;
+  background: #fff;
+}
+body #body_container .select-language ul#language_menu li {
+  line-height: 200%;
+}
+body #body_container .select-language ul#language_menu li a {
+  display: block;
+  padding: 0 13px 0 18px;
+}
+body #body_container .select-language ul#language_menu li a:hover {
+  background: #efefef;
+}
+
+/*# sourceMappingURL=main.css.map */
