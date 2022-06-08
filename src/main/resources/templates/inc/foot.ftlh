@@ -1,6 +1,8 @@
 <div class="select-language">
+    <a id="open_source_link" href="https://github.com/gs412/spring-boot-bbs" target="_blank"><i class="fa fa-github"></i> open source</a>
+
     <span>choose language:</span>
-    <a href="javascript:void(0);">
+    <a id="choose_language_link" href="javascript:void(0);">
         <#if local_lang == "cn">
             中文
         <#else>

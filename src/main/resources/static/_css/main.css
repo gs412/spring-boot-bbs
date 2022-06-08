@@ -10,13 +10,16 @@ body #body_container .select-language {
   text-align: right;
   margin-bottom: 40px;
 }
+body #body_container .select-language a#open_source_link {
+  margin-right: 40px;
+}
 body #body_container .select-language span {
   margin-right: 10px;
 }
-body #body_container .select-language a {
+body #body_container .select-language a#choose_language_link {
   user-select: none;
 }
-body #body_container .select-language a:hover, body #body_container .select-language a:active, body #body_container .select-language a:focus {
+body #body_container .select-language a#choose_language_link:hover, body #body_container .select-language a#choose_language_link:active, body #body_container .select-language a#choose_language_link:focus {
   text-decoration: none;
   outline: none;
 }

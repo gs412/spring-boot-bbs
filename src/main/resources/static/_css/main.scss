@@ -16,10 +16,14 @@ body {
             position: relative;
             text-align: right;
             margin-bottom: 40px;
+            a#open_source_link {
+                margin-right: 40px;
+            }
+
             span {
                 margin-right: 10px;
             }
-            a {
+            a#choose_language_link {
                 user-select: none;
                 &:hover, &:active, &:focus {
                     text-decoration: none;

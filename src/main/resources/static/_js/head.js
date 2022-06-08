@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // 右下角中英文切换
-    let choose_language_a = $('.select-language > a:first-of-type')
+    let choose_language_a = $('.select-language > a#choose_language_link')
     let choose_language_menu = $('.select-language ul#language_menu')
 
     choose_language_a.click(function () {
