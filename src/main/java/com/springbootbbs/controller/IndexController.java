@@ -19,7 +19,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
 
@@ -75,7 +77,11 @@ public class IndexController extends BaseController {
     }
 
     @RequestMapping("/change_language")
-    public String changeLanguage(@RequestParam String lang, HttpServletRequest request) {
+    public String changeLanguage(@RequestParam String lang, HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie("lang", lang);
+        cookie.setMaxAge(86400*365*10);
+        response.addCookie(cookie);
+
         return "redirect:" + request.getHeader("referer");
     }
 

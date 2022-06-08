@@ -8,7 +8,10 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class BaseController {
@@ -35,6 +38,11 @@ public class BaseController {
 	@ModelAttribute("show_date")
 	public ShowDate show_date() {
 		return new ShowDate();
+	}
+
+	@ModelAttribute("local_lang")
+	public String localLang(@CookieValue(value = "lang", required = false) String lang) {
+		return lang;
 	}
 
 }

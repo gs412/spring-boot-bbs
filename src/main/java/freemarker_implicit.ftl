@@ -12,3 +12,4 @@
 [#-- @ftlvariable name="post" type="com.springbootbbs.entiry.Post" --]
 [#-- @ftlvariable name="show_date" type="com.springbootbbs.libs.helpers.ShowDate" --]
 [#-- @ftlvariable name="local" type="com.springbootbbs.libs.helpers.Local" --]
+[#-- @ftlvariable name="local_lang" type="String" --]
