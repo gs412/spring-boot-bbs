@@ -16,7 +16,7 @@ $(document).ready(function () {
         let a_dom = choose_language_a.get(0)
         let menu_dom = choose_language_menu.get(0)
         if (target === a_dom || target === menu_dom || a_dom.contains(target) || menu_dom.contains(target)) {
-            return false;
+            return true;
         } else {
             choose_language_menu.hide()
         }
