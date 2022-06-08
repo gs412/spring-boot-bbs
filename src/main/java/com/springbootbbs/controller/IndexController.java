@@ -69,7 +69,6 @@ public class IndexController extends BaseController {
         m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
-        //m.addAttribute("local", new Local("zh-CN"));
         m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));
         m.addAttribute("searchWord", searchWord);
 
