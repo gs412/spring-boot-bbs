@@ -83,8 +83,10 @@ public class IndexController extends BaseController {
     @RequestMapping("/change_language")
     public String changeLanguage(@RequestParam String lang, HttpServletRequest request, HttpServletResponse response) {
         User user = getUser();
-        user.setLang(lang);
-        userRepository.save(user);
+        if (user != null) {
+            user.setLang(lang);
+            userRepository.save(user);
+        }
 
         Cookie cookie = new Cookie("lang", lang);
         cookie.setMaxAge(86400*365*10);

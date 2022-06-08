@@ -1,5 +1,6 @@
 package com.springbootbbs.controller;
 
+import com.springbootbbs.entiry.User;
 import com.springbootbbs.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -10,21 +11,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /*
  * 登陆的controller
  */
 @Controller
-public class LoginHandler {
+public class LoginHandler extends BaseController {
 
 	@Autowired
 	private UserService userService;
 
 	@RequestMapping("/login.action")
-	public String login(String username, String password, ModelMap map, HttpSession session) {
-		System.out.println(username + "---" + password);
-
+	public String login(String username, String password, ModelMap map, HttpSession session, HttpServletResponse response) {
 		// 获得当前Subject
 		Subject currentUser = SecurityUtils.getSubject();
 
@@ -68,6 +69,13 @@ public class LoginHandler {
 
 			map.addAttribute("msg", msg);
 			return "index";
+		} else {
+			User user = getUser();
+			if (!user.getLang().equals("")) {
+				Cookie cookie = new Cookie("lang", user.getLang());
+				cookie.setMaxAge(86400*365*10);
+				response.addCookie(cookie);
+			}
 		}
 
 		// 登录成功，重定向到LoginSuccess.action

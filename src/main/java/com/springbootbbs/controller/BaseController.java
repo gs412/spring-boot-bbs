@@ -34,24 +34,11 @@ public class BaseController {
 
 	@ModelAttribute("local")
 	public Local local(@CookieValue(value = "lang", required = false) String lang) {
-		String localize;
-		User user = getUser();
-		Locale locale = LocaleContextHolder.getLocale();
-		String system_lang = locale.getLanguage();
-		System.out.println(system_lang);
+		String local_lang = localLang(lang);
 
-		if (user.getLang().equals("cn")) {
+		String localize = "en-US";
+		if (local_lang.equals("cn")) {
 			localize = "zh-CN";
-		} else if (user.getLang().equals("en")) {
-			localize = "en-US";
-		} else if (lang.equals("cn")) {
-			localize = "zh-CN";
-		} else if (lang.equals("en")) {
-			localize = "en-US";
-		} else if (system_lang.equals("zh")) {
-			localize = "zh-CN";
-		} else {
-			localize = "en-US";
 		}
 
 		return new Local(localize);
@@ -64,6 +51,25 @@ public class BaseController {
 
 	@ModelAttribute("local_lang")
 	public String localLang(@CookieValue(value = "lang", required = false) String lang) {
+		User user = getUser();
+		if (user != null) {
+			if (user.getLang().equals("cn")) {
+				lang = "cn";
+			} else if (user.getLang().equals("en")) {
+				lang = "en";
+			}
+		}
+
+		if (lang == null) {		// 如果上面用户数据库里取不到，并且cookies里也没有，则根据系统语言判定
+			Locale locale = LocaleContextHolder.getLocale();
+			String system_lang = locale.getLanguage();
+			if (system_lang.equals("zh")) {
+				lang = "cn";
+			} else {
+				lang = "en";
+			}
+		}
+
 		return lang;
 	}
 
