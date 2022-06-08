@@ -2,6 +2,7 @@ package com.springbootbbs.controller;
 
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Topic;
+import com.springbootbbs.entiry.User;
 import com.springbootbbs.libs.Utils;
 import com.springbootbbs.libs.helpers.Local;
 import com.springbootbbs.repository.CategoryRepository;
@@ -77,6 +78,10 @@ public class IndexController extends BaseController {
 
     @RequestMapping("/change_language")
     public String changeLanguage(@RequestParam String lang, HttpServletRequest request, HttpServletResponse response) {
+        User user = getUser();
+        user.setLang(lang);
+
+
         Cookie cookie = new Cookie("lang", lang);
         cookie.setMaxAge(86400*365*10);
         response.addCookie(cookie);
