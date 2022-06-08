@@ -7,6 +7,7 @@ import com.springbootbbs.libs.Utils;
 import com.springbootbbs.libs.helpers.Local;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
+import com.springbootbbs.repository.UserRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,9 @@ public class IndexController extends BaseController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping("/")
     public String index(String p, @RequestParam(defaultValue = "all") String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
@@ -80,7 +84,7 @@ public class IndexController extends BaseController {
     public String changeLanguage(@RequestParam String lang, HttpServletRequest request, HttpServletResponse response) {
         User user = getUser();
         user.setLang(lang);
-
+        userRepository.save(user);
 
         Cookie cookie = new Cookie("lang", lang);
         cookie.setMaxAge(86400*365*10);

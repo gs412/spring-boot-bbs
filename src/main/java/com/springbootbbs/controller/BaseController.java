@@ -7,11 +7,13 @@ import com.springbootbbs.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 @ControllerAdvice
 public class BaseController {
@@ -32,13 +34,27 @@ public class BaseController {
 
 	@ModelAttribute("local")
 	public Local local(@CookieValue(value = "lang", required = false) String lang) {
+		String localize;
 		User user = getUser();
+		Locale locale = LocaleContextHolder.getLocale();
+		String system_lang = locale.getLanguage();
+		System.out.println(system_lang);
 
-		if (lang.equals("cn")) {
-			return new Local("zh-CN");
+		if (user.getLang().equals("cn")) {
+			localize = "zh-CN";
+		} else if (user.getLang().equals("en")) {
+			localize = "en-US";
+		} else if (lang.equals("cn")) {
+			localize = "zh-CN";
+		} else if (lang.equals("en")) {
+			localize = "en-US";
+		} else if (system_lang.equals("zh")) {
+			localize = "zh-CN";
 		} else {
-			return new Local("en-US");
+			localize = "en-US";
 		}
+
+		return new Local(localize);
 	}
 
 	@ModelAttribute("show_date")
