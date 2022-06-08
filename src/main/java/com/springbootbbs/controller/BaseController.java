@@ -31,8 +31,14 @@ public class BaseController {
 	}
 
 	@ModelAttribute("local")
-	public Local local() {
-		return new Local("zh-CN");
+	public Local local(@CookieValue(value = "lang", required = false) String lang) {
+		User user = getUser();
+
+		if (lang.equals("cn")) {
+			return new Local("zh-CN");
+		} else {
+			return new Local("en-US");
+		}
 	}
 
 	@ModelAttribute("show_date")
