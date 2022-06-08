@@ -73,4 +73,9 @@ public class IndexController extends BaseController {
         return "index";
     }
 
+    @RequestMapping("/change_language")
+    public String changeLanguage(@RequestParam String lang) {
+        return "";
+    }
+
 }

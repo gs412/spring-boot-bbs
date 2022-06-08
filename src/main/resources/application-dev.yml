@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     name: dev
-    url: jdbc:mysql://127.0.0.1:3306/springbootbbs
+    url: jdbc:mysql://192.168.1.6:3306/springbootbbs
     username: root
     password: root
     hikari:
