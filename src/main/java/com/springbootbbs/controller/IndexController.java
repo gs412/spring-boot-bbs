@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 
@@ -74,8 +75,8 @@ public class IndexController extends BaseController {
     }
 
     @RequestMapping("/change_language")
-    public String changeLanguage(@RequestParam String lang) {
-        return "";
+    public String changeLanguage(@RequestParam String lang, HttpServletRequest request) {
+        return "redirect:" + request.getHeader("referer");
     }
 
 }
