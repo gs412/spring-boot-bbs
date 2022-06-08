@@ -11,7 +11,15 @@
     <div class="navbar-inner">
         <ul class="tabs">
 	        <#list categories as category>
-	            <li <#if category.getTab() == tab>class="active"</#if>><a href="/?tab=${category.getTab()}">${category.getNameCn()}</a></li>
+	            <li <#if category.getTab() == tab>class="active"</#if>>
+					<a href="/?tab=${category.getTab()}">
+						<#if local_lang == "cn">
+							${category.getNameCn()}
+						<#else>
+							${category.getNameEn()}
+						</#if>
+					</a>
+				</li>
 	        </#list>
 	        <li <#if tab == "all">class="active"</#if>><a href="/?tab=all">${local("tab_all")}</a></li>
         </ul>
