@@ -41,6 +41,14 @@ public class LoginHandler extends BaseController {
 				// 执行登录.
 				currentUser.login(token);
 				// 登录成功...
+
+				User user = getUser();
+				if (!user.getLang().equals("")) {
+					Cookie cookie = new Cookie("lang", user.getLang());
+					cookie.setMaxAge(86400*365*10);
+					response.addCookie(cookie);
+				}
+
 				return "redirect:/";
 			} catch (IncorrectCredentialsException e) {
 				msg = "登陆密码错误";
@@ -69,14 +77,8 @@ public class LoginHandler extends BaseController {
 
 			map.addAttribute("msg", msg);
 			return "index";
-		} else {
-			User user = getUser();
-			if (!user.getLang().equals("")) {
-				Cookie cookie = new Cookie("lang", user.getLang());
-				cookie.setMaxAge(86400*365*10);
-				response.addCookie(cookie);
-			}
 		}
+
 
 		// 登录成功，重定向到LoginSuccess.action
 		return "redirect:/";
