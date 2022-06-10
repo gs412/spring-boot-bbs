@@ -31,10 +31,10 @@
 <br><br>
 <table class="table">
 	<tr>
-		<th style="width:50%;">标题</th>
-		<th style="width:15%;">作者</th>
-		<th style="width:15%;">节点</th>
-		<th>发布时间</th>
+		<th style="width:50%;">${local("title")}</th>
+		<th style="width:15%;">${local("author")}</th>
+		<th style="width:15%;">${local("category")}</th>
+		<th>${local("pub_time")}</th>
 	</tr>
 	<#list topics as topic>
 		<tr>

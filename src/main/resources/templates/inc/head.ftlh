@@ -33,27 +33,27 @@
 				<div class="nav-collapse">
 					<ul class="nav">
 						<#assign uri = springMacroRequestContext.requestUri>
-						<li <#if uri == "/" || uri?contains("/topic")>class="active"</#if>><a href="/">社区</a></li>
+						<li <#if uri == "/" || uri?contains("/topic")>class="active"</#if>><a href="/">${local("club")}</a></li>
 					</ul>
 					<form class="navbar-search pull-left" action="/">
-						<input type="text" name="searchWord" value="<#if searchWord??>${searchWord}</#if>" class="search-query span2" placeholder="搜索帖子" autocomplete="off">
+						<input type="text" name="searchWord" value="<#if searchWord??>${searchWord}</#if>" class="search-query span2" placeholder="${local("top_search")}" autocomplete="off">
 					</form>
 					<ul class="nav pull-right">
 						<#if user??>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">${user.username} <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li><a href="/profile/basic">基本资料</a></li>
+									<li><a href="/profile/basic">${local("profile")}</a></li>
 									<li><a href="#">Another action</a></li>
 									<li><a href="#">Something else here</a></li>
-									<#if user.username == "admin"><li><a href="/admin">管理后台</a></li></#if>
+									<#if user.username == "admin"><li><a href="/admin">${local("admin_panel")}</a></li></#if>
 									<li class="divider"></li>
-									<li><a href="/logout">退出</a></li>
+									<li><a href="/logout">${local("logout")}</a></li>
 								</ul>
 							</li>
 						<#else>
-							<li <#if springMacroRequestContext.requestUri?startsWith("/login")>class="active"</#if>><a href="/login">登陆</a></li>
-							<li <#if springMacroRequestContext.requestUri?startsWith("/user/register")>class="active"</#if>><a href="/user/register">注册</a></li>
+							<li <#if springMacroRequestContext.requestUri?startsWith("/login")>class="active"</#if>><a href="/login">${local("login")}</a></li>
+							<li <#if springMacroRequestContext.requestUri?startsWith("/user/register")>class="active"</#if>><a href="/user/register">${local("register")}</a></li>
 						</#if>
 					</ul>
 				</div><!-- /.nav-collapse -->
