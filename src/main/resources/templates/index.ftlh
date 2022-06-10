@@ -40,7 +40,15 @@
 		<tr>
 			<td><a href="/topic/${topic.getId()}">${topic.getTitle()}</a></td>
 			<td>${topic.user.getUsername()}</td>
-			<td><a href="/?tab=${topic.category.getTab()}">${topic.category.getNameCn()}</a></td>
+			<td>
+				<a href="/?tab=${topic.category.getTab()}">
+					<#if local_lang == "cn">
+						${topic.category.getNameCn()}
+					<#else>
+						${topic.category.getNameEn()}
+					</#if>
+				</a>
+			</td>
 			<td>${show_date(topic.getCreatedAt())}</td>
 		</tr>
 	</#list>

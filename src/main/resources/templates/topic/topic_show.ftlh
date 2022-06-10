@@ -13,7 +13,7 @@
 			<div><img src="${post.user.getUserFaceLink()}"></div>
 		</div>
 		<div class="main">
-			<div class="post_info">发布于 ${topic.getCreatedAt()}</div>
+			<div class="post_info">${local("post_at")} ${topic.getCreatedAt()}</div>
 			<div class="floor" style="">#${page.getNumber()*10 + post?index + 1}</div>
 			<div class="post_content">
 					${post.getContentHtml()?no_esc}
@@ -21,11 +21,11 @@
 			<div>
 				<#if user?? && user.username == 'admin'>
 					<#if post.isFirst >
-						<a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>编辑</a>
-						<a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
+						<a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>${local("edit")}</a>
+						<a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
 					<#else>
-						<a href="/post/${post.getId()}/edit"><i class="fa fa-edit"></i>编辑</a>
-						<a href="/post/${post.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>删除</a>
+						<a href="/post/${post.getId()}/edit"><i class="fa fa-edit"></i>${local("edit")}</a>
+						<a href="/post/${post.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
 					</#if>
 				</#if>
 			</div>
@@ -47,9 +47,9 @@
 	<form class="form-horizontal" action="/topic/${topic.getId()}/reply" method="post">
         <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 		<fieldset>
-			<legend>快速回复</legend>
+			<legend>${local("quick_reply")}</legend>
 			<div class="control-group">
-				<label for="content" class="control-label" style="width:180px;">内容</label>
+				<label for="content" class="control-label" style="width:180px;">${local("content")}</label>
 				<div class="controls" style="margin-left:200px;">
 					<div class="toolbar">
 						<i class="fa fa-image" title="上传图片，也可以上传其它类型文件"></i>
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			<div class="form-actions" style="padding-left:200px;">
-				<button type="submit" class="btn btn-primary">回复</button>
+				<button type="submit" class="btn btn-primary">${local("reply")}</button>
 			</div>
 		</fieldset>
 	</form>

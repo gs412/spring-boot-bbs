@@ -4,18 +4,18 @@
 
 <form id="form1" autocomplete="off" class="form-horizontal">
   <fieldset>
-    <legend>基本资料</legend>
+    <legend>${local("profile")}</legend>
     <div class="control-group">
-      <label for="tel" class="control-label">设置头像</label>
+      <label for="tel" class="control-label">${local("set_face")}</label>
       <div class="controls">
         <img src="${user_face_link}" id="shop_icon_img">
         <input type="file" name="user_face" class="input-file shop_icon">
       </div>
     </div>
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">修改</button>
+      <button type="submit" class="btn btn-primary">${local("save_change")}</button>
       &nbsp;
-      <a href="javascript:history.go(-1)" class="btn">取消</a>
+      <a href="javascript:history.go(-1)" class="btn">${local("cancel")}</a>
     </div>
   </fieldset>
 </form>
