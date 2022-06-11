@@ -66,7 +66,7 @@ public class IndexController extends BaseController {
                 String newTitle = topic.getTitle().replace(searchWord, "<font color=red>" + searchWord + "</font>");
                 topic.setTitle(newTitle);
             } else {
-                topic.setTitle(topic.getTitle(50, ".."));
+                topic.setTitle(topic.getTitle(200, ".."));
             }
         }
 

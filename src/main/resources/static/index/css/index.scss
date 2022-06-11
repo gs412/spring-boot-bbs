@@ -1,9 +1,16 @@
 table.table {
   tr {
     td.title {
+      a:first-child {
+        float: left;
+        max-width: 400px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       i.fa-thumb-tack {
         color: #888;
-        margin-left: 7px;
+        margin-left: 11px;
       }
     }
   }
