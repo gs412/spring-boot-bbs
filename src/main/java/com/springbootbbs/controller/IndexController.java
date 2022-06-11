@@ -41,13 +41,14 @@ public class IndexController extends BaseController {
     UserRepository userRepository;
 
     @RequestMapping("/")
-    public String index(String p, @RequestParam(defaultValue = "all") String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams, @CookieValue(value = "lang", required = false) String lang) {
+    public String index(String p, @RequestParam HashMap<String, String> allRequestParams, ModelMap m, @CookieValue(value = "lang", required = false) String lang) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         int p1 = NumberUtils.toInt(p, 1);
         Order order = new Order(Direction.DESC, "id");
         Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
 
+        String tab = allRequestParams.getOrDefault("tab", "all");
         String searchWord = allRequestParams.getOrDefault("searchWord", "");
 
         Page<Topic> page;
