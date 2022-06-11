@@ -19,7 +19,7 @@ public class Utils {
 		int count = 0;
 		StringBuilder sb = new StringBuilder();
 		String[] ss = str.split("");
-		for(int i=1;i<ss.length;i++){
+		for(int i=0;i<ss.length-1;i++){
 			count+=ss[i].getBytes().length>1?2:1;
 			sb.append(ss[i]);
 			if(count>=len)break;
