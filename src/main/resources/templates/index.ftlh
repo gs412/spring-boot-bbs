@@ -43,7 +43,7 @@
 			<td class="title">
 				<a href="/topic/${topic.getId()}">${topic.getTitle()}</a>
 				<#if topic.stick>
-					<i class="fa fa-thumb-tack" title="置顶话题"></i>
+					<i class="fa fa-thumb-tack" title="${local("stick_topic")}"></i>
 				</#if>
 			</td>
 			<td>${topic.user.getUsername()}</td>
