@@ -3,6 +3,7 @@ package com.springbootbbs.controller;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.libs.I18nUtil;
 import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,7 +41,7 @@ public class IndexController extends BaseController {
     UserRepository userRepository;
 
     @RequestMapping("/")
-    public String index(String p, @RequestParam(defaultValue = "all") String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams) {
+    public String index(String p, @RequestParam(defaultValue = "all") String tab, ModelMap m, @RequestParam HashMap<String, String> allRequestParams, @CookieValue(value = "lang", required = false) String lang) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         int p1 = NumberUtils.toInt(p, 1);
@@ -67,7 +69,7 @@ public class IndexController extends BaseController {
             }
         }
 
-        m.addAttribute("title", "Spring Boot BBS - 首页");
+        m.addAttribute("title", "Spring Boot BBS - " + I18nUtil.getMessage("index_page", localizeLang(lang)));
         m.addAttribute("page", page);
         m.addAttribute("topics", topics);
         m.addAttribute("user", getUser());

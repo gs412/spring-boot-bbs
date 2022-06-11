@@ -73,4 +73,13 @@ public class BaseController {
 		return lang;
 	}
 
+	protected String localizeLang(String lang) {
+		String local_lang = localLang(lang);
+		if (local_lang.equals("cn")) {
+			return "zh-CN";
+		} else {
+			return "en-US";
+		}
+	}
+
 }
