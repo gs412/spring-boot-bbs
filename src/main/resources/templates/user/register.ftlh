@@ -1,5 +1,9 @@
 <#include "../inc/head.ftlh">
 
+<#if msg??>
+	<script>alert("${msg}")</script>
+</#if>
+
 <form class="form-horizontal" action="/user/register_save" method="post">
     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 	<fieldset>
@@ -7,7 +11,7 @@
 		<div class="control-group">
 			<label for="username" class="control-label">${local("username")}</label>
 			<div class="controls">
-				<input type="text" class="input-xlarge" name="username" id="username">
+				<input type="text" class="input-xlarge" name="username" id="username" value="<#if username??>${username}</#if>">
 			</div>
 		</div>
 		<div class="control-group">

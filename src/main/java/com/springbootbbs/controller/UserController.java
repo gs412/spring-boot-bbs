@@ -4,7 +4,10 @@ import com.springbootbbs.entiry.User;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,7 +48,9 @@ public class UserController {
 
 		String msg = "";
 
-		if (username.length() < 3) {
+		if (userRepository.findByUsername(username) != null) {
+			msg = "用户名已存在";
+		} else if (username.length() < 3) {
 			msg = "用户名最少3个字符";
 		} else if (username.length() > 20) {
 			msg = "用户名最多20个字符";
@@ -62,7 +67,16 @@ public class UserController {
 			User user = new User();
 			user.setUsername(username);
 			user.setPassword(result.toString());
+			user.setLang("");
 			userService.createUser(user);
+
+			// 执行登录操作
+			Subject currentUser = SecurityUtils.getSubject();
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			token.setRememberMe(true);
+			currentUser.login(token);
+
+			return "redirect:/";
 		}
 
 		m.addAttribute("username", username);
