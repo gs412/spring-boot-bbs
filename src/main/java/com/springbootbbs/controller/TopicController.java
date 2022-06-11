@@ -95,7 +95,7 @@ public class TopicController extends BaseController {
 
         Page<Post> page = postRepository.findAllByTopicIdAndDeleted(id, pageable, false);
 
-        m.addAttribute("title", topic.getTitle());
+        m.addAttribute("title", topic.getTitle() + " - Spring Boot BBS");
         m.addAttribute("topic", topic);
         m.addAttribute("page", page);
         m.addAttribute("user", getUser());
