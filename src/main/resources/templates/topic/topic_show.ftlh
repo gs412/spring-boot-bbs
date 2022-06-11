@@ -4,7 +4,7 @@
 <script src="/static/topic/js/topic_show.js"></script>
 <script src="/static/topic/js/topic_edit.js"></script>
 
-<h2>${topic.getTitle(50, "...")}</h2>
+<h2 class="title" data-id="${topic.id}">${topic.getTitle(50, "...")}</h2>
 
 <#list page.getContent() as post>
 	<div class="post clearfix" id="post_${post.getId()}">
@@ -23,6 +23,11 @@
 					<#if post.isFirst >
 						<a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>${local("edit")}</a>
 						<a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
+						<#if topic.stick >
+							<a href="javascript:void(0);" class="topic-stick-off"><i class="fa fa-thumb-tack"></i>取消置顶</a>
+						<#else>
+							<a href="javascript:void(0);" class="topic-stick-on"><i class="fa fa-thumb-tack"></i>置顶</a>
+						</#if>
 					<#else>
 						<a href="/post/${post.getId()}/edit"><i class="fa fa-edit"></i>${local("edit")}</a>
 						<a href="/post/${post.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>

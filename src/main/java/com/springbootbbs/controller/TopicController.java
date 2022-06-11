@@ -19,10 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -276,6 +273,22 @@ public class TopicController extends BaseController {
                 map.put("url", "/attach/show/" + attach.getId());
             }
         }
+
+        String json = new ObjectMapper().writeValueAsString(map);
+        return json;
+    }
+
+    @RequestMapping(value = "/topic_stick", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public String stick(Long id, String action) throws JsonProcessingException {
+        System.out.println(id);
+        System.out.println(action);
+        Topic topic = topicRepository.findById(id).get();
+        topic.setStick(action.equals("on"));
+        topicService.save(topic);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", 1);
 
         String json = new ObjectMapper().writeValueAsString(map);
         return json;

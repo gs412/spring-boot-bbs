@@ -4,7 +4,6 @@ import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
 import com.springbootbbs.libs.Utils;
-import com.springbootbbs.libs.helpers.Local;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.repository.UserRepository;
@@ -53,9 +52,9 @@ public class IndexController extends BaseController {
         if (!searchWord.isEmpty()) {
             page = topicRepository.findAllByTitleLikeAndDeletedOrderByIdDesc(pageable, "%" + searchWord + "%", false);
         } else if (tab.equals("all")) {
-            page = topicRepository.findAllByDeletedOrderByIdDesc(pageable, false);
+            page = topicRepository.findAllByDeletedOrderByStickDescIdDesc(pageable, false);
         } else {
-            page = topicRepository.findAllByCategoryTabAndDeletedOrderByIdDesc(pageable, tab, false);
+            page = topicRepository.findAllByCategoryTabAndDeletedOrderByStickDescIdDesc(pageable, tab, false);
         }
 
         Iterable<Topic> topics = page.getContent();

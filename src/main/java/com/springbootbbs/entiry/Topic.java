@@ -34,6 +34,9 @@ public class Topic {
     @Column(nullable = false)
     private Boolean deleted = false;
 
+	@Column(nullable = false)
+	private Boolean stick = false;
+
     @CreationTimestamp
 	@Column(nullable = false)
 	private Date createdAt;
@@ -97,6 +100,14 @@ public class Topic {
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
+
+	public Boolean getStick() {
+		return stick;
+	}
+
+	public void setStick(Boolean stick) {
+		this.stick = stick;
+	}
 
 	public Date getCreatedAt() {
 		return createdAt;

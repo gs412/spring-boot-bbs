@@ -37,6 +37,7 @@ public class AllException {
 	@ResponseBody
 	public String allException(Exception e) {
 		System.out.println("------------------------->" + e);
+		e.printStackTrace();
 		return "系统出现异常!!!";
 	}
 

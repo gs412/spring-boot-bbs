@@ -7,6 +7,8 @@
 	.navbar .tabs li a:hover {text-decoration: none; background: #e9e9e9; color: #333;}
 	.navbar .tabs li.active a {color: #fff; background: #334;}
 </style>
+<link rel="stylesheet" href="/static/index/css/index.css">
+
 <div class="navbar">
     <div class="navbar-inner">
         <ul class="tabs">
@@ -38,7 +40,12 @@
 	</tr>
 	<#list topics as topic>
 		<tr>
-			<td><a href="/topic/${topic.getId()}">${topic.getTitle()}</a></td>
+			<td class="title">
+				<a href="/topic/${topic.getId()}">${topic.getTitle()}</a>
+				<#if topic.stick>
+					<i class="fa fa-thumb-tack" title="置顶话题"></i>
+				</#if>
+			</td>
 			<td>${topic.user.getUsername()}</td>
 			<td>
 				<a href="/?tab=${topic.category.getTab()}">

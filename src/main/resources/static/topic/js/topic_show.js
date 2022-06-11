@@ -16,4 +16,16 @@ $(document).ready(function () {
             window.location.hash = urlHash;
         }
     }
+
+    // 置顶，取消置顶
+    $('.topic-stick-on, .topic-stick-off').click(function () {
+        let $this = $(this);
+        let id = $('h2.title').data('id');
+        let action = $this.hasClass('topic-stick-on') ? 'on' : 'off';
+        $.post("/topic_stick", {id: id, action: action}, function (json) {
+            if (json.success) {
+                window.location.reload();
+            }
+        })
+    });
 });
