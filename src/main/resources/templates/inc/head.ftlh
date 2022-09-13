@@ -44,7 +44,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">${user.username} <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="/profile/basic">${local("profile")}</a></li>
-									<li><a href="#">Another action</a></li>
+									<li><a href="/profile/password">${local("profile_password")}</a></li>
 									<li><a href="#">Something else here</a></li>
 									<#if user.username == "admin"><li><a href="/admin">${local("admin_panel")}</a></li></#if>
 									<li class="divider"></li>
