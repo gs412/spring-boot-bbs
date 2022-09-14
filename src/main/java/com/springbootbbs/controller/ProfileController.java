@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Attach;
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.libs.I18nUtil;
 import com.springbootbbs.repository.AttachRepository;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.AttachService;
@@ -75,12 +76,19 @@ public class ProfileController extends BaseController {
     }
 
     @GetMapping("/password")
-    public String password(ModelMap m) {
+    public String password(@CookieValue(value = "lang", required = false) String lang, ModelMap m) {
         User user = getUser();
 
+        m.addAttribute("title", I18nUtil.getMessage("profile_password", localizeLang(lang)));
         m.addAttribute("user", user);
 
         return "profile/password";
+    }
+
+    @PostMapping("/password_post")
+    @ResponseBody
+    public String password_post() {
+        return "";
     }
 
 }

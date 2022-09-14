@@ -2,7 +2,8 @@
 
 <link rel="stylesheet" href="/static/profile/basic.css">
 
-<form id="form1" autocomplete="off" class="form-horizontal">
+<form id="form1" method="post" action="/profile/password_post" autocomplete="off" class="form-horizontal">
+  <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
   <fieldset>
     <legend>${local("profile_password")}</legend>
     <div class="control-group">
