@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 
@@ -79,7 +80,7 @@ public class ProfileController extends BaseController {
     public String password(@CookieValue(value = "lang", required = false) String lang, ModelMap m) {
         User user = getUser();
 
-        m.addAttribute("title", I18nUtil.getMessage("profile_password", localizeLang(lang)));
+        m.addAttribute("title", I18nUtil.getMessage("profile_password", localizeLang(lang)) + " - Spring Boot BBS");
         m.addAttribute("user", user);
 
         return "profile/password";
@@ -87,7 +88,11 @@ public class ProfileController extends BaseController {
 
     @PostMapping("/password_post")
     @ResponseBody
-    public String password_post() {
+    public String password_post(String password_origin, String password_new, String password_confirm, @CookieValue(value = "lang", required = false) String lang, RedirectAttributes redirAttrs) {
+        
+
+        redirAttrs.addFlashAttribute("message", I18nUtil.getMessage("profile_password_success", localizeLang(lang)));
+
         return "";
     }
 
