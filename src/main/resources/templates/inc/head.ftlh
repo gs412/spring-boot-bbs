@@ -16,6 +16,14 @@
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="/static/_css/main.css">
+
+	<#if message??>
+		<script>
+			setTimeout(function () {
+				show_msg("${message}");
+			}, 1);
+		</script>
+	</#if>
 </head>
 <body>
 

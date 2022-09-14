@@ -9,6 +9,11 @@ import com.springbootbbs.repository.AttachRepository;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.AttachService;
 import com.springbootbbs.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -87,13 +92,39 @@ public class ProfileController extends BaseController {
     }
 
     @PostMapping("/password_post")
-    @ResponseBody
     public String password_post(String password_origin, String password_new, String password_confirm, @CookieValue(value = "lang", required = false) String lang, RedirectAttributes redirAttrs) {
-        
+        User user = getUser();
+
+        // 校验原密码
+        Object result = new SimpleHash("md5", password_origin, user.getUsername(), 1024);
+        String password_old = userService.selectPassword(user.getUsername());
+        if (!password_old.equals(result.toString())) {
+            redirAttrs.addFlashAttribute("message", I18nUtil.getMessage("profile_password_origin_error", localizeLang(lang)));
+            return "redirect:/profile/password";
+        }
+
+        // 校验密码是否符合要求
+        if (password_new.length() < 6) {
+            redirAttrs.addFlashAttribute("message", I18nUtil.getMessage("password_min_6", localizeLang(lang)));
+            return "redirect:/profile/password";
+        }
+
+        // 校验确认密码
+        if (!password_new.equals(password_confirm)) {
+            redirAttrs.addFlashAttribute("message", I18nUtil.getMessage("profile_password_confirm_error", localizeLang(lang)));
+            return "redirect:/profile/password";
+        }
+
+        // 设置新密码
+        Object result1 = new SimpleHash("md5", password_new, user.getUsername(), 1024);
+        user.setPassword(result1.toString());
+        userService.save(user);
+        // 退出登录
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
 
         redirAttrs.addFlashAttribute("message", I18nUtil.getMessage("profile_password_success", localizeLang(lang)));
-
-        return "";
+        return "redirect:/login";
     }
 
 }

@@ -68,7 +68,7 @@ public class UserController {
 			user.setUsername(username);
 			user.setPassword(result.toString());
 			user.setLang("");
-			userService.createUser(user);
+			userService.save(user);
 
 			// 执行登录操作
 			Subject currentUser = SecurityUtils.getSubject();

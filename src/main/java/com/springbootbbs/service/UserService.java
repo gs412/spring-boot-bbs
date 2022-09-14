@@ -16,10 +16,7 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	/**
-	 * 创建用户
-	 */
-	public User createUser(User user) {
+	public User save(User user) {
 		return userRepository.save(user);
 	}
 
