@@ -46,7 +46,7 @@
   top: 8px;
 }
 .post .main .post_content {
-  min-height: 350px;
+  min-height: 150px;
 }
 .post .main .post_content img {
   max-height: 400px;
