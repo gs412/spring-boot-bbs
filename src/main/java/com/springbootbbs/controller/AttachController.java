@@ -42,6 +42,13 @@ public class AttachController extends BaseController {
             String fileName = URLEncoder.encode(attach.getName(), StandardCharsets.UTF_8);
             response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
             response.setContentLengthLong(attach.getSize());
+        } else {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(attach.getCreatedAt());
+            cal.add(Calendar.HOUR, -8);
+            Format formatter = new SimpleDateFormat("EEE, d MMM yyyy H:m:s 'GMT'");
+            response.setHeader("Last-Modified", formatter.format(cal.getTime()));
+            response.setHeader("strict-transport-security", "max-age=31536000");
         }
 
         File file = new File(attach.getAbsolutePath());
