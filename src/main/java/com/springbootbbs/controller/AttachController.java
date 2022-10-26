@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @Controller
 @RequestMapping("/attach")
@@ -57,6 +60,12 @@ public class AttachController extends BaseController {
             File file = new File(attach.getAbsolutePath());
             in = new FileInputStream(file);
             response.setContentType(attach.getContentType());
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(attach.getCreatedAt());
+            cal.add(Calendar.HOUR, -8);
+            Format formatter = new SimpleDateFormat("EEE, d MMM yyyy H:m:s 'GMT'");
+            response.setHeader("Last-Modified", formatter.format(cal.getTime()));
         } else {
             in = new ClassPathResource("vendor/images/userface.jpg").getInputStream();
             response.setContentType("image/jpeg");
