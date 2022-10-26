@@ -60,6 +60,10 @@ public class AttachController extends BaseController {
         } else {
             in = new ClassPathResource("vendor/images/userface.jpg").getInputStream();
             response.setContentType("image/jpeg");
+            response.setHeader("Last-Modified", "Wed, 20 Oct 2022 11:42:47 GMT");
+            response.setHeader("Vary", "Origin");
+            response.setHeader("Vary", "Access-Control-Request-Method");
+            response.setHeader("Vary", "Access-Control-Request-Headers");
         }
         IOUtils.copy(in, response.getOutputStream());
     }
