@@ -13,7 +13,7 @@ spring:
     static-path-pattern: /static/**
   web:
     resources:
-      static-locations: file:D:\111\javafiles\spring-boot-bbs\src\main\resources\static
+      static-locations: /home/gs/111/javafiles/spring-boot-bbs/src/main/resources/static
   jpa:
     show-sql: false
   messages:
