@@ -71,6 +71,7 @@ public class AttachController extends BaseController {
             response.setContentType("image/jpeg");
             response.setHeader("Last-Modified", "Thu, 20 Oct 2022 12:45:22 GMT");
         }
+        response.setHeader("strict-transport-security", "max-age=31536000");
         IOUtils.copy(in, response.getOutputStream());
     }
 
