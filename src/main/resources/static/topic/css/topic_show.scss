@@ -4,11 +4,10 @@
 
 .post {
   border: 1px solid #666;
+  display: flex;
 
   .user_info {
-    min-height: 200px;
-    float: left;
-    width: 190px;
+    width: 240px;
     box-sizing: border-box;
     padding: 20px;
 
@@ -22,8 +21,7 @@
   }
 
   .main {
-    min-height: 200px;
-    margin-left: 200px;
+    width: 100%;
     border-left: 1px solid #666;
     word-break: break-all;
     box-sizing: border-box;
