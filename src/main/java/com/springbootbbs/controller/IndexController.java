@@ -118,7 +118,7 @@ public class IndexController extends BaseController {
         rgb.add(rands(10, 210));
         rgb.add(rands(10, 210));
 
-        String[] chars = "ABCDEFGHJKLMNPQRSTUVWXY".split("");
+        String[] chars = "ABCDEFGHJKLPQRSTUVXY".split("");
         StringBuilder text = new StringBuilder();
         for (int i=0; i<4; i++) {
             text.append(chars[randi(0, chars.length)]);
@@ -131,13 +131,13 @@ public class IndexController extends BaseController {
             makeFontPngs(chr, i + 1, fileNamePre, rgb);
         }
 
-        StringBuilder command = new StringBuilder("convert -size 150x50 xc:white ");
+        StringBuilder command = new StringBuilder("convert -size 120x47 xc:white ");
         for (int i=1; i<=4; i++) {
             command.append(
                     "/tmp/#{fileNamePre}#{i}.png -geometry +#{geometry}+3 -composite "
                             .replace("#{fileNamePre}", fileNamePre)
                             .replace("#{i}", String.valueOf(i))
-                            .replace("#{geometry}", String.valueOf(1+(i-1)*34+randi(-3,3)))
+                            .replace("#{geometry}", String.valueOf(1+(i-1)*24+randi(-1,1)))
             );
         }
         command.append("png:-");
