@@ -109,7 +109,7 @@ public class IndexController extends BaseController {
 
     @RequestMapping("/seccode/en")
     @ResponseBody
-    public void seccodeEn(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, InterruptedException {
+    public void seccodeEn(HttpServletResponse response, HttpSession session) throws IOException, InterruptedException {
         long timestamp = new Date().getTime();
         String fileNamePre = "seccode_en_" + timestamp + "_" + rands(100000, 999999) + "_";
 
