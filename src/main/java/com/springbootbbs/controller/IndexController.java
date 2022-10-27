@@ -1,5 +1,7 @@
 package com.springbootbbs.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
@@ -19,10 +21,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -105,6 +104,22 @@ public class IndexController extends BaseController {
         response.addCookie(cookie);
 
         return "redirect:" + request.getHeader("referer");
+    }
+
+    @RequestMapping(value = "/seccode_check", method = RequestMethod.POST, produces = "application/json")
+    public String seccodeCheck(String seccode, HttpSession session) throws JsonProcessingException {
+        HashMap<String, Object> map = new HashMap<>();
+
+        if (seccode == session.getAttribute("seccode")) {
+            map.put("success", true);
+            map.put("message", "");
+        } else {
+            map.put("success", false);
+            map.put("message", "");
+        }
+
+        String json = new ObjectMapper().writeValueAsString(map);
+        return json;
     }
 
     @RequestMapping("/seccode/en")
