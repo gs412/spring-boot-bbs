@@ -9,6 +9,7 @@ import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.repository.UserRepository;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +28,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -105,49 +109,92 @@ public class IndexController extends BaseController {
 
     @RequestMapping("/seccode/en")
     @ResponseBody
-    public String seccodeEn(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    public void seccodeEn(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, InterruptedException {
         long timestamp = new Date().getTime();
-        Random rand = new Random();
-        int randInt = rand.nextInt(999999 - 100000 + 1) + 100000;
-        String fileNamePre = "seccode_en_" + timestamp + "_" + randInt + "_";
+        String fileNamePre = "seccode_en_" + timestamp + "_" + rands(100000, 999999) + "_";
 
         ArrayList<String> rgb = new ArrayList<>();
-        rgb.add(String.valueOf(rand.nextInt(210-10) + 10));
-        rgb.add(String.valueOf(rand.nextInt(210-10) + 10));
-        rgb.add(String.valueOf(rand.nextInt(210-10) + 10));
+        rgb.add(rands(10, 210));
+        rgb.add(rands(10, 210));
+        rgb.add(rands(10, 210));
 
         String[] chars = "ABCDEFGHJKLMNPQRSTUVWXY".split("");
         StringBuilder text = new StringBuilder();
         for (int i=0; i<4; i++) {
-            text.append(chars[rand.nextInt(chars.length)]);
+            text.append(chars[randi(0, chars.length)]);
         }
 
         session.setAttribute("seccode", text);
 
         for (int i=0; i<4; i++) {
             String chr = text.toString().split("")[i];
-            makeFontPngs(chr, i, fileNamePre, rgb);
+            makeFontPngs(chr, i + 1, fileNamePre, rgb);
         }
 
-        return fileNamePre;
+        StringBuilder command = new StringBuilder("convert -size 150x50 xc:white ");
+        for (int i=1; i<=4; i++) {
+            command.append(
+                    "/tmp/#{fileNamePre}#{i}.png -geometry +#{geometry}+3 -composite "
+                            .replace("#{fileNamePre}", fileNamePre)
+                            .replace("#{i}", String.valueOf(i))
+                            .replace("#{geometry}", String.valueOf(1+(i-1)*34+randi(-3,3)))
+            );
+        }
+        command.append("png:-");
+        Process ps = Runtime.getRuntime().exec(command.toString());
+        ps.waitFor();
+        InputStream in = ps.getInputStream();
+
+        for (int i=1; i<=4; i++) {
+            Runtime.getRuntime().exec("rm /tmp/" + fileNamePre + i + ".png");
+        }
+
+        response.setContentType("image/png");
+        IOUtils.copy(in, response.getOutputStream());
     }
 
-    private void makeFontPngs(String chr, int i, String fileNamePre, ArrayList<String> rgb) {
+    private void makeFontPngs(String chr, int i, String fileNamePre, ArrayList<String> rgb) throws IOException, InterruptedException {
+        String i_to_s = String.valueOf(i);
         String textColor = "rgba(" + String.join(", ", rgb) + ", 1)";
-        int rotate = 90;
-        String command = """
-                convert -size 40x40 -fill '#{text_color}' -background none \
-                -swirl #{%w[- +].sample+rand(20..30).to_s} \
-                -rotate -#{rotate} \
-                -wave #{%w[- +].sample+rand(2..4).to_s}x#{rand(120..150)} \
-                -rotate +#{rotate} \
-                -wave #{%w[- +].sample+rand(2..4).to_s}x#{rand(120..150)} \
-                -font '#{Rails.root}/vendor/seccode/fonts/huawencaiyun.ttf' \
-                -pointsize 40 -gravity Center label:#{char} \
-                /tmp/#{@file_name_pre}#{i}.png
-                """;
+        String rotate = String.valueOf(90);
+        String swirl = new String[]{"+", "-"}[randi(0, 1)] + rands(20, 30);
+        String wave1 = new String[]{"+", "-"}[randi(0, 1)] + rands(2, 4) + "x" + rands(120, 150);
+        String wave2 = new String[]{"+", "-"}[randi(0, 1)] + rands(2, 4) + "x" + rands(120, 150);
+        String fontPath = Utils.getBasePath() + "/vendor/fonts/huawencaiyun.ttf";
 
-        System.out.println(command);
+        String command = """
+                /usr/bin/convert -size 40x40 -fill '#{textColor}' -background none \
+                -swirl #{swirl} \
+                -rotate -#{rotate} \
+                -wave #{wave1} \
+                -rotate +#{rotate} \
+                -wave #{wave2} \
+                -font '#{fontPath}' \
+                -pointsize 40 -gravity Center label:#{char} \
+                /tmp/#{fileNamePre}#{i_to_s}.png
+                """
+                .replace("#{textColor}", textColor)
+                .replace("#{swirl}", swirl)
+                .replace("#{rotate}", rotate)
+                .replace("#{wave1}", wave1)
+                .replace("#{wave2}", wave2)
+                .replace("#{fontPath}", fontPath)
+                .replace("#{char}", chr)
+                .replace("#{fileNamePre}", fileNamePre)
+                .replace("#{i_to_s}", i_to_s);
+
+        Process ps = Runtime.getRuntime().exec(command);
+        ps.waitFor();
+    }
+
+    private int randi(int start, int end) {
+        Random random = new Random();
+        return random.nextInt(end - start) + start;
+    }
+
+    private String rands(int start, int end) {
+        Random random = new Random();
+        return String.valueOf(random.nextInt(end - start) + start);
     }
 
 }

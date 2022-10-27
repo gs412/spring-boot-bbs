@@ -5,3 +5,4 @@ upload/
 *.iml
 application-prod.yml
 push-update-to-server.sh
+/vendor
