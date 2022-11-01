@@ -62,8 +62,20 @@ public class IndexController extends BaseController {
         if (!searchWord.isEmpty()) {
             String[] keywords = searchWord.split(" ");
             List<String> keywordList = Arrays.stream(keywords).filter(word->word.length()>0).toList();
+            List<String> kws = keywordList.stream().map("%%%s%%"::formatted).toList();
 
-            page = topicRepository.searchTitleByKeywords(keywordList, pageable);
+            //page = topicRepository.searchTitleByKeywords(keywordList, pageable);
+            if (keywordList.size() == 1) {
+                page = topicRepository.searchTitleByKeywords(kws.get(0), pageable);
+            } else if (keywordList.size() == 2) {
+                page = topicRepository.searchTitleByKeywords(kws.get(0), kws.get(1), pageable);
+            } else if (keywordList.size() == 3) {
+                page = topicRepository.searchTitleByKeywords(kws.get(0), kws.get(1), kws.get(2), pageable);
+            } else if (keywordList.size() == 4) {
+                page = topicRepository.searchTitleByKeywords(kws.get(0), kws.get(1), kws.get(2), kws.get(3), pageable);
+            } else {
+                page = topicRepository.searchTitleByKeywords(kws.get(0), kws.get(1), kws.get(2), kws.get(3), kws.get(4), pageable);
+            }
 
             searchWord = String.join(" ", keywordList);
         } else if (tab.equals("all")) {

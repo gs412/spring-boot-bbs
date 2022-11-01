@@ -35,13 +35,11 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
 
             selectCase = selectCase.when(cb.like(titleExpression, "%" + keyword.toLowerCase() + "%"), keywordList.indexOf(keyword) + 10);
             Expression<Object> sStr = selectCase.otherwise(0);
+
+            cQuery = cQuery.orderBy(cb.desc(sStr));
         }
         cQuery.select(topic).where(cb.or(predicates.toArray(new Predicate[0])));
-
-        CriteriaBuilder.Case<Object> selectCase1 = cb.selectCase();
-        selectCase1.when(cb.like(titleExpression, "%前端%"), 10).otherwise(0);
-        Expression<String> plus = cb.function("+", String.class, selectCase1.when(cb.like(titleExpression, "%前端%"), 10).otherwise(0), selectCase1.when(cb.like(titleExpression, "%话题%"), 11).otherwise(0));
-        cQuery = cQuery.orderBy(cb.desc(plus));
+        System.out.println(cQuery.toString());
 
         List<Order> orderList = new ArrayList<>();
         TypedQuery<Topic> query = entityManager.createQuery(cQuery);
