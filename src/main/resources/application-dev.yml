@@ -15,7 +15,7 @@ spring:
     resources:
       static-locations: file:/home/gs/111/javafiles/spring-boot-bbs/src/main/resources/static/
   jpa:
-    show-sql: false
+    show-sql: true
   messages:
     basename: i18n/messages
   servlet:

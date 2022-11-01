@@ -27,12 +27,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Controller
@@ -56,11 +56,16 @@ public class IndexController extends BaseController {
         Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
 
         String tab = allRequestParams.getOrDefault("tab", "all");
-        String searchWord = allRequestParams.getOrDefault("searchWord", "");
+        String searchWord = allRequestParams.getOrDefault("searchWord", "").trim();
 
         Page<Topic> page;
         if (!searchWord.isEmpty()) {
-            page = topicRepository.findAllByTitleLikeAndDeletedOrderByIdDesc(pageable, "%" + searchWord + "%", false);
+            String[] keywords = searchWord.split(" ");
+            List<String> keywordList = Arrays.stream(keywords).filter(word->word.length()>0).toList();
+
+            page = topicRepository.searchTitleByKeywords(keywordList, pageable);
+
+            searchWord = String.join(" ", keywordList);
         } else if (tab.equals("all")) {
             page = topicRepository.findAllByDeletedOrderByStickDescIdDesc(pageable, false);
         } else {
