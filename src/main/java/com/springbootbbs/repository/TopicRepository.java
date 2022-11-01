@@ -23,7 +23,7 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>
 
     @Transactional
     @Modifying
-    @Query("update Topic set category=?2 where category=?1")
+    @Query("update Topic set category=:targetCategory where category=:sourceCategory")
     void moveCategoryToCategory(Category sourceCategory, Category targetCategory);
 
 }
