@@ -87,7 +87,10 @@ public class IndexController extends BaseController {
         Iterable<Topic> topics = page.getContent();
         for (Topic topic : topics) {
             if (!searchWord.isEmpty()) {
-                String newTitle = topic.getTitle().replace(searchWord, "<font color=red>" + searchWord + "</font>");
+                String newTitle = topic.getTitle();
+                for (String word : searchWord.split(" ")) {
+                    newTitle = newTitle.replaceAll("((?i)%s)".formatted(word), "<font color=red>$1</font>");
+                }
                 topic.setTitle(newTitle);
             } else {
                 topic.setTitle(topic.getTitle(200, ".."));
