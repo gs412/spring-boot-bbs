@@ -17,7 +17,7 @@ public class Topic {
 	@Column
 	private Long id;
 
-	@Column(length = 100)
+	@Column(length = 300)
 	private String title;
 
 	@Column
