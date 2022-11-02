@@ -41,7 +41,7 @@
 	<#list topics as topic>
 		<tr>
 			<td class="title clearfix">
-				<a href="/topic/${topic.getId()}">${topic.getTitle()?no_esc}</a>
+				<a href="/topic/${topic.getId()}" title="${topic.getTitle()}">${topic.getShortTitle()?no_esc}</a>
 				<#if topic.stick>
 					<i class="fa fa-thumb-tack" title="${local("stick_topic")}"></i>
 				</#if>

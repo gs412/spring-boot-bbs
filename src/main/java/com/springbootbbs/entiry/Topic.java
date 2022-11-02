@@ -45,6 +45,9 @@ public class Topic {
 	@Column(nullable = false)
 	private Date updatedAt;
 
+	@Transient
+	private String shortTitle;
+
 	public Long getId() {
 		return id;
 	}
@@ -123,5 +126,13 @@ public class Topic {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public String getShortTitle() {
+		return shortTitle;
+	}
+
+	public void setShortTitle(String shortTitle) {
+		this.shortTitle = shortTitle;
 	}
 }

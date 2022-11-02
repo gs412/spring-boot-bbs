@@ -91,9 +91,9 @@ public class IndexController extends BaseController {
                 for (String word : searchWord.split(" ")) {
                     newTitle = newTitle.replaceAll("((?i)%s)".formatted(word), "<font color=red>$1</font>");
                 }
-                topic.setTitle(newTitle);
+                topic.setShortTitle(newTitle);
             } else {
-                topic.setTitle(topic.getTitle(200, ".."));
+                topic.setShortTitle(topic.getTitle(200, ".."));
             }
         }
 
