@@ -106,12 +106,14 @@ public class Post {
 	}
 
 	public String getContentHtml() {
-		String new_content = content.replace("<", "&lt;");
+		/*String new_content = content.replace("<", "&lt;");
 		new_content = new_content.replace(">", "&gt;");
 		new_content = new_content.replace("\n", "<br>");
 		new_content = new_content.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
 		new_content = new_content.replace(" ", "&nbsp;");
-		new_content = Utils.markDown(new_content);
+		new_content = Utils.markDown(new_content);*/
+
+		String new_content = Utils.markDown(content);
 
 		return new_content;
 	}
