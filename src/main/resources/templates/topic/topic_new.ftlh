@@ -9,9 +9,9 @@
 	<fieldset>
 		<legend>${local("new_topic")}</legend>
         <div class="control-group">
-            <label for="title" class="control-label">${local("category")}</label>
+            <label for="category_id" class="control-label">${local("category")}</label>
             <div class="controls">
-	            <select name="category_id">
+	            <select name="category_id" id="category_id">
 		            <#list categories as category>
                         <option value="${category.getId()}" <#if category.getTab() == tab>selected</#if>>
 							<#if local_lang == "cn">
@@ -31,7 +31,10 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label for="content" class="control-label">${local("content")}</label>
+			<label for="content" class="control-label">
+				${local("content")}<br>
+				<small style="color:#999; cursor:help;" title="内容支持markdown格式">markdown</small>
+			</label>
 			<div class="controls">
 				<div class="toolbar">
 					<i class="fa fa-image" title="上传图片，也可以上传其它类型文件"></i>

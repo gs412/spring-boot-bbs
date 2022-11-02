@@ -54,7 +54,10 @@
 		<fieldset>
 			<legend>${local("quick_reply")}</legend>
 			<div class="control-group">
-				<label for="content" class="control-label" style="width:180px;">${local("content")}</label>
+				<label for="content" class="control-label" style="width:180px;">
+					${local("content")}<br>
+					<small style="color:#999; cursor:help;" title="内容支持markdown格式">markdown</small>
+				</label>
 				<div class="controls" style="margin-left:200px;">
 					<div class="toolbar">
 						<i class="fa fa-image" title="上传图片，也可以上传其它类型文件"></i>

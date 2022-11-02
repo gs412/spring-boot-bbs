@@ -24,8 +24,11 @@
       </div>
     </div>
 		<div class="control-group">
-      <label for="content" class="control-label">内容</label>
-			<div class="controls">
+        <label for="content" class="control-label">
+            ${local("content")}<br>
+            <small style="color:#999; cursor:help;" title="内容支持markdown格式">markdown</small>
+        </label>
+        <div class="controls">
         <div class="toolbar">
           <i class="fa fa-image" title="上传图片，也可以上传其它类型文件"></i>
           <input type="file" id="upload_file" style="display: none;">
