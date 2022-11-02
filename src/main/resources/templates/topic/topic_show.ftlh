@@ -4,7 +4,7 @@
 <script src="/static/topic/js/topic_show.js"></script>
 <script src="/static/topic/js/topic_edit.js"></script>
 
-<h2 class="title" data-id="${topic.id}">${topic.getTitle(50, "...")}</h2>
+<h2 class="title" data-id="${topic.id}">${topic.getTitle()}</h2>
 
 <#list page.getContent() as post>
 	<div class="post clearfix" id="post_${post.getId()}">
