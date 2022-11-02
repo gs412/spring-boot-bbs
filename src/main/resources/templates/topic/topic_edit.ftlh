@@ -8,7 +8,7 @@
 	<fieldset>
 		<legend>编辑帖子</legend>
     <div class="control-group">
-      <label for="title" class="control-label">节点</label>
+      <label for="category_id" class="control-label">节点</label>
       <div class="controls">
         <select name="category_id" id="category_id">
           <#list categories as category>
