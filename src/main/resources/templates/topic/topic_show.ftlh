@@ -21,7 +21,11 @@
 			<div class="post_info">${local("post_at")} ${topic.getCreatedAt()}</div>
 			<div class="floor" style="">#${page.getNumber()*10 + post?index + 1}</div>
 			<div class="post_content">
+				<#if post.user.getBanned()>
+					<span style="color: #954121;">=== 用户已封禁 ===</span>
+				<#else>
 					${post.getContentHtml()?no_esc}
+				</#if>
 			</div>
 			<div>
 				<#if user?? && user.username == 'admin'>
