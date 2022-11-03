@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title><@block name="title">后台管理</@block></title>
+	<link rel="shortcut icon" href="/static/_img/favicon.ico" type="image/x-icon" />
     <meta content="${_csrf.token}" name="csrftoken">
     <meta content="${_csrf.headerName}" name="csrftoken_header_name">
     <meta content="${_csrf.parameterName}" name="csrftoken_parameter_name">
