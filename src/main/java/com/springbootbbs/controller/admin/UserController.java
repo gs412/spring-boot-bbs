@@ -88,7 +88,7 @@ public class UserController extends BaseController {
     @PostMapping("/user/{id}/ban")
     public String userBan(@PathVariable Long id, final HttpServletRequest request) {
         Optional<User> userOptional = userRepository.findById(id);
-        userOptional.ifPresent(user -> userService.ban(user));
+        userOptional.ifPresent(userService::ban);
 
         return "redirect:" + request.getHeader("referer");
     }
@@ -96,7 +96,7 @@ public class UserController extends BaseController {
     @PostMapping("/user/{id}/unban")
     public String userUnBan(@PathVariable Long id, final HttpServletRequest request) {
         Optional<User> userOptional = userRepository.findById(id);
-        userOptional.ifPresent(user -> userService.unBan(user));
+        userOptional.ifPresent(userService::unBan);
 
         return "redirect:" + request.getHeader("referer");
     }

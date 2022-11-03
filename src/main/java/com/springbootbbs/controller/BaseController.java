@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
+import java.util.Optional;
 
 @ControllerAdvice
 public class BaseController {
@@ -25,8 +26,8 @@ public class BaseController {
 		Subject subject = SecurityUtils.getSubject();
 		Long uid = (Long)subject.getPrincipal();
 		if (uid != null) {
-			User user = userRepository.findById(uid).get();
-			return user;
+			Optional<User> userOptional = userRepository.findById(uid);
+			return userOptional.orElse(null);
 		} else {
 			return null;
 		}

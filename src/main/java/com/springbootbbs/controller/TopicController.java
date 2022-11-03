@@ -46,9 +46,14 @@ public class TopicController extends BaseController {
 
     @RequestMapping("/topic_new")
     public String topic_new(String tab, ModelMap m) {
+        User user = getUser();
+        if (user.getBanned()) {
+            throw new PageNotFoundException("您已被封禁");
+        }
+
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
-        m.addAttribute("user", getUser());
+        m.addAttribute("user", user);
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
 
@@ -58,13 +63,20 @@ public class TopicController extends BaseController {
     @RequestMapping("/topic_save")
     public String topic_save(String title, String content, Long category_id) {
         User user = getUser();
-        Category category = categoryRepository.findById(category_id).get();
+        if (user.getBanned()) {
+            throw new PageNotFoundException("您已被封禁");
+        }
+
+        Optional<Category> categoryOptional = categoryRepository.findById(category_id);
+        if (categoryOptional.isEmpty()) {
+            throw new PageNotFoundException("分类不存在");
+        }
 
         Topic topic = new Topic();
         topic.setTitle(title);
         topic.setReplies(0);
         topic.setUser(user);
-        topic.setCategory(category);
+        topic.setCategory(categoryOptional.get());
         topicService.save(topic);
 
         Post post = new Post();
@@ -109,18 +121,22 @@ public class TopicController extends BaseController {
 
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
     public String topic_edit(@PathVariable Long id, ModelMap m) {
-        Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
-        Optional<Topic> topic = topicRepository.findById(id);
+        User user = getUser();
+        if (user.getBanned()) {
+            throw new PageNotFoundException("您已被封禁");
+        }
 
-        if (topic.isEmpty()) {
+        Optional<Topic> topicOptional = topicRepository.findById(id);
+        if (topicOptional.isEmpty()) {
             throw new PageNotFoundException("帖子不存在");
         }
 
-        Post post = postRepository.findTopByIsFirstAndTopic(true, topic.get());
+        Post post = postRepository.findTopByIsFirstAndTopic(true, topicOptional.get());
+        Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
-        m.addAttribute("topic", topic.get());
+        m.addAttribute("topic", topicOptional.get());
         m.addAttribute("post", post);
-        m.addAttribute("user", getUser());
+        m.addAttribute("user", user);
         m.addAttribute("categories", categories);
 
         return "topic/topic_edit";
@@ -129,8 +145,12 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) throws JsonProcessingException {
-        Optional<Category> category = categoryRepository.findById(category_id);
+        User user = getUser();
+        if (user.getBanned()) {
+            throw new PageNotFoundException("您已被封禁");
+        }
 
+        Optional<Category> category = categoryRepository.findById(category_id);
         if (category.isEmpty()) {
             throw new PageNotFoundException("分类不存在");
         }
