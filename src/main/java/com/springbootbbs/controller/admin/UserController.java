@@ -101,7 +101,7 @@ public class UserController extends BaseController {
         return "redirect:" + request.getHeader("referer");
     }
 
-    @PostMapping("/user/{id}/unban")
+    @PostMapping("/user/{id}/remove")
     public String userRemove(@PathVariable Long id, final HttpServletRequest request) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
