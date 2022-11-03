@@ -17,6 +17,9 @@
 
     .banned {
       text-decoration: line-through;
+      span {
+        color: #954121;
+      }
     }
 
     img {
