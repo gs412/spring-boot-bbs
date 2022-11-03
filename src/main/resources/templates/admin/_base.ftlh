@@ -172,6 +172,16 @@
 					<li class="active"><a href="/admin/category/categories"><i class="fa fa-circle-o"></i> 所有分类</a></li>
 				</ul>
 			</li>
+			<li class="treeview <#if springMacroRequestContext.requestUri?starts_with("/admin/user/")>active menu-open</#if>">
+				<a href="#">
+					<i class="fa fa-users"></i> <span>用户管理</span>
+					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+				</a>
+				<ul class="treeview-menu">
+					<li class="active"><a href="/admin/user/users"><i class="fa fa-circle-o"></i> 正常用户</a></li>
+					<li class="active"><a href="/admin/user/banned-users"><i class="fa fa-circle-o"></i> 已封禁用户</a></li>
+				</ul>
+			</li>
 		</ul>
 	</section>
 	<!-- /.sidebar -->

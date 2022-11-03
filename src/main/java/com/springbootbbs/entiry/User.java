@@ -1,9 +1,11 @@
 package com.springbootbbs.entiry;
 
 import com.springbootbbs.repository.AttachRepository;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "bbs_user")
@@ -22,6 +24,13 @@ public class User implements Serializable {
 
 	@Column(length = 10)
 	private String lang;
+
+	@Column(nullable = false)
+	private Boolean banned = false;
+
+	@CreationTimestamp
+	@Column(nullable = false)
+	private Date createdAt;
 
 	public Long getId() {
 		return id;
@@ -53,6 +62,22 @@ public class User implements Serializable {
 
 	public void setLang(String lang) {
 		this.lang = lang;
+	}
+
+	public Boolean getBanned() {
+		return banned;
+	}
+
+	public void setBanned(Boolean banned) {
+		this.banned = banned;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public User(String username, String password) {

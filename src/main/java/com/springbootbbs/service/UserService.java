@@ -20,7 +20,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-	// 判断是否用户名是否存在
+	// 判断用户名是否存在
 	public boolean existsByUsername(String username) {
 		return userRepository.existsByUsername(username);
 	}
