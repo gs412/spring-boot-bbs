@@ -16,6 +16,7 @@
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="/static/_css/main.css">
+	<link rel="shortcut icon" href="/static/_img/favicon.ico" type="image/x-icon" />
 
 	<#if message??>
 		<script>

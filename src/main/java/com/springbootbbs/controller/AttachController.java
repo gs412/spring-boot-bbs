@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/attach")
@@ -35,7 +36,18 @@ public class AttachController extends BaseController {
     @RequestMapping(value = "/show/{id}")
     @ResponseBody
     public void show(@PathVariable Long id, HttpServletResponse response) throws IOException {
-        Attach attach = attachRepository.findById(id).get();
+        Optional<Attach> optionalAttach = attachRepository.findById(id);
+        Attach attach;
+
+        if (optionalAttach.isEmpty()) {
+            InputStream in = new ClassPathResource("vendor/images/image-not-found.png").getInputStream();
+            response.setContentType("image/png");
+            response.setHeader("Last-Modified", "Thu, 20 Oct 2022 12:45:22 GMT");
+            IOUtils.copy(in, response.getOutputStream());
+            return;
+        } else {
+            attach = optionalAttach.get();
+        }
 
         response.setContentType(attach.getContentType());
         if (!attach.getContentType().startsWith("image/")) {
@@ -52,7 +64,7 @@ public class AttachController extends BaseController {
         }
 
         File file = new File(attach.getAbsolutePath());
-        InputStream in=new FileInputStream(file);
+        InputStream in = new FileInputStream(file);
         IOUtils.copy(in, response.getOutputStream());
     }
 
