@@ -9,7 +9,7 @@
 <#list page.getContent() as post>
 	<div class="post clearfix" id="post_${post.getId()}">
 		<div class="user_info">
-			<div class="user_name">${post.user.getUsername()}</div>
+			<div class="user_name <#if post.user.getBanned()>banned</#if>">${post.user.getUsername()}</div>
 			<div><img src="${post.user.getUserFaceLink()}"></div>
 		</div>
 		<div class="main">
