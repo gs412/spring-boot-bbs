@@ -53,7 +53,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		}
 
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roles);
-		//天加权限
+		//添加权限
 		info.setStringPermissions(permissions);
 
 		return info;
