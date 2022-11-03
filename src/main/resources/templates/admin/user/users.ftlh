@@ -21,7 +21,7 @@
                             <td>${user.getId()}.</td>
                             <td>${user.getUsername()}</td>
                             <td>${user.getLang()}</td>
-                            <td></td>
+                            <td>${show_date(user.getCreatedAt())}</td>
                             <td>
                                 <a href="/admin/user/user/${user.getId()}/ban" data-method="post">封禁</a>
                             </td>
