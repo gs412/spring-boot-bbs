@@ -43,31 +43,52 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>
 
     int countByCategoryIdAndDeleted(Long categoryId, Boolean deleted);
 
-    @Query(value="select * from bbs_topic where title like :kw1 and deleted=0 order by replies desc",
-            countQuery = "select count(*) from bbs_topic where title like :kw1 and deleted=0",
+    @Query(value="select t.* from bbs_topic t " +
+            "left join bbs_user u on t.user_id = u.id " +
+            "where t.title like :kw1 and t.deleted=0 and u.banned=0 order by t.replies desc",
+            countQuery = "select count(t.id) from bbs_topic t " +
+                    "left join bbs_user u on t.user_id = u.id " +
+                    "where t.title like :kw1 and t.deleted=0 and u.banned=0",
             nativeQuery = true)
     Page<Topic> searchTitleByKeywords(@Param("kw1") String kw1, Pageable pageable);
 
-    @Query(value="select * from bbs_topic where (title like :kw1 or title like :kw2) and deleted=0 order by IF(title like :kw1, 100, 0) + IF(title like :kw2, 99, 0) desc, replies desc",
-            countQuery = "select count(*) from bbs_topic where (title like :kw1 or title like :kw2) and deleted=0",
+    @Query(value="select t.* from bbs_topic t " +
+            "left join bbs_user u on t.user_id = u.id " +
+            "where (t.title like :kw1 or t.title like :kw2) and t.deleted=0 and u.banned=0 " +
+            "order by IF(t.title like :kw1, 100, 0) + IF(t.title like :kw2, 99, 0) desc, t.replies desc",
+            countQuery = "select count(t.id) from bbs_topic t " +
+                    "left join bbs_user u on t.user_id = u.id " +
+                    "where (t.title like :kw1 or t.title like :kw2) and t.deleted=0 and u.banned=0",
             nativeQuery = true)
     Page<Topic> searchTitleByKeywords(@Param("kw1") String kw1, @Param("kw2") String kw2, Pageable pageable);
 
-    @Query(value="select * from bbs_topic where (title like :kw1 or title like :kw2 or title like :kw3) and deleted=0 " +
-            "order by IF(title like :kw1, 100, 0) + IF(title like :kw2, 99, 0) + IF(title like :kw3, 98, 0) desc, replies desc",
-            countQuery = "select count(*) from bbs_topic where (title like :kw1 or title like :kw2 or title like :kw3) and deleted=0",
+    @Query(value="select t.* from bbs_topic t " +
+            "left join bbs_user u on t.user_id = u.id " +
+            "where (t.title like :kw1 or t.title like :kw2 or t.title like :kw3) and t.deleted=0 and u.banned=0 " +
+            "order by IF(t.title like :kw1, 100, 0) + IF(t.title like :kw2, 99, 0) + IF(t.title like :kw3, 98, 0) desc, t.replies desc",
+            countQuery = "select count(t.id) from bbs_topic t " +
+                    "left join bbs_user u on t.user_id = u.id " +
+                    "where (t.title like :kw1 or t.title like :kw2 or t.title like :kw3) and t.deleted=0 and u.banned=0",
             nativeQuery = true)
     Page<Topic> searchTitleByKeywords(@Param("kw1") String kw1, @Param("kw2") String kw2, @Param("kw3") String kw3, Pageable pageable);
 
-    @Query(value="select * from bbs_topic where (title like :kw1 or title like :kw2 or title like :kw3 or title like :kw4) and deleted=0 " +
-            "order by IF(title like :kw1, 100, 0) + IF(title like :kw2, 99, 0) + IF(title like :kw3, 98, 0) + IF(title like :kw4, 97, 0) desc, replies desc",
-            countQuery = "select count(*) from bbs_topic where (title like :kw1 or title like :kw2 or title like :kw3 or title like :kw4) and deleted=0",
+    @Query(value="select t.* from bbs_topic t " +
+            "left join bbs_user u on t.user_id = u.id " +
+            "where (t.title like :kw1 or t.title like :kw2 or t.title like :kw3 or t.title like :kw4) and t.deleted=0 and u.banned=0 " +
+            "order by IF(t.title like :kw1, 100, 0) + IF(t.title like :kw2, 99, 0) + IF(t.title like :kw3, 98, 0) + IF(t.title like :kw4, 97, 0) desc, t.replies desc",
+            countQuery = "select count(t.id) from bbs_topic t " +
+                    "left join bbs_user u on t.user_id = u.id " +
+                    "where (t.title like :kw1 or t.title like :kw2 or t.title like :kw3 or t.title like :kw4) and t.deleted=0 and u.banned=0",
             nativeQuery = true)
     Page<Topic> searchTitleByKeywords(@Param("kw1") String kw1, @Param("kw2") String kw2, @Param("kw3") String kw3, @Param("kw4") String kw4, Pageable pageable);
 
-    @Query(value="select * from bbs_topic where (title like :kw1 or title like :kw2 or title like :kw3 or title like :kw4 or title like :kw5) and deleted=0 " +
-            "order by IF(title like :kw1, 100, 0) + IF(title like :kw2, 99, 0) + IF(title like :kw3, 98, 0) + IF(title like :kw4, 97, 0) + IF(title like :kw5, 96, 0) desc, replies desc",
-            countQuery = "select count(*) from bbs_topic where (title like :kw1 or title like :kw2 or title like :kw3 or title like :kw4 or title like :kw5) and deleted=0",
+    @Query(value="select t.* from bbs_topic t " +
+            "left join bbs_user u on t.user_id = u.id " +
+            "where (t.title like :kw1 or t.title like :kw2 or t.title like :kw3 or t.title like :kw4 or t.title like :kw5) and t.deleted=0 and u.banned=0 " +
+            "order by IF(t.title like :kw1, 100, 0) + IF(t.title like :kw2, 99, 0) + IF(t.title like :kw3, 98, 0) + IF(t.title like :kw4, 97, 0) + IF(t.title like :kw5, 96, 0) desc, t.replies desc",
+            countQuery = "select count(t.id) from bbs_topic t " +
+                    "left join bbs_user u on t.user_id = u.id " +
+                    "where (t.title like :kw1 or t.title like :kw2 or t.title like :kw3 or t.title like :kw4 or t.title like :kw5) and t.deleted=0 and u.banned=0",
             nativeQuery = true)
     Page<Topic> searchTitleByKeywords(@Param("kw1") String kw1, @Param("kw2") String kw2, @Param("kw3") String kw3, @Param("kw4") String kw4, @Param("kw5") String kw5, Pageable pageable);
 
