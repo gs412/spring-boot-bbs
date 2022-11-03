@@ -29,6 +29,7 @@
 }
 .post .user-info .banned span.ban-sign {
   color: #954121;
+  font-weight: normal;
 }
 .post .user-info img {
   max-height: 160px;
