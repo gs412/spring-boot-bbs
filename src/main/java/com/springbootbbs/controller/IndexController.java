@@ -27,12 +27,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Controller
@@ -81,7 +78,7 @@ public class IndexController extends BaseController {
         } else if (tab.equals("all")) {
             page = topicRepository.findAllForIndex(pageable);
         } else {
-            page = topicRepository.findAllByCategoryTabAndDeletedOrderByStickDescIdDesc(pageable, tab, false);
+            page = topicRepository.findAllForIndexByCategory(tab, pageable);
         }
 
         Iterable<Topic> topics = page.getContent();
