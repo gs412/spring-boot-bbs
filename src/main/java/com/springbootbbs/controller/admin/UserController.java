@@ -12,7 +12,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller("admin.UserController")
 @RequestMapping("/admin/user")
@@ -31,12 +36,41 @@ public class UserController extends BaseController {
         Pageable pageable = PageRequest.of(p1 - 1, 20, Sort.by(order));
 
         Page<User> page = userRepository.findAllByBanned(pageable, false);
-        System.out.println(page.getContent());
 
         m.addAttribute("page", page);
         m.addAttribute("user", getUser());
 
         return "admin/user/users";
+    }
+
+    @GetMapping("/banned-users")
+    public String bannedUsers(String p, ModelMap m) {
+        int p1 = NumberUtils.toInt(p, 1);
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(p1 - 1, 20, Sort.by(order));
+
+        Page<User> page = userRepository.findAllByBanned(pageable, true);
+
+        m.addAttribute("page", page);
+        m.addAttribute("user", getUser());
+
+        return "admin/user/banned-users";
+    }
+
+    @PostMapping("/user/{id}/ban")
+    public String userBan(@PathVariable Long id, final HttpServletRequest request) {
+        Optional<User> userOptional = userRepository.findById(id);
+        userOptional.ifPresent(user -> userService.ban(user));
+
+        return "redirect:" + request.getHeader("referer");
+    }
+
+    @PostMapping("/user/{id}/unban")
+    public String userUnBan(@PathVariable Long id, final HttpServletRequest request) {
+        Optional<User> userOptional = userRepository.findById(id);
+        userOptional.ifPresent(user -> userService.unBan(user));
+
+        return "redirect:" + request.getHeader("referer");
     }
 
 }

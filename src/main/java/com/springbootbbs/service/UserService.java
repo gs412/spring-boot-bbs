@@ -36,4 +36,15 @@ public class UserService {
 		}
 	}
 
+	public Boolean ban(User user) {
+		user.setBanned(true);
+		userRepository.save(user);
+		return true;
+	}
+
+	public Boolean unBan(User user) {
+		user.setBanned(false);
+		userRepository.save(user);
+		return true;
+	}
 }

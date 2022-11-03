@@ -1,3 +1,4 @@
+<#assign uri = springMacroRequestContext.requestUri>
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,32 +155,40 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu" data-widget="tree">
 			<li class="header">MAIN NAVIGATION</li>
-			<li class="treeview <#if springMacroRequestContext.requestUri?starts_with("/admin/topic/")>active menu-open</#if>">
+			<li class="treeview <#if uri?starts_with("/admin/topic/")>active menu-open</#if>">
 				<a href="#">
 					<i class="fa fa-credit-card"></i> <span>帖子管理</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="false"><a href="/admin/topic/topics"><i class="fa fa-circle-o"></i> 所有帖子</a></li>
+					<li class="<#if uri == "/admin/topic/topics">active<#else>false</#if>">
+						<a href="/admin/topic/topics"><i class="fa fa-circle-o"></i>所有帖子</a>
+					</li>
 				</ul>
 			</li>
-			<li class="treeview <#if springMacroRequestContext.requestUri?starts_with("/admin/category/")>active menu-open</#if>">
+			<li class="treeview <#if uri?starts_with("/admin/category/")>active menu-open</#if>">
 				<a href="#">
 					<i class="fa fa-users"></i> <span>分类管理</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="active"><a href="/admin/category/categories"><i class="fa fa-circle-o"></i> 所有分类</a></li>
+					<li class="<#if uri == "/admin/category/categories">active<#else>false</#if>">
+						<a href="/admin/category/categories"><i class="fa fa-circle-o"></i>所有分类</a>
+					</li>
 				</ul>
 			</li>
-			<li class="treeview <#if springMacroRequestContext.requestUri?starts_with("/admin/user/")>active menu-open</#if>">
+			<li class="treeview <#if uri?starts_with("/admin/user/")>active menu-open</#if>">
 				<a href="#">
 					<i class="fa fa-users"></i> <span>用户管理</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="active"><a href="/admin/user/users"><i class="fa fa-circle-o"></i> 正常用户</a></li>
-					<li class="active"><a href="/admin/user/banned-users"><i class="fa fa-circle-o"></i> 已封禁用户</a></li>
+					<li class="<#if uri == "/admin/user/users">active<#else>false</#if>">
+						<a href="/admin/user/users"><i class="fa fa-circle-o"></i>正常用户</a>
+					</li>
+					<li class="<#if uri == "/admin/user/banned-users">active<#else>false</#if>">
+						<a href="/admin/user/banned-users"><i class="fa fa-circle-o"></i>已封禁用户</a>
+					</li>
 				</ul>
 			</li>
 		</ul>

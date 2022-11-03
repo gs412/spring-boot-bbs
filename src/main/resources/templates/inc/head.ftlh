@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="searchWord" type="String" -->
+<#assign uri = springMacroRequestContext.requestUri>
 <!doctype html>
 <html>
 <head>
@@ -41,7 +42,6 @@
 				<a class="brand" href="/">Spring Boot BBS</a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<#assign uri = springMacroRequestContext.requestUri>
 						<li <#if uri == "/" || uri?contains("/topic")>class="active"</#if>><a href="/">${local("club")}</a></li>
 					</ul>
 					<form class="navbar-search pull-left" action="/">
@@ -61,8 +61,8 @@
 								</ul>
 							</li>
 						<#else>
-							<li <#if springMacroRequestContext.requestUri?startsWith("/login")>class="active"</#if>><a href="/login">${local("login")}</a></li>
-							<li <#if springMacroRequestContext.requestUri?startsWith("/user/register")>class="active"</#if>><a href="/user/register">${local("register")}</a></li>
+							<li <#if uri?startsWith("/login")>class="active"</#if>><a href="/login">${local("login")}</a></li>
+							<li <#if uri?startsWith("/user/register")>class="active"</#if>><a href="/user/register">${local("register")}</a></li>
 						</#if>
 					</ul>
 				</div><!-- /.nav-collapse -->
