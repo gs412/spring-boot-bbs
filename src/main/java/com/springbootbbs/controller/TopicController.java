@@ -89,6 +89,10 @@ public class TopicController extends BaseController {
 
         Topic topic = oTopic.get();
 
+        if (topic.getUser().getBanned()) {
+            throw new PageNotFoundException("作者已被封禁");
+        }
+
         int p1 = NumberUtils.toInt(p, 1);
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "id");
         Pageable pageable = PageRequest.of(p1-1, 10, Sort.by(order));
@@ -100,7 +104,7 @@ public class TopicController extends BaseController {
         m.addAttribute("page", page);
         m.addAttribute("user", getUser());
 
-        return "topic/topic_show";
+        return "topic/topic-show";
     }
 
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
