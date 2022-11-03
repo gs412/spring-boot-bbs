@@ -79,7 +79,7 @@ public class IndexController extends BaseController {
 
             searchWord = String.join(" ", keywordList);
         } else if (tab.equals("all")) {
-            page = topicRepository.findAllByDeletedOrderByStickDescIdDesc(pageable, false);
+            page = topicRepository.findAllForIndex(pageable);
         } else {
             page = topicRepository.findAllByCategoryTabAndDeletedOrderByStickDescIdDesc(pageable, tab, false);
         }

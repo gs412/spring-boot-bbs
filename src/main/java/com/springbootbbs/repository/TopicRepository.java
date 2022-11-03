@@ -17,7 +17,14 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>
 
     Page<Topic> findAllByDeletedOrderByIdDesc(Pageable page, Boolean deleted);
 
-    Page<Topic> findAllByDeletedOrderByStickDescIdDesc(Pageable page, Boolean deleted);
+    @Query(value="select t.* from bbs_topic t " +
+            "left join bbs_user u on t.user_id = u.id " +
+            "where t.deleted=0 and u.banned=0 order by t.id desc",
+            countQuery = "select count(t.id) from bbs_topic t " +
+                    "left join bbs_user u on t.user_id = u.id " +
+                    "where t.deleted=0 and u.banned=0",
+            nativeQuery = true)
+    Page<Topic> findAllForIndex(Pageable page);
 
     Page<Topic> findAllByCategoryTabAndDeletedOrderByStickDescIdDesc(Pageable page, String categoryTab, Boolean deleted);
 
