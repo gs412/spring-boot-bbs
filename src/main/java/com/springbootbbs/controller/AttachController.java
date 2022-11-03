@@ -49,6 +49,14 @@ public class AttachController extends BaseController {
             attach = optionalAttach.get();
         }
 
+        if (attach.getUser().getBanned()) {
+            InputStream in = new ClassPathResource("vendor/images/user-is-banned.png").getInputStream();
+            response.setContentType("image/png");
+            response.setHeader("Last-Modified", "Thu, 20 Oct 2022 12:45:22 GMT");
+            IOUtils.copy(in, response.getOutputStream());
+            return;
+        }
+
         response.setContentType(attach.getContentType());
         if (!attach.getContentType().startsWith("image/")) {
             String fileName = URLEncoder.encode(attach.getName(), StandardCharsets.UTF_8);
