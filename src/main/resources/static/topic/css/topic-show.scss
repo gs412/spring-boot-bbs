@@ -6,21 +6,21 @@
   border: 1px solid #666;
   display: flex;
 
-  .user_info {
+  .user-info {
     width: 240px;
     box-sizing: border-box;
     padding: 20px;
 
-    .user_name {
+    .user-name {
       font-weight: bold;
     }
 
     .banned {
-      text-decoration: line-through;
-      span {
+      span.name {
+        text-decoration: line-through;
+      }
+      span.ban-sign {
         color: #954121;
-        font-weight: normal;
-        text-decoration: underline !important;
       }
     }
 

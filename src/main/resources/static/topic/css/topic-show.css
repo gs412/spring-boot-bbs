@@ -16,23 +16,21 @@
   border: 1px solid #666;
   display: flex;
 }
-.post .user_info {
+.post .user-info {
   width: 240px;
   box-sizing: border-box;
   padding: 20px;
 }
-.post .user_info .user_name {
+.post .user-info .user-name {
   font-weight: bold;
 }
-.post .user_info .banned {
+.post .user-info .banned span.name {
   text-decoration: line-through;
 }
-.post .user_info .banned span {
+.post .user-info .banned span.ban-sign {
   color: #954121;
-  font-weight: normal;
-  text-decoration: underline !important;
 }
-.post .user_info img {
+.post .user-info img {
   max-height: 160px;
 }
 .post .main {
@@ -60,4 +58,4 @@
   max-height: 400px;
 }
 
-/*# sourceMappingURL=topic_show.css.map */
+/*# sourceMappingURL=topic-show.css.map */

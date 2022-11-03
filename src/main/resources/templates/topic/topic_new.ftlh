@@ -2,7 +2,7 @@
 <#include "../inc/head.ftlh">
 
 <link rel="stylesheet" href="/static/topic/css/topic_edit.css">
-<script src="/static/topic/js/topic_edit.js"></script>
+<script src="/static/topic/js/topic-edit.js"></script>
 
 <form class="form-horizontal" action="/topic_save" method="post" autocomplete="off">
     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">

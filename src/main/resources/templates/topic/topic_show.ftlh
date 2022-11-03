@@ -1,18 +1,18 @@
 <#include "../inc/head.ftlh">
 
-<link rel="stylesheet" href="/static/topic/css/topic_show.css">
-<script src="/static/topic/js/topic_show.js"></script>
-<script src="/static/topic/js/topic_edit.js"></script>
+<link rel="stylesheet" href="/static/topic/css/topic-show.css">
+<script src="/static/topic/js/topic-show.js"></script>
+<script src="/static/topic/js/topic-edit.js"></script>
 
 <h2 class="title" data-id="${topic.id}">${topic.getTitle()}</h2>
 
 <#list page.getContent() as post>
 	<div class="post clearfix" id="post_${post.getId()}">
-		<div class="user_info">
-			<div class="user_name <#if post.user.getBanned()>banned</#if>">
-				${post.user.getUsername()}
+		<div class="user-info">
+			<div class="user-name <#if post.user.getBanned()>banned</#if>">
+				<span class="name">${post.user.getUsername()}</span>
 				<#if post.user.getBanned()>
-					<span>[已封禁]</span>
+					<span class="ban-sign">[已封禁]</span>
 				</#if>
 			</div>
 			<div><img src="${post.user.getUserFaceLink()}"></div>
