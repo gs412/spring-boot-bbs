@@ -312,7 +312,7 @@ public class TopicController extends BaseController {
             Optional<Attach> oAttach = attachRepository.findById(aid);
             if (oAttach.isPresent()) {
                 Attach attach = oAttach.get();
-                if (attach.getOwneId() == 0L) {
+                if (attach.getOwnerId() == 0L) {
                     attach.setOwnerId(post.getId());
                     attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
                     attach.setUser(post.getUser());
@@ -338,7 +338,7 @@ public class TopicController extends BaseController {
             Optional<Attach> oAttach = attachRepository.findById(aid);
             if (oAttach.isPresent()) {
                 Attach attach = oAttach.get();
-                if (attach.getOwneId() == 0L) {
+                if (attach.getOwnerId() == 0L) {
                     attach.setOwnerId(post.getId());
                     attach.setOwnerType(Attach.OwnerType.POST_ATTACH);
                     attach.setUser(post.getUser());

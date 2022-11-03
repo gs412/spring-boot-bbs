@@ -96,7 +96,7 @@ public class Attach {
         this.contentType = contentType;
     }
 
-    public Long getOwneId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 

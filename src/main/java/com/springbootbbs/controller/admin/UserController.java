@@ -1,7 +1,16 @@
 package com.springbootbbs.controller.admin;
 
+import com.springbootbbs.entiry.Attach;
+import com.springbootbbs.entiry.Post;
+import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.repository.AttachRepository;
+import com.springbootbbs.repository.PostRepository;
+import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.repository.UserRepository;
+import com.springbootbbs.service.AttachService;
+import com.springbootbbs.service.PostService;
+import com.springbootbbs.service.TopicService;
 import com.springbootbbs.service.UserService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @Controller("admin.UserController")
@@ -27,7 +37,25 @@ public class UserController extends BaseController {
     UserRepository userRepository;
 
     @Autowired
+    AttachRepository attachRepository;
+
+    @Autowired
+    PostRepository postRepository;
+
+    @Autowired
+    TopicRepository topicRepository;
+
+    @Autowired
     UserService userService;
+
+    @Autowired
+    AttachService attachService;
+
+    @Autowired
+    PostService postService;
+
+    @Autowired
+    TopicService topicService;
 
     @GetMapping("/users")
     public String users(String p, ModelMap m) {
@@ -69,6 +97,27 @@ public class UserController extends BaseController {
     public String userUnBan(@PathVariable Long id, final HttpServletRequest request) {
         Optional<User> userOptional = userRepository.findById(id);
         userOptional.ifPresent(user -> userService.unBan(user));
+
+        return "redirect:" + request.getHeader("referer");
+    }
+
+    @PostMapping("/user/{id}/unban")
+    public String userRemove(@PathVariable Long id, final HttpServletRequest request) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            List<Attach> attachList = attachRepository.findAllByUser(user);
+            attachList.forEach(attachService::delete);
+
+            List<Post> postList = postRepository.findAllByUser(user);
+            postList.forEach(postService::delete);
+
+            List<Topic> topicList = topicRepository.findAllByUser(user);
+            topicList.forEach(topicService::delete);
+
+            userService.delete(user);
+        }
 
         return "redirect:" + request.getHeader("referer");
     }

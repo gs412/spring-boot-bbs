@@ -47,4 +47,9 @@ public class UserService {
 		userRepository.save(user);
 		return true;
 	}
+
+	public Boolean delete(User user) {
+		userRepository.delete(user);
+		return true;
+	}
 }
