@@ -41,10 +41,13 @@ public class MyShiroRealm extends AuthorizingRealm {
 		Object principal = principals.getPrimaryPrincipal();
 		System.out.println("ShiroRealm  AuthorizationInfo:" + principal.toString());
 
+		System.out.println(principals.getRealmNames().toString());
+
 		// 根据用户名来查询数据库赋予用户角色,权限（查数据库）
 		Set<String> roles = new HashSet<>();
 		Set<String> permissions = new HashSet<>();
 		roles.add("user");
+		System.out.println("添加user权限");
 		permissions.add("user:query");
 		if ("4".equals(principal.toString())) {
 			roles.add("admin");

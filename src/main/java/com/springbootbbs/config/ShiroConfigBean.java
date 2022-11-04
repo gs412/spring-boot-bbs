@@ -52,7 +52,14 @@ public class ShiroConfigBean {
 
 		filterChainDefinitionMap.put("/topic_new", "roles[user]");
 		filterChainDefinitionMap.put("/topic_save", "roles[user]");
-		filterChainDefinitionMap.put("/topic_reply", "roles[user]");
+		filterChainDefinitionMap.put("/topic/*/edit", "roles[user]");
+		filterChainDefinitionMap.put("/topic/*/edit_post", "roles[user]");
+		filterChainDefinitionMap.put("/topic/*/reply", "roles[user]");
+		filterChainDefinitionMap.put("/topic/*/remove", "roles[user]");
+		filterChainDefinitionMap.put("/post/*/edit", "roles[user]");
+		filterChainDefinitionMap.put("/post/*/edit_post", "roles[user]");
+		filterChainDefinitionMap.put("/post/*/remove", "roles[user]");
+		filterChainDefinitionMap.put("/topic_upload", "roles[user]");
 		// 临时测试
 		filterChainDefinitionMap.put("/user/*", "anon");
 		// 最后一班都，固定格式
