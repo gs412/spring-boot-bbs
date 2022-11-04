@@ -20,7 +20,12 @@
                         <tr>
                             <td>${topic.getId()}.</td>
                             <td>${topic.getTitle()}</td>
-                            <td>${topic.user.getUsername()}</td>
+                            <td>
+                                ${topic.user.getUsername()}
+                                <#if topic.user.getBanned()>
+                                    <span class="banned-color">[已封禁]</span>
+                                </#if>
+                            </td>
                             <td>${show_date(topic.getCreatedAt())}</td>
                             <td>
                                 <a href="/admin/topic/topic/${topic.getId()}/remove" data-method="post">删除</a>
