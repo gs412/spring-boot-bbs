@@ -12,7 +12,7 @@
 			<div class="user-name <#if post.user.getBanned()>banned</#if>">
 				<span class="name">${post.user.getUsername()}</span>
 				<#if post.user.getBanned()>
-					<span class="ban-sign">[已封禁]</span>
+					<span class="ban-sign banned-color">[已封禁]</span>
 				</#if>
 			</div>
 			<div><img src="${post.user.getUserFaceLink()}"></div>
@@ -22,7 +22,7 @@
 			<div class="floor" style="">#${page.getNumber()*10 + post?index + 1}</div>
 			<div class="post_content">
 				<#if post.user.getBanned()>
-					<span style="color: #954121;">=== 用户已封禁 ===</span>
+					<span class="banned-color">=== 用户已封禁 ===</span>
 				<#else>
 					${post.getContentHtml()?no_esc}
 				</#if>

@@ -47,5 +47,8 @@ body #body_container .select-language ul#language_menu li a {
 body #body_container .select-language ul#language_menu li a:hover {
   background: #efefef;
 }
+body .banned-color {
+  color: #954121;
+}
 
 /*# sourceMappingURL=main.css.map */
