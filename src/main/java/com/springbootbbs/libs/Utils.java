@@ -6,6 +6,7 @@ import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 public class Utils {
@@ -67,6 +68,10 @@ public class Utils {
 		Node document = parser.parse(text);
 		String html = renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
 		return html;
+	}
+
+	public static String referer(HttpServletRequest request) {
+		return "redirect:" + request.getHeader("referer");
 	}
 
 }

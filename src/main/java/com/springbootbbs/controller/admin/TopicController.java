@@ -3,6 +3,7 @@ package com.springbootbbs.controller.admin;
 import com.springbootbbs.entiry.Attach;
 import com.springbootbbs.entiry.Post;
 import com.springbootbbs.entiry.Topic;
+import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.AttachRepository;
 import com.springbootbbs.repository.PostRepository;
 import com.springbootbbs.repository.TopicRepository;
@@ -70,7 +71,7 @@ public class TopicController extends BaseController {
         Optional<Topic> topicOptional = topicRepository.findById(id);
         topicOptional.ifPresent(topic -> topicService.soft_delete(topic));
 
-        return "redirect:" + request.getHeader("referer");
+        return Utils.referer(request);
     }
 
     @GetMapping("/topics-trash")
@@ -93,7 +94,7 @@ public class TopicController extends BaseController {
         Optional<Topic> topicOptional = topicRepository.findById(id);
         topicOptional.ifPresent(topic -> topicService.resume(topic));
 
-        return "redirect:" + request.getHeader("referer");
+        return Utils.referer(request);
     }
 
     @PostMapping("/topic/{id}/remove-hard")
@@ -113,7 +114,12 @@ public class TopicController extends BaseController {
             topicService.delete(topic);
         }
 
-        return "redirect:" + request.getHeader("referer");
+        return Utils.referer(request);
+    }
+
+    public String cleanTrash(final HttpServletRequest request) {
+
+        return Utils.referer(request);
     }
 
 }

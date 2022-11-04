@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.*;
 import com.springbootbbs.exception.PageNotFoundException;
+import com.springbootbbs.libs.AjaxResult;
 import com.springbootbbs.repository.*;
 import com.springbootbbs.service.AttachService;
 import com.springbootbbs.service.PostService;
@@ -136,7 +137,7 @@ public class TopicController extends BaseController {
     @RequiresRoles("user")
     @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) throws JsonProcessingException {
+    public AjaxResult topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) {
         Optional<Category> category = categoryRepository.findById(category_id);
         if (category.isEmpty()) {
             throw new PageNotFoundException("分类不存在");
@@ -159,13 +160,7 @@ public class TopicController extends BaseController {
 
         manageAttachForPostUpdate(post);
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("success", "1");
-        map.put("message", "ok");
-
-        String json = new ObjectMapper().writeValueAsString(map);
-
-        return json;
+        return AjaxResult.success("ok");
     }
 
     @RequiresRoles("user")
