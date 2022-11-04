@@ -217,7 +217,7 @@ public class TopicController extends BaseController {
     @RequiresRoles("user")
     @RequestMapping(value = "/post/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String post_edit_post(@PathVariable Long id, String content) throws JsonProcessingException {
+    public AjaxResult post_edit_post(@PathVariable Long id, String content) {
         Optional<Post> oPost = postRepository.findById(id);
 
         if (oPost.isEmpty()) {
@@ -231,13 +231,7 @@ public class TopicController extends BaseController {
 
         manageAttachForPostUpdate(post);
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("success", "1");
-        map.put("message", "ok");
-
-        String json = new ObjectMapper().writeValueAsString(map);
-
-        return json;
+        return AjaxResult.success("ok");
     }
 
     @RequiresRoles("user")
@@ -258,16 +252,18 @@ public class TopicController extends BaseController {
     @RequiresRoles("user")
     @RequestMapping(value = "/topic_upload", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String topic_upload(@RequestParam("file")MultipartFile file) throws JsonProcessingException {
+    public AjaxResult topic_upload(@RequestParam("file")MultipartFile file) {
         User user = getUser();
-        HashMap<String, Object> map = new HashMap<>();
 
+        boolean success = true;
+        String message = "";
+        HashMap<String, Object> map = new HashMap<>();
         if (file.isEmpty()) {
-            map.put("success", "0");
-            map.put("message", "上传失败，请选择文件");
+            success = false;
+            message = "上传失败，请选择文件";
         } else if (file.getSize() > 1024 * 1024 * 30) {
-            map.put("success", "0");
-            map.put("message", "最大不超过30M");
+            success = false;
+            message = "最大不超过30M";
         } else {
             Attach attach = new Attach();
             attach.setFile(file);
@@ -275,36 +271,32 @@ public class TopicController extends BaseController {
             attach.setOwnerId(0L);
             attach.setUser(user);
             if (attachService.save(attach) == null) {
-                map.put("success", "0");
-                map.put("message", "上传文件失败");
+                success = false;
+                message = "上传文件失败";
             } else {
-                map.put("success", "1");
-                map.put("message", "上传成功");
+                success = true;
+                message = "上传成功";
+
                 map.put("isImage", attach.getContentType().startsWith("image/"));
                 map.put("fileName", attach.getName());
                 map.put("url", "/attach/show/" + attach.getId());
             }
         }
 
-        String json = new ObjectMapper().writeValueAsString(map);
-        return json;
+        return AjaxResult.success(success, message, map);
     }
 
     @RequiresRoles("admin")
     @RequestMapping(value = "/topic_stick", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String stick(Long id, String action) throws JsonProcessingException {
+    public AjaxResult stick(Long id, String action) {
         System.out.println(id);
         System.out.println(action);
         Topic topic = topicRepository.findById(id).get();
         topic.setStick(action.equals("on"));
         topicService.save(topic);
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("success", 1);
-
-        String json = new ObjectMapper().writeValueAsString(map);
-        return json;
+        return AjaxResult.success();
     }
 
     private List<Long> pickAidsFromContent(String content) {

@@ -41,4 +41,12 @@ public class AjaxResult extends HashMap<String, Object> {
     public static AjaxResult success(String msg, Object data) {
         return new AjaxResult(HttpStatus.SUCCESS, msg, data);
     }
+
+    public static AjaxResult success(Boolean success, String msg) {
+        return new AjaxResult(success ? HttpStatus.SUCCESS : HttpStatus.ERROR, msg, null);
+    }
+
+    public static AjaxResult success(Boolean success, String msg, Object data) {
+        return new AjaxResult(success ? HttpStatus.SUCCESS : HttpStatus.ERROR, msg, data);
+    }
 }
