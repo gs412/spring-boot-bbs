@@ -21,10 +21,10 @@ $(document).ready(function () {
             success: function (json) {
                 if (json.success) {
                     let text;
-                    if (json.isImage) {
-                        text = `![](${json.url})`;
+                    if (json.data.isImage) {
+                        text = `![](${json.data.url})`;
                     } else {
-                        text = `[${json.fileName}](${json.url})`;
+                        text = `[${json.data.fileName}](${json.data.url})`;
                     }
                     $('textarea#content').insertAtCaret(text)
                 } else {
