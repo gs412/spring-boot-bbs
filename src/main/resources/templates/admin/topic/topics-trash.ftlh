@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">所有贴子</h3>
+                <h3 class="box-title">回收站</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
