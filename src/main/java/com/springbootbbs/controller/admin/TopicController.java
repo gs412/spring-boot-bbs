@@ -69,4 +69,20 @@ public class TopicController extends BaseController {
         return "admin/topic/topics-trash";
     }
 
+    @PostMapping("/topic/{id}/resume")
+    public String topicResume(@PathVariable Long id, final HttpServletRequest request) {
+        Optional<Topic> topicOptional = topicRepository.findById(id);
+        topicOptional.ifPresent(topic -> topicService.resume(topic));
+
+        return "redirect:" + request.getHeader("referer");
+    }
+
+    @PostMapping("/topic/{id}/remove-hard")
+    public String topicRemoveHard(@PathVariable Long id, final HttpServletRequest request) {
+        Optional<Topic> topicOptional = topicRepository.findById(id);
+        topicOptional.ifPresent(topic -> topicService.soft_delete(topic));
+
+        return "redirect:" + request.getHeader("referer");
+    }
+
 }

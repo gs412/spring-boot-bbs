@@ -27,6 +27,12 @@ public class TopicService {
         return true;
     }
 
+    public Boolean resume(Topic topic) {
+        topic.setDeleted(false);
+        topicRepository.save(topic);
+        return true;
+    }
+
     public Boolean delete(Topic topic) {
         topicRepository.delete(topic);
         return true;
