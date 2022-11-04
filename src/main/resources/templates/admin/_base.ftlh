@@ -47,6 +47,7 @@
 	<!-- Bootstrap 3.3.7 -->
 	<script src="/static/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+	<link rel="stylesheet" href="/static/admin/css/main.css">
 	<script src="/static/layui/layer/layer.js"></script>
 	<script src="/static/_js/main.js"></script>
 

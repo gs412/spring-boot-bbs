@@ -23,7 +23,7 @@
                             <td>
                                 ${topic.user.getUsername()}
                                 <#if topic.user.getBanned()>
-                                    <span class="banned-color">[已封禁]</span>
+                                    <span class="banned-color" style="font-size: 12px;">[已封禁]</span>
                                 </#if>
                             </td>
                             <td>${show_date(topic.getCreatedAt())}</td>
