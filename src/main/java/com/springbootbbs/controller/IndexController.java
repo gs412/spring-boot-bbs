@@ -121,6 +121,11 @@ public class IndexController extends BaseController {
         return "redirect:" + request.getHeader("referer");
     }
 
+    @RequestMapping("/unauthorized")
+    public String unauthorized() {
+        return "unauthorized";
+    }
+
     @RequestMapping(value = "/seccode_check", method = RequestMethod.POST, produces = "application/json")
     public String seccodeCheck(String seccode, HttpSession session) throws JsonProcessingException {
         HashMap<String, Object> map = new HashMap<>();

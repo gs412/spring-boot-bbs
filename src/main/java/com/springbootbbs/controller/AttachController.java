@@ -40,10 +40,7 @@ public class AttachController extends BaseController {
         Attach attach;
 
         if (optionalAttach.isEmpty()) {
-            InputStream in = new ClassPathResource("vendor/images/image-not-found.png").getInputStream();
-            response.setContentType("image/png");
-            response.setHeader("Last-Modified", "Thu, 20 Oct 2022 12:45:22 GMT");
-            IOUtils.copy(in, response.getOutputStream());
+            fileNotFound(response);
             return;
         } else {
             attach = optionalAttach.get();
@@ -72,8 +69,12 @@ public class AttachController extends BaseController {
         }
 
         File file = new File(attach.getAbsolutePath());
-        InputStream in = new FileInputStream(file);
-        IOUtils.copy(in, response.getOutputStream());
+        if (!file.exists()) {
+            fileNotFound(response);
+        } else {
+            InputStream in = new FileInputStream(file);
+            IOUtils.copy(in, response.getOutputStream());
+        }
     }
 
     @RequestMapping(value = "/show_user_face/{uid}")
@@ -99,6 +100,13 @@ public class AttachController extends BaseController {
             response.setHeader("Last-Modified", "Thu, 20 Oct 2022 12:45:22 GMT");
         }
         response.setHeader("strict-transport-security", "max-age=31536000");
+        IOUtils.copy(in, response.getOutputStream());
+    }
+
+    private void fileNotFound(HttpServletResponse response) throws IOException {
+        InputStream in = new ClassPathResource("vendor/images/image-not-found.png").getInputStream();
+        response.setContentType("image/png");
+        response.setHeader("Last-Modified", "Thu, 20 Oct 2022 12:45:22 GMT");
         IOUtils.copy(in, response.getOutputStream());
     }
 

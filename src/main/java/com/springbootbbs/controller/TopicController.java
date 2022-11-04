@@ -9,6 +9,7 @@ import com.springbootbbs.service.AttachService;
 import com.springbootbbs.service.PostService;
 import com.springbootbbs.service.TopicService;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,28 +45,22 @@ public class TopicController extends BaseController {
     AttachRepository attachRepository;
 
 
+    @RequiresRoles("user")
     @RequestMapping("/topic_new")
     public String topic_new(String tab, ModelMap m) {
-        User user = getUser();
-        if (user.getBanned()) {
-            throw new PageNotFoundException("您已被封禁");
-        }
-
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
-        m.addAttribute("user", user);
+        m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
 
         return "topic/topic_new";
     }
 
+    @RequiresRoles("user")
     @RequestMapping("/topic_save")
     public String topic_save(String title, String content, Long category_id) {
         User user = getUser();
-        if (user.getBanned()) {
-            throw new PageNotFoundException("您已被封禁");
-        }
 
         Optional<Category> categoryOptional = categoryRepository.findById(category_id);
         if (categoryOptional.isEmpty()) {
@@ -119,13 +114,9 @@ public class TopicController extends BaseController {
         return "topic/topic-show";
     }
 
+    @RequiresRoles("user")
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
     public String topic_edit(@PathVariable Long id, ModelMap m) {
-        User user = getUser();
-        if (user.getBanned()) {
-            throw new PageNotFoundException("您已被封禁");
-        }
-
         Optional<Topic> topicOptional = topicRepository.findById(id);
         if (topicOptional.isEmpty()) {
             throw new PageNotFoundException("帖子不存在");
@@ -136,20 +127,16 @@ public class TopicController extends BaseController {
 
         m.addAttribute("topic", topicOptional.get());
         m.addAttribute("post", post);
-        m.addAttribute("user", user);
+        m.addAttribute("user", getUser());
         m.addAttribute("categories", categories);
 
         return "topic/topic_edit";
     }
 
+    @RequiresRoles("user")
     @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) throws JsonProcessingException {
-        User user = getUser();
-        if (user.getBanned()) {
-            throw new PageNotFoundException("您已被封禁");
-        }
-
         Optional<Category> category = categoryRepository.findById(category_id);
         if (category.isEmpty()) {
             throw new PageNotFoundException("分类不存在");
@@ -181,6 +168,7 @@ public class TopicController extends BaseController {
         return json;
     }
 
+    @RequiresRoles("user")
     @RequestMapping(value = "/topic/{id}/reply", method = RequestMethod.POST)
     public String topic_reply(@PathVariable Long id, String content) {
         Optional<Topic> topic = topicRepository.findById(id);
@@ -201,6 +189,7 @@ public class TopicController extends BaseController {
         return "redirect:/topic/"+topic.get().getId();
     }
 
+    @RequiresRoles("user")
     @RequestMapping(value = "/topic/{id}/remove", method = RequestMethod.POST)
     public String topic_remove(@PathVariable Long id) {
         Optional<Topic> oTopic = topicRepository.findById(id);
@@ -214,6 +203,7 @@ public class TopicController extends BaseController {
         return "redirect:/";
     }
 
+    @RequiresRoles("user")
     @RequestMapping(value = "/post/{id}/edit")
     public String post_edit(@PathVariable Long id, ModelMap m) {
         Optional<Post> oPost = postRepository.findById(id);
@@ -229,6 +219,7 @@ public class TopicController extends BaseController {
         return "post/post_edit";
     }
 
+    @RequiresRoles("user")
     @RequestMapping(value = "/post/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String post_edit_post(@PathVariable Long id, String content) throws JsonProcessingException {
@@ -254,6 +245,7 @@ public class TopicController extends BaseController {
         return json;
     }
 
+    @RequiresRoles("user")
     @RequestMapping(value = "/post/{id}/remove", method = RequestMethod.POST)
     public String post_remove(@PathVariable Long id) {
         Optional<Post> post = postRepository.findById(id);
@@ -268,6 +260,7 @@ public class TopicController extends BaseController {
         return "redirect:/topic/" + topic_id;
     }
 
+    @RequiresRoles("user")
     @RequestMapping(value = "/topic_upload", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String topic_upload(@RequestParam("file")MultipartFile file) throws JsonProcessingException {
@@ -302,6 +295,7 @@ public class TopicController extends BaseController {
         return json;
     }
 
+    @RequiresRoles("admin")
     @RequestMapping(value = "/topic_stick", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String stick(Long id, String action) throws JsonProcessingException {
