@@ -1,19 +1,15 @@
 package com.springbootbbs.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Attach;
 import com.springbootbbs.entiry.User;
-import com.springbootbbs.libs.AjaxResult;
+import com.springbootbbs.libs.Result;
 import com.springbootbbs.libs.I18nUtil;
 import com.springbootbbs.repository.AttachRepository;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.AttachService;
 import com.springbootbbs.service.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +17,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.HashMap;
 
 @Controller
 @RequestMapping("/profile")
@@ -52,13 +46,13 @@ public class ProfileController extends BaseController {
 
     @RequestMapping(value = "/basic_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public AjaxResult basic_post(@RequestParam("user_face") MultipartFile file) {
+    public Result basic_post(@RequestParam("user_face") MultipartFile file) {
         User user = getUser();
 
         if (file.isEmpty()) {
-            return AjaxResult.failure("上传失败，请选择文件");
+            return Result.failure("上传失败，请选择文件");
         } else if (file.getSize() > 1024 * 1024) {
-            return AjaxResult.failure("最大不超过1M");
+            return Result.failure("最大不超过1M");
         } else {
             Attach oldFace = user.getUserFace(attachRepository);
 
@@ -71,7 +65,7 @@ public class ProfileController extends BaseController {
                 attachService.delete(oldFace);
             }
 
-            return AjaxResult.success("上传成功");
+            return Result.success("上传成功");
         }
     }
 

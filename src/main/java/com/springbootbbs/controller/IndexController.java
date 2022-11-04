@@ -1,11 +1,9 @@
 package com.springbootbbs.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
-import com.springbootbbs.libs.AjaxResult;
+import com.springbootbbs.libs.Result;
 import com.springbootbbs.libs.I18nUtil;
 import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.CategoryRepository;
@@ -128,11 +126,11 @@ public class IndexController extends BaseController {
     }
 
     @RequestMapping(value = "/seccode_check", method = RequestMethod.POST, produces = "application/json")
-    public AjaxResult seccodeCheck(String seccode, HttpSession session) {
+    public Result seccodeCheck(String seccode, HttpSession session) {
         if (seccode == session.getAttribute("seccode")) {
-            return AjaxResult.success("");
+            return Result.success("");
         } else {
-            return AjaxResult.failure("");
+            return Result.failure("");
         }
     }
 

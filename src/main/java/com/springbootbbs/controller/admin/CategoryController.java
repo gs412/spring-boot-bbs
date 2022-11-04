@@ -1,10 +1,8 @@
 package com.springbootbbs.controller.admin;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.exception.PageNotFoundException;
-import com.springbootbbs.libs.AjaxResult;
+import com.springbootbbs.libs.Result;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.service.CategoryService;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 @Controller("admin.CategoryController")
@@ -51,13 +48,13 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/add_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public AjaxResult add_post(String nameCn, String nameEn, String tab) {
+    public Result add_post(String nameCn, String nameEn, String tab) {
         if (categoryRepository.existsByNameCn(nameCn)) {
-            return AjaxResult.failure("中文名称已经存在");
+            return Result.failure("中文名称已经存在");
         } else if (categoryRepository.existsByNameEn(nameEn)) {
-            return AjaxResult.failure("英文名称已经存在");
+            return Result.failure("英文名称已经存在");
         } else if (categoryRepository.existsByTab(tab)) {
-            return AjaxResult.failure("标签已经存在");
+            return Result.failure("标签已经存在");
         } else {
             Category lastCategory = categoryRepository.findTopByOrderBySortDesc();
             int sort;
@@ -74,7 +71,7 @@ public class CategoryController extends BaseController {
             category.setSort(sort);
             categoryService.save(category);
 
-            return AjaxResult.success("添加成功");
+            return Result.success("添加成功");
         }
     }
 
@@ -90,13 +87,13 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/edit_post/{id}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public AjaxResult edit_post(@PathVariable Long id, String nameCn, String nameEn, String tab, Integer sort, ModelMap m) {
+    public Result edit_post(@PathVariable Long id, String nameCn, String nameEn, String tab, Integer sort, ModelMap m) {
         if (categoryRepository.existsByNameCnAndIdNot(nameCn, id)) {
-            return AjaxResult.failure("中文名称已经存在");
+            return Result.failure("中文名称已经存在");
         } else if (categoryRepository.existsByNameEnAndIdNot(nameEn, id)) {
-            return AjaxResult.failure("英文名称已经存在");
+            return Result.failure("英文名称已经存在");
         } else if (categoryRepository.existsByTabAndIdNot(tab, id)) {
-            return AjaxResult.failure("标签已经存在");
+            return Result.failure("标签已经存在");
         } else {
             Optional<Category> categoryOptional = categoryRepository.findById(id);
 
@@ -111,7 +108,7 @@ public class CategoryController extends BaseController {
             category.setSort(sort);
             categoryRepository.save(category);
 
-            return AjaxResult.success("编辑成功");
+            return Result.success("编辑成功");
         }
     }
 

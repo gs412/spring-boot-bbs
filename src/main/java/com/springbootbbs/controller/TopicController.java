@@ -1,10 +1,8 @@
 package com.springbootbbs.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.*;
 import com.springbootbbs.exception.PageNotFoundException;
-import com.springbootbbs.libs.AjaxResult;
+import com.springbootbbs.libs.Result;
 import com.springbootbbs.repository.*;
 import com.springbootbbs.service.AttachService;
 import com.springbootbbs.service.PostService;
@@ -137,7 +135,7 @@ public class TopicController extends BaseController {
     @RequiresRoles("user")
     @RequestMapping(value = "/topic/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public AjaxResult topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) {
+    public Result topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) {
         Optional<Category> category = categoryRepository.findById(category_id);
         if (category.isEmpty()) {
             throw new PageNotFoundException("分类不存在");
@@ -160,7 +158,7 @@ public class TopicController extends BaseController {
 
         manageAttachForPostUpdate(post);
 
-        return AjaxResult.success("ok");
+        return Result.success("ok");
     }
 
     @RequiresRoles("user")
@@ -217,7 +215,7 @@ public class TopicController extends BaseController {
     @RequiresRoles("user")
     @RequestMapping(value = "/post/{id}/edit_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public AjaxResult post_edit_post(@PathVariable Long id, String content) {
+    public Result post_edit_post(@PathVariable Long id, String content) {
         Optional<Post> oPost = postRepository.findById(id);
 
         if (oPost.isEmpty()) {
@@ -231,7 +229,7 @@ public class TopicController extends BaseController {
 
         manageAttachForPostUpdate(post);
 
-        return AjaxResult.success("ok");
+        return Result.success("ok");
     }
 
     @RequiresRoles("user")
@@ -252,7 +250,7 @@ public class TopicController extends BaseController {
     @RequiresRoles("user")
     @RequestMapping(value = "/topic_upload", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public AjaxResult topic_upload(@RequestParam("file")MultipartFile file) {
+    public Result topic_upload(@RequestParam("file")MultipartFile file) {
         User user = getUser();
 
         boolean success = true;
@@ -283,20 +281,20 @@ public class TopicController extends BaseController {
             }
         }
 
-        return AjaxResult.success(success, message, map);
+        return Result.success(success, message, map);
     }
 
     @RequiresRoles("admin")
     @RequestMapping(value = "/topic_stick", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public AjaxResult stick(Long id, String action) {
+    public Result stick(Long id, String action) {
         System.out.println(id);
         System.out.println(action);
         Topic topic = topicRepository.findById(id).get();
         topic.setStick(action.equals("on"));
         topicService.save(topic);
 
-        return AjaxResult.success();
+        return Result.success();
     }
 
     private List<Long> pickAidsFromContent(String content) {
