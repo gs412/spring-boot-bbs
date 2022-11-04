@@ -1,15 +1,12 @@
 package com.springbootbbs.libs;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.HashMap;
-import java.util.Map;
 
 public class AjaxResult extends HashMap<String, Object> {
 
-    public static final String CODE_TAG = "code";
+    public static final String SUCCESS_TAG = "success";
 
-    public static final String MSG_TAG = "msg";
+    public static final String MESSAGE_TAG = "message";
 
     public static final String DATA_TAG = "data";
 
@@ -17,13 +14,13 @@ public class AjaxResult extends HashMap<String, Object> {
     }
 
     public AjaxResult(int code, String msg) {
-        super.put(CODE_TAG, code);
-        super.put(MSG_TAG, msg);
+        super.put(SUCCESS_TAG, code);
+        super.put(MESSAGE_TAG, msg);
     }
 
     public AjaxResult(int code, String msg, Object data) {
-        super.put(CODE_TAG, code);
-        super.put(MSG_TAG, msg);
+        super.put(SUCCESS_TAG, code);
+        super.put(MESSAGE_TAG, msg);
         if (data != null) {
             super.put(DATA_TAG, data);
         }
