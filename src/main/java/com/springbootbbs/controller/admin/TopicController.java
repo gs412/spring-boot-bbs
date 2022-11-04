@@ -12,7 +12,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +52,11 @@ public class TopicController extends BaseController {
         topicOptional.ifPresent(topic -> topicService.soft_delete(topic));
 
         return "redirect:" + request.getHeader("referer");
+    }
+
+    @GetMapping("/topics-trash")
+    public String topics_trash(String p, ModelMap m) {
+        return "admin/topic/topics-trash";
     }
 
 }
