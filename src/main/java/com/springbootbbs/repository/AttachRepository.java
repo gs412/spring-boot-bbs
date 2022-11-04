@@ -22,6 +22,8 @@ public interface AttachRepository extends PagingAndSortingRepository<Attach, Lon
 
     List<Attach> findAllByOwnerIdAndOwnerTypeAndUser(Long ownerId, Attach.OwnerType ownerType, User user);
 
+    List<Attach> findAllByOwnerIdAndOwnerType(Long ownerId, Attach.OwnerType ownerType);
+
     @Modifying
     @Transactional
     @Query("update Attach set ownerId = :ownerId where ownerId = :oldOwnerId and ownerType = :ownerType and user = :user")

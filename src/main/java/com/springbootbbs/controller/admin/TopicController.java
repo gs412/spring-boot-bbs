@@ -1,7 +1,13 @@
 package com.springbootbbs.controller.admin;
 
+import com.springbootbbs.entiry.Attach;
+import com.springbootbbs.entiry.Post;
 import com.springbootbbs.entiry.Topic;
+import com.springbootbbs.repository.AttachRepository;
+import com.springbootbbs.repository.PostRepository;
 import com.springbootbbs.repository.TopicRepository;
+import com.springbootbbs.service.AttachService;
+import com.springbootbbs.service.PostService;
 import com.springbootbbs.service.TopicService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @Controller("admin.TopicController")
@@ -30,6 +37,18 @@ public class TopicController extends BaseController {
     TopicRepository topicRepository;
     @Autowired
     TopicService topicService;
+
+    @Autowired
+    PostRepository postRepository;
+
+    @Autowired
+    PostService postService;
+
+    @Autowired
+    AttachRepository attachRepository;
+
+    @Autowired
+    AttachService attachService;
 
     @RequestMapping("/topics")
     public String topics(String p, ModelMap m) {
@@ -80,7 +99,19 @@ public class TopicController extends BaseController {
     @PostMapping("/topic/{id}/remove-hard")
     public String topicRemoveHard(@PathVariable Long id, final HttpServletRequest request) {
         Optional<Topic> topicOptional = topicRepository.findById(id);
-        topicOptional.ifPresent(topic -> topicService.soft_delete(topic));
+        if (topicOptional.isPresent()) {
+            Topic topic = topicOptional.get();
+
+            List<Post> postList = postRepository.findAllByTopic(topic);
+            postList.forEach(post -> {
+                List<Attach> attachList = attachRepository.findAllByOwnerIdAndOwnerType(post.getId(), Attach.OwnerType.POST_ATTACH);
+                attachList.forEach(attachService::delete);
+
+                postService.delete(post);
+            });
+
+            topicService.delete(topic);
+        }
 
         return "redirect:" + request.getHeader("referer");
     }
