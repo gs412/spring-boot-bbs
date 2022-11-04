@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.entiry.Topic;
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.libs.AjaxResult;
 import com.springbootbbs.libs.I18nUtil;
 import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.CategoryRepository;
@@ -127,19 +128,12 @@ public class IndexController extends BaseController {
     }
 
     @RequestMapping(value = "/seccode_check", method = RequestMethod.POST, produces = "application/json")
-    public String seccodeCheck(String seccode, HttpSession session) throws JsonProcessingException {
-        HashMap<String, Object> map = new HashMap<>();
-
+    public AjaxResult seccodeCheck(String seccode, HttpSession session) {
         if (seccode == session.getAttribute("seccode")) {
-            map.put("success", true);
-            map.put("message", "");
+            return AjaxResult.success("");
         } else {
-            map.put("success", false);
-            map.put("message", "");
+            return AjaxResult.failure("");
         }
-
-        String json = new ObjectMapper().writeValueAsString(map);
-        return json;
     }
 
     @RequestMapping("/seccode/en")

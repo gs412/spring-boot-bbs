@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Attach;
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.libs.AjaxResult;
 import com.springbootbbs.libs.I18nUtil;
 import com.springbootbbs.repository.AttachRepository;
 import com.springbootbbs.repository.UserRepository;
@@ -51,16 +52,13 @@ public class ProfileController extends BaseController {
 
     @RequestMapping(value = "/basic_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String basic_post(@RequestParam("user_face") MultipartFile file) throws JsonProcessingException {
+    public AjaxResult basic_post(@RequestParam("user_face") MultipartFile file) {
         User user = getUser();
-        HashMap<String, String> map = new HashMap<>();
 
         if (file.isEmpty()) {
-            map.put("success", "0");
-            map.put("message", "上传失败，请选择文件");
+            return AjaxResult.failure("上传失败，请选择文件");
         } else if (file.getSize() > 1024 * 1024) {
-            map.put("success", "0");
-            map.put("message", "最大不超过1M");
+            return AjaxResult.failure("最大不超过1M");
         } else {
             Attach oldFace = user.getUserFace(attachRepository);
 
@@ -73,12 +71,8 @@ public class ProfileController extends BaseController {
                 attachService.delete(oldFace);
             }
 
-            map.put("success", "1");
-            map.put("message", "上传成功");
+            return AjaxResult.success("上传成功");
         }
-
-        String json = new ObjectMapper().writeValueAsString(map);
-        return json;
     }
 
     @GetMapping("/password")

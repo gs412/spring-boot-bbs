@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springbootbbs.entiry.Category;
 import com.springbootbbs.exception.PageNotFoundException;
+import com.springbootbbs.libs.AjaxResult;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.service.CategoryService;
@@ -50,18 +51,13 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/add_post", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String add_post(String nameCn, String nameEn, String tab) throws JsonProcessingException {
-        HashMap<String, String> map = new HashMap<>();
-
+    public AjaxResult add_post(String nameCn, String nameEn, String tab) {
         if (categoryRepository.existsByNameCn(nameCn)) {
-            map.put("success", "0");
-            map.put("message", "中文名称已经存在");
+            return AjaxResult.failure("中文名称已经存在");
         } else if (categoryRepository.existsByNameEn(nameEn)) {
-            map.put("success", "0");
-            map.put("message", "英文名称已经存在");
+            return AjaxResult.failure("英文名称已经存在");
         } else if (categoryRepository.existsByTab(tab)) {
-            map.put("success", "0");
-            map.put("message", "标签已经存在");
+            return AjaxResult.failure("标签已经存在");
         } else {
             Category lastCategory = categoryRepository.findTopByOrderBySortDesc();
             int sort;
@@ -78,12 +74,8 @@ public class CategoryController extends BaseController {
             category.setSort(sort);
             categoryService.save(category);
 
-            map.put("success", "1");
-            map.put("message", "添加成功");
+            return AjaxResult.success("添加成功");
         }
-
-        String json = new ObjectMapper().writeValueAsString(map);
-        return json;
     }
 
     @RequestMapping("/edit/{id}")
@@ -98,18 +90,13 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/edit_post/{id}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String edit_post(@PathVariable Long id, String nameCn, String nameEn, String tab, Integer sort, ModelMap m) throws JsonProcessingException {
-        HashMap<String, String> map = new HashMap<>();
-
+    public AjaxResult edit_post(@PathVariable Long id, String nameCn, String nameEn, String tab, Integer sort, ModelMap m) {
         if (categoryRepository.existsByNameCnAndIdNot(nameCn, id)) {
-            map.put("success", "0");
-            map.put("message", "中文名称已经存在");
+            return AjaxResult.failure("中文名称已经存在");
         } else if (categoryRepository.existsByNameEnAndIdNot(nameEn, id)) {
-            map.put("success", "0");
-            map.put("message", "英文名称已经存在");
+            return AjaxResult.failure("英文名称已经存在");
         } else if (categoryRepository.existsByTabAndIdNot(tab, id)) {
-            map.put("success", "0");
-            map.put("message", "标签已经存在");
+            return AjaxResult.failure("标签已经存在");
         } else {
             Optional<Category> categoryOptional = categoryRepository.findById(id);
 
@@ -124,12 +111,8 @@ public class CategoryController extends BaseController {
             category.setSort(sort);
             categoryRepository.save(category);
 
-            map.put("success", "1");
-            map.put("message", "编辑成功");
+            return AjaxResult.success("编辑成功");
         }
-
-        String json = new ObjectMapper().writeValueAsString(map);
-        return json;
     }
 
     @RequestMapping("/merge/{id}")
