@@ -116,7 +116,20 @@ public class TopicController extends BaseController {
         return Utils.referer(request);
     }
 
+    @PostMapping("/clean-trash")
     public String cleanTrash(final HttpServletRequest request) {
+        List<Topic> topicList = topicRepository.findAllByDeleted(true);
+        topicList.forEach(topic -> {
+            List<Post> postList = postRepository.findAllByTopic(topic);
+            postList.forEach(post -> {
+                List<Attach> attachList = attachRepository.findAllByOwnerIdAndOwnerType(post.getId(), Attach.OwnerType.POST_ATTACH);
+                attachList.forEach(attachService::delete);
+
+                postService.delete(post);
+            });
+
+            topicService.delete(topic);
+        });
 
         return Utils.referer(request);
     }

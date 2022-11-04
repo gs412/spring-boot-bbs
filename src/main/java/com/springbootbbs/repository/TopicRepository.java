@@ -41,6 +41,8 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>
 
     List<Topic> findAllByUser(User user);
 
+    List<Topic> findAllByDeleted(Boolean deleted);
+
     int countByCategoryIdAndDeleted(Long categoryId, Boolean deleted);
 
     @Query(value="select t.* from bbs_topic t " +

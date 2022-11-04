@@ -4,7 +4,10 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">回收站</h3>
+                <h3 class="box-title">
+                    回收站
+                    <a href="/admin/topic/clean-trash" data-method="post" data-confirm="清空后不可恢复，确定清空吗？" class="btn btn-primary btn-mini" style="margin-left: 20px;">清空</a>
+                </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
