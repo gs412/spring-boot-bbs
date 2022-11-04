@@ -170,6 +170,11 @@
 						<a href="/admin/topic/topics"><i class="fa fa-circle-o"></i>所有帖子</a>
 					</li>
 				</ul>
+				<ul class="treeview-menu">
+					<li class="<#if uri == "/admin/topic/topics-trash">active<#else>false</#if>">
+						<a href="/admin/topic/topics-trash"><i class="fa fa-circle-o"></i>回收站</a>
+					</li>
+				</ul>
 			</li>
 			<li class="treeview <#if uri?starts_with("/admin/category/")>active menu-open</#if>">
 				<a href="#">

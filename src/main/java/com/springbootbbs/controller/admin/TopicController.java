@@ -56,6 +56,16 @@ public class TopicController extends BaseController {
 
     @GetMapping("/topics-trash")
     public String topics_trash(String p, ModelMap m) {
+        int p1 = NumberUtils.toInt(p, 1);
+        Order order = new Order(Direction.DESC, "id");
+
+        Pageable pageable = PageRequest.of(p1 - 1, 20, Sort.by(order));
+
+        Page<Topic> page = topicRepository.findAllByDeletedOrderByIdDesc(pageable, true);
+
+        m.addAttribute("page", page);
+        m.addAttribute("user", getUser());
+
         return "admin/topic/topics-trash";
     }
 
