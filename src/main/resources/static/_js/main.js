@@ -144,9 +144,9 @@ jQuery.urlParam = function (name) {
 };
 //调用方式： $.urlParam('keyword')
 
-$(document).ready(function () {
+function apply_post_method_on_a() {
 	// 超链接被点击发送post请求
-	$('body').on("click", "a", function () {
+	$('a').click(function () {
 		var $this = $(this);
 		var $confirm_str = $this.data('confirm');
 		if ($confirm_str) {
@@ -161,7 +161,8 @@ $(document).ready(function () {
 			return false;
 		}
 	});
-});
+}
+$(document).ready(apply_post_method_on_a);
 
 $.ajaxSetup({
 	beforeSend: function(xhr, settings) {
