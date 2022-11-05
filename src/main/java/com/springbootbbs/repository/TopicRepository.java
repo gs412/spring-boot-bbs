@@ -22,7 +22,8 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>
             "where t.deleted=0 and u.banned=0 order by t.id desc",
             countQuery = "select count(t.id) from bbs_topic t " +
                     "left join bbs_user u on t.user_id = u.id " +
-                    "where t.deleted=0 and u.banned=0",
+                    "where t.deleted=0 and u.banned=0 " +
+                    "order by t.stick desc, t.id desc",
             nativeQuery = true)
     Page<Topic> findAllForIndex(Pageable page);
 
@@ -33,7 +34,8 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>
             countQuery = "select count(t.id) from bbs_topic t " +
                     "left join bbs_user u on t.user_id = u.id " +
                     "left join bbs_category c on t.category_id = c.id " +
-                    "where t.deleted=0 and u.banned=0 and c.tab=:tab",
+                    "where t.deleted=0 and u.banned=0 and c.tab=:tab " +
+                    "order by t.stick desc, t.id desc",
             nativeQuery = true)
     Page<Topic> findAllForIndexByCategory(@Param("tab") String categoryTab, Pageable page);
 
