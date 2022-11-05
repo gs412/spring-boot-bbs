@@ -18,7 +18,7 @@ $(document).ready(function () {
     }
 
     // 置顶，取消置顶
-    $('.topic-stick-on, .topic-stick-off').click(function () {
+    $('body').on("click", ".topic-stick-on, .topic-stick-off", function () {
         let $this = $(this);
         let id = $('h2.title').data('id');
         let action = $this.hasClass('topic-stick-on') ? 'on' : 'off';
