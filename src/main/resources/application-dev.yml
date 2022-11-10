@@ -16,6 +16,8 @@ spring:
       static-locations: file:/home/gs/111/javafiles/spring-boot-bbs/src/main/resources/static/
   jpa:
     show-sql: false
+    hibernate:
+      ddl-auto: update
   messages:
     basename: i18n/messages
   servlet:

@@ -117,11 +117,18 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/topic/{id}/edit", method = RequestMethod.GET)
     public String topic_edit(@PathVariable Long id, ModelMap m) {
         Optional<Topic> topicOptional = topicRepository.findById(id);
+        User user = getUser();
+
         if (topicOptional.isEmpty()) {
             throw new PageNotFoundException("帖子不存在");
         }
 
         Post post = postRepository.findTopByIsFirstAndTopic(true, topicOptional.get());
+
+        if (!Objects.equals(user.getUsername(), "admin") && user != post.getUser()) {
+            throw new PageNotFoundException("无权限");
+        }
+
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         m.addAttribute("topic", topicOptional.get());
@@ -137,6 +144,8 @@ public class TopicController extends BaseController {
     @ResponseBody
     public Result topic_edit_post(@PathVariable Long id, Long category_id, String title, String content) {
         Optional<Category> category = categoryRepository.findById(category_id);
+        User user = getUser();
+
         if (category.isEmpty()) {
             throw new PageNotFoundException("分类不存在");
         }
@@ -150,9 +159,17 @@ public class TopicController extends BaseController {
         }
 
         Post post = postRepository.findTopByIsFirstAndTopic(true, topic);
+
+        if (!Objects.equals(user.getUsername(), "admin") && user != post.getUser()) {
+            throw new PageNotFoundException("无权限");
+        }
+
         topic.setCategory(category.get());
         topic.setTitle(title);
         post.setContent(content);
+        if (user == post.getUser()) {
+            post.setEditedAt(new Date());
+        }
         topicService.save(topic);
         postService.save(post);
 
@@ -182,7 +199,7 @@ public class TopicController extends BaseController {
         return "redirect:/topic/"+topic.get().getId();
     }
 
-    @RequiresRoles("user")
+    @RequiresRoles("admin")
     @RequestMapping(value = "/topic/{id}/remove", method = RequestMethod.POST)
     public String topic_remove(@PathVariable Long id) {
         Optional<Topic> oTopic = topicRepository.findById(id);
@@ -200,12 +217,17 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/post/{id}/edit")
     public String post_edit(@PathVariable Long id, ModelMap m) {
         Optional<Post> oPost = postRepository.findById(id);
+        User user = getUser();
 
         if (oPost.isEmpty()) {
             throw new PageNotFoundException("回帖不存在");
         }
 
         Post post = oPost.get();
+
+        if (!Objects.equals(user.getUsername(), "admin") && user != post.getUser()) {
+            throw new PageNotFoundException("无权限");
+        }
 
         m.addAttribute("post", post);
 
@@ -217,13 +239,22 @@ public class TopicController extends BaseController {
     @ResponseBody
     public Result post_edit_post(@PathVariable Long id, String content) {
         Optional<Post> oPost = postRepository.findById(id);
+        User user = getUser();
 
         if (oPost.isEmpty()) {
             throw new PageNotFoundException("回帖不存在");
         }
 
         Post post = oPost.get();
+
+        if (!Objects.equals(user.getUsername(), "admin") && user != post.getUser()) {
+            throw new PageNotFoundException("无权限");
+        }
+
         post.setContent(content);
+        if (user == post.getUser()) {
+            post.setEditedAt(new Date());
+        }
         System.out.println("更新成功post");
         postService.save(post);
 
@@ -232,7 +263,7 @@ public class TopicController extends BaseController {
         return Result.success("ok");
     }
 
-    @RequiresRoles("user")
+    @RequiresRoles("admin")
     @RequestMapping(value = "/post/{id}/remove", method = RequestMethod.POST)
     public String post_remove(@PathVariable Long id) {
         Optional<Post> post = postRepository.findById(id);

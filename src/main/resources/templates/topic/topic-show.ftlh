@@ -18,7 +18,7 @@
 			<div><img src="${post.user.getUserFaceLink()}"></div>
 		</div>
 		<div class="main">
-			<div class="post_info">${local("post_at")} ${topic.getCreatedAt()}</div>
+			<div class="post_info">${local("post_at")} ${show_date(topic.createdAt)}</div>
 			<div class="floor" style="">#${page.getNumber()*10 + post?index + 1}</div>
 			<div class="post_content">
 				<#if post.user.getBanned()>
@@ -27,19 +27,28 @@
 					${post.getContentHtml()?no_esc}
 				</#if>
 			</div>
+			<#if post.editedAt??>
+				<div style="text-align: right; color: #000066; font-size: 12px;">
+					[此贴子已经被作者于${show_date(post.editedAt)}编辑过]
+				</div>
+			</#if>
 			<div>
-				<#if user?? && user.username == 'admin'>
+				<#if user?? && (user.username == 'admin' || user == post.user)>
 					<#if post.isFirst >
 						<a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>${local("edit")}</a>
-						<a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
-						<#if topic.stick >
-							<a href="javascript:void(0);" class="topic-stick-off"><i class="fa fa-thumb-tack"></i>${local("stick_off")}</a>
-						<#else>
-							<a href="javascript:void(0);" class="topic-stick-on"><i class="fa fa-thumb-tack"></i>${local("stick_on")}</a>
+						<#if user.username == 'admin'>
+							<a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
+							<#if topic.stick>
+								<a href="javascript:void(0);" class="topic-stick-off"><i class="fa fa-thumb-tack"></i>${local("stick_off")}</a>
+							<#else>
+								<a href="javascript:void(0);" class="topic-stick-on"><i class="fa fa-thumb-tack"></i>${local("stick_on")}</a>
+							</#if>
 						</#if>
 					<#else>
 						<a href="/post/${post.getId()}/edit"><i class="fa fa-edit"></i>${local("edit")}</a>
-						<a href="/post/${post.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
+						<#if user.username == 'admin'>
+							<a href="/post/${post.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
+						</#if>
 					</#if>
 				</#if>
 			</div>

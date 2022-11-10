@@ -41,6 +41,9 @@ public class Post {
 	@Column(nullable = false)
 	private Date updatedAt;
 
+	@CreationTimestamp
+	private Date editedAt;
+
 	public Long getId() {
 		return id;
 	}
@@ -103,6 +106,14 @@ public class Post {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Date getEditedAt() {
+		return editedAt;
+	}
+
+	public void setEditedAt(Date editedAt) {
+		this.editedAt = editedAt;
 	}
 
 	public String getContentHtml() {
