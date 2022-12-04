@@ -5,7 +5,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.text.MessageFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "bbs_post")
@@ -127,5 +129,16 @@ public class Post {
 		String new_content = Utils.markDown(content);
 
 		return new_content;
+	}
+
+	public boolean hasEdited() {
+		long diffInMillis;
+		if (this.getEditedAt() == null) {
+			diffInMillis = 0L;
+		} else {
+			diffInMillis = this.getEditedAt().getTime() - this.getCreatedAt().getTime();
+		}
+		long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.SECONDS);
+		return diff >= 3;
 	}
 }

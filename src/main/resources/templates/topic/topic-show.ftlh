@@ -27,7 +27,7 @@
 					${post.getContentHtml()?no_esc}
 				</#if>
 			</div>
-			<#if post.editedAt??>
+			<#if post.hasEdited()>
 				<div style="text-align: right; color: #000066; font-size: 12px;">
 					[此贴子已经被作者于${show_date(post.editedAt)}编辑过]
 				</div>
