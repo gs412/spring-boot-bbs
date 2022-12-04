@@ -9,7 +9,7 @@
 	<id>spring-boot-bbs</id>
 
 	<classpath>
-		<dir name="D:/111/javafiles/spring-boot-bbs/target/classes">
+		<dir name="/home/gs/111/javafiles/spring-boot-bbs/target/classes">
 		</dir>
 	</classpath>
 
