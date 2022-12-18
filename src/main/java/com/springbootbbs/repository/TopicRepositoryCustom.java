@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface TopicRepositoryCustom {
     Page<Topic> searchTitleByKeywords(List<String> keywordList, Pageable pageable);
+
+    Page<Topic> searchTitleByKeywords1(List<String> keywordList, Pageable pageable);
 }

@@ -8,6 +8,7 @@ import com.springbootbbs.libs.I18nUtil;
 import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
+import com.springbootbbs.repository.TopicRepositoryCustom;
 import com.springbootbbs.repository.UserRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -38,6 +39,9 @@ public class IndexController extends BaseController {
     TopicRepository topicRepository;
 
     @Autowired
+    TopicRepositoryCustom topicRepositoryCustom;
+
+    @Autowired
     CategoryRepository categoryRepository;
 
     @Autowired
@@ -58,20 +62,8 @@ public class IndexController extends BaseController {
         if (!searchWord.isEmpty()) {
             String[] keywords = searchWord.split(" ");
             List<String> keywordList = Arrays.stream(keywords).filter(word->word.length()>0).toList();
-            List<String> kws = keywordList.stream().map("%%%s%%"::formatted).toList();
 
-            //page = topicRepository.searchTitleByKeywords(keywordList, pageable);
-            if (keywordList.size() == 1) {
-                page = topicRepository.searchTitleByKeywords(kws.get(0), pageable);
-            } else if (keywordList.size() == 2) {
-                page = topicRepository.searchTitleByKeywords(kws.get(0), kws.get(1), pageable);
-            } else if (keywordList.size() == 3) {
-                page = topicRepository.searchTitleByKeywords(kws.get(0), kws.get(1), kws.get(2), pageable);
-            } else if (keywordList.size() == 4) {
-                page = topicRepository.searchTitleByKeywords(kws.get(0), kws.get(1), kws.get(2), kws.get(3), pageable);
-            } else {
-                page = topicRepository.searchTitleByKeywords(kws.get(0), kws.get(1), kws.get(2), kws.get(3), kws.get(4), pageable);
-            }
+            page = topicRepositoryCustom.searchTitleByKeywords(keywordList, pageable);
 
             searchWord = String.join(" ", keywordList);
         } else if (tab.equals("all")) {
