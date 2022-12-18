@@ -58,7 +58,7 @@ public class IndexController extends BaseController {
         Page<Topic> page;
         if (!searchWord.isEmpty()) {
             String[] keywords = searchWord.split(" ");
-            List<String> keywordList = Arrays.stream(keywords).filter(word->word.length()>0).toList();
+            List<String> keywordList = Arrays.stream(keywords).filter(word->word.length()>0).distinct().toList();
 
             page = topicRepository.searchTitleByKeywords(keywordList, pageable);
 

@@ -22,15 +22,34 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
 
     @Override
     public Page<Topic> searchTitleByKeywords(List<String> keywordList, Pageable pageable) {
-        String whereStr = keywordList.stream().map((word) -> "t.title like '%" + word + "%'").collect(Collectors.joining(" or "));
-        String orderByStr = keywordList.stream().map((word) -> "IF(t.title like '%" + word + "%', " + (100 - keywordList.indexOf(word)) + ", 0)").collect(Collectors.joining(" + "));
-        TypedQuery<Topic> query = entityManager.createQuery("select t.id, t.title from Topic t " +
-                "left join User u on t.user.id = u.id " +
-                "where (?1) and t.deleted=false and u.banned=false " +
-                "order by " + orderByStr + " desc, t.replies desc", Topic.class).setParameter(1, whereStr);
+        String whereStr = keywordList.stream().map((word) -> "t.title like ?" + (keywordList.indexOf(word) + 1) + "").collect(Collectors.joining(" or "));
+        String orderByStr = keywordList.stream().map((word) -> "IF(t.title like ?" + (keywordList.indexOf(word) + 1) + ", " + (100 - keywordList.indexOf(word)) + ", 0)").collect(Collectors.joining(" + "));
 
-        int totalRows = query.getResultList().size();
-        Page<Topic> result = new PageImpl<>(query.getResultList(), pageable, totalRows);
+        System.out.println("select t.* from bbs_topic t " +
+                "left join bbs_user u on t.user_id = u.id " +
+                "where (" + whereStr + ") and t.deleted=0 and u.banned=0 " +
+                "order by " + orderByStr + " desc, t.replies desc " +
+                "limit " + pageable.getPageSize() * pageable.getPageNumber() + ", " + pageable.getPageSize());
+        // 查询记录
+        Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
+                "left join bbs_user u on t.user_id = u.id " +
+                "where (" + whereStr + ") and t.deleted=0 and u.banned=0 " +
+                "order by (" + orderByStr + ") desc, t.replies desc " +
+                "limit " + pageable.getPageSize() * pageable.getPageNumber() + ", " + pageable.getPageSize(), Topic.class);
+        keywordList.forEach((word) -> {
+            mainQuery.setParameter(keywordList.indexOf(word) + 1, "%" + word + "%");
+        });
+
+        // 查询总数，给下面的分页使用
+        Query countQuery = entityManager.createNativeQuery("select count(t.id) from bbs_topic t " +
+                "left join bbs_user u on t.user_id = u.id " +
+                "where (" + whereStr + ") and t.deleted=0 and u.banned=0 ");
+        keywordList.forEach((word) -> {
+            countQuery.setParameter(keywordList.indexOf(word) + 1, "%" + word + "%");
+        });
+        int totalRows = ((Number) countQuery.getSingleResult()).intValue();
+
+        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), pageable, totalRows);
         return result;
     }
 
