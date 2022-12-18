@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface TopicRepository extends PagingAndSortingRepository<Topic, Long> {
+public interface TopicRepository extends PagingAndSortingRepository<Topic, Long>, TopicRepositoryCustom {
 
     Page<Topic> findAllByDeletedOrderByIdDesc(Pageable page, Boolean deleted);
 

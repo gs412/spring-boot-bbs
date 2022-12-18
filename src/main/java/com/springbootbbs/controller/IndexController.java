@@ -39,9 +39,6 @@ public class IndexController extends BaseController {
     TopicRepository topicRepository;
 
     @Autowired
-    TopicRepositoryCustom topicRepositoryCustom;
-
-    @Autowired
     CategoryRepository categoryRepository;
 
     @Autowired
@@ -63,7 +60,7 @@ public class IndexController extends BaseController {
             String[] keywords = searchWord.split(" ");
             List<String> keywordList = Arrays.stream(keywords).filter(word->word.length()>0).toList();
 
-            page = topicRepositoryCustom.searchTitleByKeywords(keywordList, pageable);
+            page = topicRepository.searchTitleByKeywords(keywordList, pageable);
 
             searchWord = String.join(" ", keywordList);
         } else if (tab.equals("all")) {
