@@ -22,8 +22,8 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
 
     @Override
     public Page<Topic> searchTitleByKeywords(List<String> keywordList, Pageable pageable) {
-        String whereStr = keywordList.stream().map((word) -> "t.title like ?" + (keywordList.indexOf(word) + 1) + "").collect(Collectors.joining(" or "));
-        String orderByStr = keywordList.stream().map((word) -> "IF(t.title like ?" + (keywordList.indexOf(word) + 1) + ", " + (100 - keywordList.indexOf(word)) + ", 0)").collect(Collectors.joining(" + "));
+        String whereStr = keywordList.stream().map((word) -> "t.title like ?" + keywordList.indexOf(word)).collect(Collectors.joining(" or "));
+        String orderByStr = keywordList.stream().map((word) -> "IF(t.title like ?" + keywordList.indexOf(word) + ", " + (100 - keywordList.indexOf(word)) + ", 0)").collect(Collectors.joining(" + "));
 
         // 查询记录
         Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
@@ -33,7 +33,7 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
                 "limit " + pageable.getPageSize() * pageable.getPageNumber() + ", " + pageable.getPageSize(), Topic.class);
 
         keywordList.forEach((word) -> {
-            mainQuery.setParameter(keywordList.indexOf(word) + 1, "%" + word + "%");
+            mainQuery.setParameter(keywordList.indexOf(word), "%" + word + "%");
         });
 
         // 查询总数，给下面的分页使用
@@ -42,7 +42,7 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
                 "where (" + whereStr + ") and t.deleted=0 and u.banned=0 ");
 
         keywordList.forEach((word) -> {
-            countQuery.setParameter(keywordList.indexOf(word) + 1, "%" + word + "%");
+            countQuery.setParameter(keywordList.indexOf(word), "%" + word + "%");
         });
 
         int totalRows = ((Number) countQuery.getSingleResult()).intValue();
