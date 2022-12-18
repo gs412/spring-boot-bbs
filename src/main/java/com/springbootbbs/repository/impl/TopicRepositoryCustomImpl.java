@@ -25,17 +25,13 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
         String whereStr = keywordList.stream().map((word) -> "t.title like ?" + (keywordList.indexOf(word) + 1) + "").collect(Collectors.joining(" or "));
         String orderByStr = keywordList.stream().map((word) -> "IF(t.title like ?" + (keywordList.indexOf(word) + 1) + ", " + (100 - keywordList.indexOf(word)) + ", 0)").collect(Collectors.joining(" + "));
 
-        System.out.println("select t.* from bbs_topic t " +
-                "left join bbs_user u on t.user_id = u.id " +
-                "where (" + whereStr + ") and t.deleted=0 and u.banned=0 " +
-                "order by " + orderByStr + " desc, t.replies desc " +
-                "limit " + pageable.getPageSize() * pageable.getPageNumber() + ", " + pageable.getPageSize());
         // 查询记录
         Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
                 "left join bbs_user u on t.user_id = u.id " +
                 "where (" + whereStr + ") and t.deleted=0 and u.banned=0 " +
                 "order by (" + orderByStr + ") desc, t.replies desc " +
                 "limit " + pageable.getPageSize() * pageable.getPageNumber() + ", " + pageable.getPageSize(), Topic.class);
+
         keywordList.forEach((word) -> {
             mainQuery.setParameter(keywordList.indexOf(word) + 1, "%" + word + "%");
         });
@@ -44,11 +40,14 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
         Query countQuery = entityManager.createNativeQuery("select count(t.id) from bbs_topic t " +
                 "left join bbs_user u on t.user_id = u.id " +
                 "where (" + whereStr + ") and t.deleted=0 and u.banned=0 ");
+
         keywordList.forEach((word) -> {
             countQuery.setParameter(keywordList.indexOf(word) + 1, "%" + word + "%");
         });
+
         int totalRows = ((Number) countQuery.getSingleResult()).intValue();
 
+        // 分页结果
         Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), pageable, totalRows);
         return result;
     }

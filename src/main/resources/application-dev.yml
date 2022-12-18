@@ -15,7 +15,7 @@ spring:
     resources:
       static-locations: file:/home/gs/111/javafiles/spring-boot-bbs/src/main/resources/static/
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
   messages:
