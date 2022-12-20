@@ -50,7 +50,10 @@
 		</th>
 		<script>
 			$(document).ready(function() {
-
+				let order_by = $('ul#order_by')
+				$('th.operate > div').click(function() {
+					order_by.is(":visible") ? order_by.hide() : order_by.show()
+				})
 			})
 		</script>
 	</tr>
