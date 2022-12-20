@@ -54,7 +54,7 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
     }
 
     @Override
-    public Page<Topic> findAllForIndex(Pageable page, User.IndexOrderBy orderBy) {
+    public Page<Topic> findAllForIndex(Pageable pageable, User.IndexOrderBy orderBy) {
         String orderField = orderBy == User.IndexOrderBy.CREATED_AT ? "t.id" : "t.replied_at";
 
         Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
@@ -65,12 +65,12 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
                 "where t.deleted=0 and u.banned=0");
 
         int totalRows = ((Number) countQuery.getSingleResult()).intValue();
-        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), page, totalRows);
+        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), pageable, totalRows);
         return result;
     }
 
     @Override
-    public Page<Topic> findAllForIndexByCategory(String categoryTab, Pageable page, User.IndexOrderBy orderBy) {
+    public Page<Topic> findAllForIndexByCategory(String categoryTab, Pageable pageable, User.IndexOrderBy orderBy) {
         String orderField = orderBy == User.IndexOrderBy.CREATED_AT ? "t.id" : "t.replied_at";
 
         Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
@@ -85,7 +85,7 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
         countQuery.setParameter(1, categoryTab);
 
         int totalRows = ((Number) countQuery.getSingleResult()).intValue();
-        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), page, totalRows);
+        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), pageable, totalRows);
         return result;
     }
 
