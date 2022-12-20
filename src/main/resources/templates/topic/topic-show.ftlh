@@ -18,7 +18,7 @@
 			<div><img src="${post.user.getUserFaceLink()}"></div>
 		</div>
 		<div class="main">
-			<div class="post_info">${local("post_at")} ${show_date(topic.createdAt)}</div>
+			<div class="post_info">${local("post_at")} ${show_date(post.createdAt)}</div>
 			<div class="floor" style="">#${page.getNumber()*10 + post?index + 1}</div>
 			<div class="post_content">
 				<#if post.user.getBanned()>
