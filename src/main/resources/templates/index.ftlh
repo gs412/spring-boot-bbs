@@ -42,7 +42,7 @@
 				<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
 					<path d="m11.998 17 7-8h-14z"></path>
 				</svg>
-				<ul id="order_by" style="display: block;">
+				<ul id="order_by">
 					<li><a href="/change_language?lang=en">发布时间</a></li>
 					<li><a href="/change_language?lang=cn">回复时间</a></li>
 				</ul>
