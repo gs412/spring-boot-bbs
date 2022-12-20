@@ -34,6 +34,7 @@ table.table tr th.operate #order_by {
   display: none;
   background: #fff;
   font-weight: normal;
+  white-space: nowrap;
 }
 table.table tr th.operate #order_by li {
   line-height: 200%;
