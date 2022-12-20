@@ -45,7 +45,7 @@ public class Topic {
 	@Column(nullable = false)
 	private Date updatedAt;
 
-	@UpdateTimestamp
+	@CreationTimestamp
 	@Column(nullable = false)
 	private Date repliedAt;
 
