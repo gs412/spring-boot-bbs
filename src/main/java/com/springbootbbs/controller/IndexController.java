@@ -53,7 +53,7 @@ public class IndexController extends BaseController {
         if (user != null) {
             indexOrderBy = user.getIndexOrderBy();
         } else {
-            indexOrderBy = cookieIndexOrderBy != null ? cookieIndexOrderBy : User.IndexOrderBy.CREATED_AT;
+            indexOrderBy = cookieIndexOrderBy != null ? cookieIndexOrderBy : User.IndexOrderBy.REPLIED_AT;
         }
         String order_by_label;
         if (indexOrderBy == User.IndexOrderBy.CREATED_AT) {
