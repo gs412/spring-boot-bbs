@@ -33,6 +33,7 @@ table.table tr th.operate #order_by {
   padding: 5px 0;
   display: none;
   background: #fff;
+  font-weight: normal;
 }
 table.table tr th.operate #order_by li {
   line-height: 200%;

@@ -43,8 +43,8 @@
 					<path d="m11.998 17 7-8h-14z"></path>
 				</svg>
 				<ul id="order_by" style="display: block;">
-					<li><a href="/change_language?lang=en">English</a></li>
-					<li><a href="/change_language?lang=cn">中文</a></li>
+					<li><a href="/change_language?lang=en">发布时间</a></li>
+					<li><a href="/change_language?lang=cn">回复时间</a></li>
 				</ul>
 			</div>
 		</th>
