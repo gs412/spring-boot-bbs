@@ -16,5 +16,5 @@ public interface TopicRepositoryCustom {
 
     Page<Topic> findAllForIndexByCategory(String categoryTab, Pageable page, User.IndexOrderBy orderBy);
 
-    Page<Topic> searchTitleByKeywords1(List<String> keywordList, Pageable pageable);
+    Page<Topic> searchTitleByKeywords1(List<String> keywordList, Pageable page);
 }

@@ -82,7 +82,6 @@ public class IndexController extends BaseController {
         } else {
             page = topicRepository.findAllForIndexByCategory(tab, pageable, indexOrderBy);
         }
-        System.out.println(page.getTotalPages());
 
         Iterable<Topic> topics = page.getContent();
         for (Topic topic : topics) {

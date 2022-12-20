@@ -22,7 +22,7 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public Page<Topic> searchTitleByKeywords(List<String> keywordList, Pageable pageable) {
+    public Page<Topic> searchTitleByKeywords(List<String> keywordList, Pageable page) {
         String whereStr = keywordList.stream().map((word) -> "t.title like ?" + keywordList.indexOf(word)).collect(Collectors.joining(" or "));
         String orderByStr = keywordList.stream().map((word) -> "IF(t.title like ?" + keywordList.indexOf(word) + ", " + (100 - keywordList.indexOf(word)) + ", 0)").collect(Collectors.joining(" + "));
 
@@ -31,7 +31,7 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
                 "left join bbs_user u on t.user_id = u.id " +
                 "where (" + whereStr + ") and t.deleted=0 and u.banned=0 " +
                 "order by (" + orderByStr + ") desc, t.replies desc " +
-                "limit " + pageable.getPageSize() * pageable.getPageNumber() + ", " + pageable.getPageSize(), Topic.class);
+                "limit " + page.getPageSize() * page.getPageNumber() + ", " + page.getPageSize(), Topic.class);
 
         keywordList.forEach((word) -> {
             mainQuery.setParameter(keywordList.indexOf(word), "%" + word + "%");
@@ -49,34 +49,36 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
         int totalRows = ((Number) countQuery.getSingleResult()).intValue();
 
         // 分页结果
-        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), pageable, totalRows);
+        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), page, totalRows);
         return result;
     }
 
     @Override
-    public Page<Topic> findAllForIndex(Pageable pageable, User.IndexOrderBy orderBy) {
+    public Page<Topic> findAllForIndex(Pageable page, User.IndexOrderBy orderBy) {
         String orderField = orderBy == User.IndexOrderBy.CREATED_AT ? "t.id" : "t.replied_at";
 
         Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
                 "left join bbs_user u on t.user_id = u.id " +
-                "where t.deleted=0 and u.banned=0 order by t.stick desc, " + orderField + " desc", Topic.class);
+                "where t.deleted=0 and u.banned=0 order by t.stick desc, " + orderField + " desc " +
+                "limit " + page.getPageSize() * page.getPageNumber() + ", " + page.getPageSize(), Topic.class);
         Query countQuery = entityManager.createNativeQuery("select count(t.id) from bbs_topic t " +
                 "left join bbs_user u on t.user_id = u.id " +
                 "where t.deleted=0 and u.banned=0");
 
         int totalRows = ((Number) countQuery.getSingleResult()).intValue();
-        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), pageable, totalRows);
+        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), page, totalRows);
         return result;
     }
 
     @Override
-    public Page<Topic> findAllForIndexByCategory(String categoryTab, Pageable pageable, User.IndexOrderBy orderBy) {
+    public Page<Topic> findAllForIndexByCategory(String categoryTab, Pageable page, User.IndexOrderBy orderBy) {
         String orderField = orderBy == User.IndexOrderBy.CREATED_AT ? "t.id" : "t.replied_at";
 
         Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
                 "left join bbs_user u on t.user_id = u.id " +
                 "left join bbs_category c on t.category_id = c.id " +
-                "where t.deleted=0 and u.banned=0 and c.tab=?1 order by t.stick desc, " + orderField + " desc", Topic.class);
+                "where t.deleted=0 and u.banned=0 and c.tab=?1 order by t.stick desc, " + orderField + " desc " +
+                "limit " + page.getPageSize() * page.getPageNumber() + ", " + page.getPageSize(), Topic.class);
         Query countQuery = entityManager.createNativeQuery("select count(t.id) from bbs_topic t " +
                 "left join bbs_user u on t.user_id = u.id " +
                 "left join bbs_category c on t.category_id = c.id " +
@@ -85,7 +87,7 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
         countQuery.setParameter(1, categoryTab);
 
         int totalRows = ((Number) countQuery.getSingleResult()).intValue();
-        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), pageable, totalRows);
+        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), page, totalRows);
         return result;
     }
 
