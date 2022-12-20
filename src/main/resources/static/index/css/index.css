@@ -13,6 +13,7 @@ table.table tr th.operate {
   position: relative;
 }
 table.table tr th.operate div:first-child {
+  position: relative;
   user-select: none;
   cursor: pointer;
   display: inline-block;

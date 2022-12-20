@@ -19,6 +19,7 @@ table.table {
       position: relative;
 
       div:first-child {
+        position: relative;
         user-select: none;
         cursor: pointer;
         display: inline-block;
