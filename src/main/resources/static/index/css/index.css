@@ -9,9 +9,6 @@ table.table tr td.title i.fa-thumb-tack {
   color: #888;
   margin-left: 11px;
 }
-table.table tr th.operate {
-  overflow: hidden;
-}
 table.table tr th.operate div:first-child {
   position: relative;
   user-select: none;
@@ -20,6 +17,7 @@ table.table tr th.operate div:first-child {
 }
 table.table tr th.operate div:first-child:hover {
   margin-top: -1px;
+  margin-bottom: -1px;
   border: 1px solid #ddd;
   border-radius: 3px;
   background: #fefefe;

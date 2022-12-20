@@ -15,8 +15,6 @@ table.table {
     }
 
     th.operate {
-      overflow: hidden;
-
       div:first-child {
         position: relative;
         user-select: none;
@@ -26,6 +24,7 @@ table.table {
 
         &:hover {
           margin-top: -1px;
+          margin-bottom: -1px;
           border: 1px solid #ddd;
           border-radius: 3px;
           background: #fefefe;
