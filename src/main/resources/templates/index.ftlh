@@ -36,7 +36,14 @@
 		<th style="width:50%;">${local("title")}</th>
 		<th style="width:15%;">${local("author")}</th>
 		<th style="width:15%;">${local("category")}</th>
-		<th>${local("pub_time")}</th>
+		<th class="operate">
+			<div>
+				${local("pub_time")}
+				<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+					<path d="m11.998 17 7-8h-14z"></path>
+				</svg>
+			</div>
+		</th>
 	</tr>
 	<#list topics as topic>
 		<tr>

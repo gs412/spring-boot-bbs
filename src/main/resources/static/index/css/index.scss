@@ -13,5 +13,20 @@ table.table {
         margin-left: 11px;
       }
     }
+
+    th.operate {
+      div:first-child {
+        position: relative;
+        user-select: none;
+        cursor: pointer;
+        display: inline-block;
+
+        &:hover {
+          border: 1px solid #ddd;
+          border-radius: 3px;
+          background: #fefefe;
+        }
+      }
+    }
   }
 }
