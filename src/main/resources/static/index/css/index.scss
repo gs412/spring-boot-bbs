@@ -21,19 +21,11 @@ table.table {
         user-select: none;
         cursor: pointer;
         display: inline-block;
-        border: 1px solid rgba(0, 0, 0, 0);
-        margin-top: -1px;
-        margin-bottom: -1px;
-
-        &:hover {
-          border: 1px solid #ddd;
-          border-radius: 3px;
-          background: #fefefe;
-        }
 
         svg {
           position: absolute;
           top: 3px;
+          right: -3px;
         }
       }
     }
