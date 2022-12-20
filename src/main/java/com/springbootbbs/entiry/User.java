@@ -30,7 +30,7 @@ public class User implements Serializable {
 
 	@Enumerated(value = EnumType.STRING)
 	@Column(length = 50)
-	private IndexOrderBy indexOrderBy;
+	private IndexOrderBy indexOrderBy = IndexOrderBy.CREATED_AT;
 
 	@CreationTimestamp
 	@Column(nullable = false)

@@ -44,7 +44,8 @@ public class IndexController extends BaseController {
     UserRepository userRepository;
 
     @RequestMapping("/")
-    public String index(String p, @RequestParam HashMap<String, String> allRequestParams, ModelMap m, @CookieValue(value = "lang", required = false) String lang) {
+    public String index(String p, @RequestParam HashMap<String, String> allRequestParams, ModelMap m, @CookieValue(value = "lang", required = false) String lang,
+                        @CookieValue(value = "index_order_by", required = false) User.IndexOrderBy cookieIndexOrderBy) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
         int p1 = NumberUtils.toInt(p, 1);
@@ -81,16 +82,31 @@ public class IndexController extends BaseController {
             }
         }
 
+        User user = getUser();
+        User.IndexOrderBy indexOrderBy;
+        if (user != null) {
+            indexOrderBy = user.getIndexOrderBy();
+        } else {
+            indexOrderBy = cookieIndexOrderBy != null ? cookieIndexOrderBy : User.IndexOrderBy.CREATED_AT;
+        }
+        String order_by_label;
+        if (indexOrderBy == User.IndexOrderBy.CREATED_AT) {
+            order_by_label = I18nUtil.getMessage("index_order_by_created_at", localizeLang(lang));
+        } else {
+            order_by_label = I18nUtil.getMessage("index_order_by_replied_at", localizeLang(lang));
+        }
+
         m.addAttribute("title", "Spring Boot BBS - " + I18nUtil.getMessage("index_page", localizeLang(lang)));
         m.addAttribute("page", page);
         m.addAttribute("topics", topics);
-        m.addAttribute("user", getUser());
+        m.addAttribute("user", user);
         m.addAttribute("categories", categories);
         m.addAttribute("tab", tab);
         m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));
         m.addAttribute("searchWord", searchWord);
         m.addAttribute("created_at", User.IndexOrderBy.CREATED_AT);
         m.addAttribute("replied_at", User.IndexOrderBy.REPLIED_AT);
+        m.addAttribute("order_by_label", order_by_label);
 
         return "index";
     }
@@ -103,7 +119,7 @@ public class IndexController extends BaseController {
             userRepository.save(user);
         }
 
-        Cookie cookie = new Cookie("order_by", order_by.toString());
+        Cookie cookie = new Cookie("index_order_by", order_by.toString());
         cookie.setMaxAge(86400*365*10);
         response.addCookie(cookie);
 
