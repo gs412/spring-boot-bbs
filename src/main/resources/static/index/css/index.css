@@ -25,8 +25,8 @@ table.table tr th.operate div:first-child svg {
 }
 table.table tr th.operate #order_by {
   position: absolute;
-  right: -23px;
-  top: 28px;
+  right: -25px;
+  top: 34px;
   list-style: none;
   box-shadow: 1px 1px 8px #aaa;
   border-radius: 5px;
