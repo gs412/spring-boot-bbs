@@ -23,5 +23,8 @@ table.table tr th.operate div:first-child:hover {
   border-radius: 3px;
   background: #fefefe;
 }
+table.table tr th.operate div:first-child svg {
+  margin-top: 3px;
+}
 
 /*# sourceMappingURL=index.css.map */
