@@ -20,8 +20,10 @@ table.table {
         user-select: none;
         cursor: pointer;
         display: inline-block;
+        //border:
 
         &:hover {
+          margin-top: -1px;
           border: 1px solid #ddd;
           border-radius: 3px;
           background: #fefefe;
