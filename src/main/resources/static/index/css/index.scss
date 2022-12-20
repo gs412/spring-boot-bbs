@@ -16,8 +16,9 @@ table.table {
     }
 
     th.operate {
+      position: relative;
+
       div:first-child {
-        position: relative;
         user-select: none;
         cursor: pointer;
         display: inline-block;
@@ -26,6 +27,28 @@ table.table {
           position: absolute;
           top: 3px;
           right: -16px;
+        }
+      }
+
+      #order_by {
+        position: absolute;
+        right: 0;
+        top: 20px;
+        list-style: none;
+        box-shadow: 1px 1px 8px #aaa;
+        border-radius: 5px;
+        padding: 5px 0;
+        display: none;
+        background: #fff;
+        li {
+          line-height: 200%;
+          a {
+            display: block;
+            padding: 0 13px 0 18px;
+            &:hover {
+              background: #efefef;
+            }
+          }
         }
       }
     }

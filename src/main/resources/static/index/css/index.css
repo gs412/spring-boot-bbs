@@ -9,8 +9,10 @@ table.table tr td.title i.fa-thumb-tack {
   color: #888;
   margin-left: 11px;
 }
-table.table tr th.operate div:first-child {
+table.table tr th.operate {
   position: relative;
+}
+table.table tr th.operate div:first-child {
   user-select: none;
   cursor: pointer;
   display: inline-block;
@@ -19,6 +21,27 @@ table.table tr th.operate div:first-child svg {
   position: absolute;
   top: 3px;
   right: -16px;
+}
+table.table tr th.operate #order_by {
+  position: absolute;
+  right: 0;
+  top: 20px;
+  list-style: none;
+  box-shadow: 1px 1px 8px #aaa;
+  border-radius: 5px;
+  padding: 5px 0;
+  display: none;
+  background: #fff;
+}
+table.table tr th.operate #order_by li {
+  line-height: 200%;
+}
+table.table tr th.operate #order_by li a {
+  display: block;
+  padding: 0 13px 0 18px;
+}
+table.table tr th.operate #order_by li a:hover {
+  background: #efefef;
 }
 
 /*# sourceMappingURL=index.css.map */
