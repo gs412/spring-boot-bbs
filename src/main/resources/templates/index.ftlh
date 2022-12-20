@@ -75,7 +75,13 @@
 					</#if>
 				</a>
 			</td>
-			<td>${show_date(topic.getCreatedAt())}</td>
+			<td>
+				<#if indexOrderBy == created_at>
+					${show_date(topic.getCreatedAt())}
+				<#else>
+					${show_date(topic.getRepliedAt())}
+				</#if>
+			</td>
 		</tr>
 	</#list>
 	<#if searchWord?has_content && !topics?has_content>

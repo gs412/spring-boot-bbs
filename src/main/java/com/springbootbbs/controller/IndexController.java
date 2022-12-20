@@ -104,6 +104,7 @@ public class IndexController extends BaseController {
         m.addAttribute("tab", tab);
         m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));
         m.addAttribute("searchWord", searchWord);
+        m.addAttribute("indexOrderBy", indexOrderBy);
         m.addAttribute("created_at", User.IndexOrderBy.CREATED_AT);
         m.addAttribute("replied_at", User.IndexOrderBy.REPLIED_AT);
         m.addAttribute("order_by_label", order_by_label);
