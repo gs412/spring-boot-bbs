@@ -1,6 +1,7 @@
 package com.springbootbbs.repository.impl;
 
 import com.springbootbbs.entiry.Topic;
+import com.springbootbbs.entiry.User;
 import com.springbootbbs.repository.TopicRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -49,6 +50,42 @@ public class TopicRepositoryCustomImpl implements TopicRepositoryCustom {
 
         // 分页结果
         Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), pageable, totalRows);
+        return result;
+    }
+
+    @Override
+    public Page<Topic> findAllForIndex(Pageable page, User.IndexOrderBy orderBy) {
+        String orderField = orderBy == User.IndexOrderBy.CREATED_AT ? "t.id" : "t.replied_at";
+
+        Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
+                "left join bbs_user u on t.user_id = u.id " +
+                "where t.deleted=0 and u.banned=0 order by t.stick desc, " + orderField + " desc", Topic.class);
+        Query countQuery = entityManager.createNativeQuery("select count(t.id) from bbs_topic t " +
+                "left join bbs_user u on t.user_id = u.id " +
+                "where t.deleted=0 and u.banned=0");
+
+        int totalRows = ((Number) countQuery.getSingleResult()).intValue();
+        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), page, totalRows);
+        return result;
+    }
+
+    @Override
+    public Page<Topic> findAllForIndexByCategory(String categoryTab, Pageable page, User.IndexOrderBy orderBy) {
+        String orderField = orderBy == User.IndexOrderBy.CREATED_AT ? "t.id" : "t.replied_at";
+
+        Query mainQuery = entityManager.createNativeQuery("select t.* from bbs_topic t " +
+                "left join bbs_user u on t.user_id = u.id " +
+                "left join bbs_category c on t.category_id = c.id " +
+                "where t.deleted=0 and u.banned=0 and c.tab=?1 order by t.stick desc, " + orderField + " desc", Topic.class);
+        Query countQuery = entityManager.createNativeQuery("select count(t.id) from bbs_topic t " +
+                "left join bbs_user u on t.user_id = u.id " +
+                "left join bbs_category c on t.category_id = c.id " +
+                "where t.deleted=0 and u.banned=0 and c.tab=?1");
+        mainQuery.setParameter(1, categoryTab);
+        countQuery.setParameter(1, categoryTab);
+
+        int totalRows = ((Number) countQuery.getSingleResult()).intValue();
+        Page<Topic> result = new PageImpl<>(mainQuery.getResultList(), page, totalRows);
         return result;
     }
 

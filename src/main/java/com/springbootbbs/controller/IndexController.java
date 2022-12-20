@@ -78,9 +78,9 @@ public class IndexController extends BaseController {
 
             searchWord = String.join(" ", keywordList);
         } else if (tab.equals("all")) {
-            page = topicRepository.findAllForIndex(pageable);
+            page = topicRepository.findAllForIndex(pageable, indexOrderBy);
         } else {
-            page = topicRepository.findAllForIndexByCategory(tab, pageable);
+            page = topicRepository.findAllForIndexByCategory(tab, pageable, indexOrderBy);
         }
 
         Iterable<Topic> topics = page.getContent();
