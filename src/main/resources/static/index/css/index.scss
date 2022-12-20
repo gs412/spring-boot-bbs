@@ -33,7 +33,7 @@ table.table {
 
       #order_by {
         position: absolute;
-        right: -18px;
+        right: -23px;
         top: 28px;
         list-style: none;
         box-shadow: 1px 1px 8px #aaa;
@@ -46,7 +46,7 @@ table.table {
           line-height: 200%;
           a {
             display: block;
-            padding: 0 13px 0 18px;
+            padding: 0 15px;
             &:hover {
               background: #efefef;
             }
