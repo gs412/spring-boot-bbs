@@ -9,6 +9,9 @@ table.table tr td.title i.fa-thumb-tack {
   color: #888;
   margin-left: 11px;
 }
+table.table tr th.operate {
+  overflow: hidden;
+}
 table.table tr th.operate div:first-child {
   position: relative;
   user-select: none;
