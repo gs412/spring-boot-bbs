@@ -48,6 +48,20 @@ public class IndexController extends BaseController {
                         @CookieValue(value = "index_order_by", required = false) User.IndexOrderBy cookieIndexOrderBy) {
         Iterable<Category> categories = categoryRepository.findAllByOrderBySortAscIdAsc();
 
+        User user = getUser();
+        User.IndexOrderBy indexOrderBy;
+        if (user != null) {
+            indexOrderBy = user.getIndexOrderBy();
+        } else {
+            indexOrderBy = cookieIndexOrderBy != null ? cookieIndexOrderBy : User.IndexOrderBy.CREATED_AT;
+        }
+        String order_by_label;
+        if (indexOrderBy == User.IndexOrderBy.CREATED_AT) {
+            order_by_label = I18nUtil.getMessage("index_order_by_created_at", localizeLang(lang));
+        } else {
+            order_by_label = I18nUtil.getMessage("index_order_by_replied_at", localizeLang(lang));
+        }
+
         int p1 = NumberUtils.toInt(p, 1);
         Order order = new Order(Direction.DESC, "id");
         Pageable pageable = PageRequest.of(p1-1, 20, Sort.by(order));
@@ -80,20 +94,6 @@ public class IndexController extends BaseController {
             } else {
                 topic.setShortTitle(topic.getTitle(200, ".."));
             }
-        }
-
-        User user = getUser();
-        User.IndexOrderBy indexOrderBy;
-        if (user != null) {
-            indexOrderBy = user.getIndexOrderBy();
-        } else {
-            indexOrderBy = cookieIndexOrderBy != null ? cookieIndexOrderBy : User.IndexOrderBy.CREATED_AT;
-        }
-        String order_by_label;
-        if (indexOrderBy == User.IndexOrderBy.CREATED_AT) {
-            order_by_label = I18nUtil.getMessage("index_order_by_created_at", localizeLang(lang));
-        } else {
-            order_by_label = I18nUtil.getMessage("index_order_by_replied_at", localizeLang(lang));
         }
 
         m.addAttribute("title", "Spring Boot BBS - " + I18nUtil.getMessage("index_page", localizeLang(lang)));
