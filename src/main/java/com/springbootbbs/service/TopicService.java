@@ -1,6 +1,8 @@
 package com.springbootbbs.service;
 
+import com.springbootbbs.entiry.Post;
 import com.springbootbbs.entiry.Topic;
+import com.springbootbbs.repository.PostRepository;
 import com.springbootbbs.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ public class TopicService {
 
 	@Autowired
 	TopicRepository topicRepository;
+
+    @Autowired
+    PostRepository postRepository;
 
 	public Topic save(Topic topic) {
 		Date date = new Date();
@@ -36,5 +41,11 @@ public class TopicService {
     public Boolean delete(Topic topic) {
         topicRepository.delete(topic);
         return true;
+    }
+
+    public void updateReplies(Topic topic) {
+        Integer replies = postRepository.countByTopicAndDeleted(topic, false);
+        topic.setReplies(replies);
+        topicRepository.save(topic);
     }
 }

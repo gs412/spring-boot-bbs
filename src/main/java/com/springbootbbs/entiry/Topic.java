@@ -45,6 +45,10 @@ public class Topic {
 	@Column(nullable = false)
 	private Date updatedAt;
 
+	@UpdateTimestamp
+	@Column(nullable = false)
+	private Date repliedAt;
+
 	@Transient
 	private String shortTitle;
 
@@ -126,6 +130,14 @@ public class Topic {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Date getRepliedAt() {
+		return repliedAt;
+	}
+
+	public void setRepliedAt(Date repliedAt) {
+		this.repliedAt = repliedAt;
 	}
 
 	public String getShortTitle() {

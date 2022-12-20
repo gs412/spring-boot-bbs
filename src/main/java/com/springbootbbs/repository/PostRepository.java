@@ -20,4 +20,8 @@ public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 
     List<Post> findAllByTopic(Topic topic);
 
+    Integer countByTopicAndDeleted(Topic topic, Boolean deleted);
+
+    Post findTopByTopicAndDeletedOrderByIdDesc(Topic topic, Boolean deleted);
+
 }

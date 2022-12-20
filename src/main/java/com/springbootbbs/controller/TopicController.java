@@ -181,22 +181,29 @@ public class TopicController extends BaseController {
     @RequiresRoles("user")
     @RequestMapping(value = "/topic/{id}/reply", method = RequestMethod.POST)
     public String topic_reply(@PathVariable Long id, String content) {
-        Optional<Topic> topic = topicRepository.findById(id);
+        Optional<Topic> topicOptional = topicRepository.findById(id);
 
-        if (topic.isEmpty()) {
+        if (topicOptional.isEmpty()) {
             throw new PageNotFoundException("帖子不存在");
         }
+
+        Topic topic = topicOptional.get();
 
         Post post = new Post();
         post.setContent(content);
         post.setIsFirst(false);
-        post.setTopic(topic.get());
+        post.setTopic(topic);
         post.setUser(getUser());
         postService.save(post);
 
         manageAttachForPostCreate(post);
 
-        return "redirect:/topic/"+topic.get().getId();
+        topicService.updateReplies(topic);
+
+        topic.setRepliedAt(new Date());
+        topicService.save(topic);
+
+        return "redirect:/topic/"+topic.getId();
     }
 
     @RequiresRoles("admin")
@@ -274,6 +281,13 @@ public class TopicController extends BaseController {
 
         Long topic_id = post.get().getTopic().getId();
         postService.soft_delete(post.get());
+
+        Topic topic = post.get().getTopic();
+        topicService.updateReplies(topic);
+
+        Date lastRepliedAt = postRepository.findTopByTopicAndDeletedOrderByIdDesc(topic, false).getCreatedAt();
+        topic.setRepliedAt(lastRepliedAt);
+        topicService.save(topic);
 
         return "redirect:/topic/" + topic_id;
     }

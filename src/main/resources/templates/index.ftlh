@@ -44,8 +44,8 @@
 				</svg>
 			</div>
 			<ul id="order_by">
-				<li><a href="/change_language?lang=en">发布时间</a></li>
-				<li><a href="/change_language?lang=cn">回复时间</a></li>
+				<li><a href="/change_index_order_by?order_by=${created_at}">${local("index_order_by_created_at")}</a></li>
+				<li><a href="/change_index_order_by?order_by=${replied_at}">${local("index_order_by_replied_at")}</a></li>
 			</ul>
 		</th>
 		<script>

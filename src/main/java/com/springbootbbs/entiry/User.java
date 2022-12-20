@@ -28,9 +28,18 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private Boolean banned = false;
 
+	@Enumerated(value = EnumType.STRING)
+	@Column(length = 50)
+	private IndexOrderBy indexOrderBy;
+
 	@CreationTimestamp
 	@Column(nullable = false)
 	private Date createdAt;
+
+	public enum IndexOrderBy {
+		CREATED_AT,
+		REPLIED_AT;
+	}
 
 	public Long getId() {
 		return id;
@@ -70,6 +79,14 @@ public class User implements Serializable {
 
 	public void setBanned(Boolean banned) {
 		this.banned = banned;
+	}
+
+	public IndexOrderBy getIndexOrderBy() {
+		return indexOrderBy;
+	}
+
+	public void setIndexOrderBy(IndexOrderBy indexOrderBy) {
+		this.indexOrderBy = indexOrderBy;
 	}
 
 	public Date getCreatedAt() {

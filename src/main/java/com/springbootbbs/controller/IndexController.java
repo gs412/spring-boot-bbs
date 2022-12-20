@@ -8,7 +8,6 @@ import com.springbootbbs.libs.I18nUtil;
 import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
-import com.springbootbbs.repository.TopicRepositoryCustom;
 import com.springbootbbs.repository.UserRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -90,8 +89,25 @@ public class IndexController extends BaseController {
         m.addAttribute("tab", tab);
         m.addAttribute("query_str", Utils.makeQueryStr(allRequestParams));
         m.addAttribute("searchWord", searchWord);
+        m.addAttribute("created_at", User.IndexOrderBy.CREATED_AT);
+        m.addAttribute("replied_at", User.IndexOrderBy.REPLIED_AT);
 
         return "index";
+    }
+
+    @GetMapping("/change_index_order_by")
+    public String ChangeIndexOrderBy(@RequestParam User.IndexOrderBy order_by, HttpServletRequest request, HttpServletResponse response) {
+        User user = getUser();
+        if (user != null) {
+            user.setIndexOrderBy(order_by);
+            userRepository.save(user);
+        }
+
+        Cookie cookie = new Cookie("order_by", order_by.toString());
+        cookie.setMaxAge(86400*365*10);
+        response.addCookie(cookie);
+
+        return "redirect:" + request.getHeader("referer");
     }
 
     @RequestMapping("/change_language")
