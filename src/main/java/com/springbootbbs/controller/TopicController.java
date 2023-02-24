@@ -271,7 +271,7 @@ public class TopicController extends BaseController {
     }
 
     @RequiresRoles("admin")
-    @RequestMapping(value = "/post/{id}/remove", method = RequestMethod.POST)
+    @PostMapping(value = "/post/{id}/remove")
     public String post_remove(@PathVariable Long id) {
         Optional<Post> post = postRepository.findById(id);
 

@@ -1,6 +1,7 @@
 package com.springbootbbs.controller;
 
 import com.springbootbbs.entiry.User;
+import com.springbootbbs.exception.PageNotFoundException;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -11,11 +12,14 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Controller
@@ -27,12 +31,18 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping("/info")
+	@GetMapping("/info/{id}")
 	@ResponseBody
-	public List<User> info() {
-		List<User> list = new ArrayList<User>();
+	public User info(@PathVariable Long id) {
+		Optional<User> optional = userRepository.findById(id);
 
-		return list;
+		if (optional.isEmpty()) {
+			throw new PageNotFoundException("用户不存在");
+		}
+
+		User user = optional.get();
+
+		return user;
 	}
 
 	@RequestMapping("/register")
