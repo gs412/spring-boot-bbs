@@ -32,7 +32,7 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/info/{id}")
-	public String info(@PathVariable Long id) {
+	public String info(@PathVariable Long id, ModelMap m) {
 		Optional<User> optional = userRepository.findById(id);
 
 		if (optional.isEmpty()) {
@@ -40,6 +40,8 @@ public class UserController {
 		}
 
 		User user = optional.get();
+
+		m.addAttribute("user", user);
 
 		return "user/info";
 	}
