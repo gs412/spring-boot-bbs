@@ -105,10 +105,13 @@ public class TopicController extends BaseController {
 
         Page<Post> page = postRepository.findAllByTopicIdAndDeleted(id, pageable, false);
 
+        String metaDescription = page.getContent().get(0).getContent();
+
         m.addAttribute("title", topic.getTitle() + " - Spring Boot BBS");
         m.addAttribute("topic", topic);
         m.addAttribute("page", page);
         m.addAttribute("user", getUser());
+        m.addAttribute("metaDescription", metaDescription);
 
         return "topic/topic-show";
     }

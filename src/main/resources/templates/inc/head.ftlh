@@ -26,6 +26,10 @@
 			}, 1);
 		</script>
 	</#if>
+
+	<#if metaDescription??>
+		<meta name="description" content="${metaDescription}"/>
+	</#if>
 </head>
 <body>
 
