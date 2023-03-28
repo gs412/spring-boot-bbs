@@ -110,7 +110,7 @@ public class TopicController extends BaseController {
                 .replaceAll("[\r\n]+", " ")
                 .replaceAll("\s+", " ")
                 .replaceAll("\\[附件\\d+\\]", "");
-        metaDescription = Utils.subTextString(metaDescription, 180);
+        metaDescription = Utils.subTextString(metaDescription, 180, "...");
 
         m.addAttribute("title", topic.getTitle() + " - Spring Boot BBS");
         m.addAttribute("topic", topic);
