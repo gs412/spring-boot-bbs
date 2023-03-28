@@ -3,6 +3,7 @@ package com.springbootbbs.controller;
 import com.springbootbbs.entiry.*;
 import com.springbootbbs.exception.PageNotFoundException;
 import com.springbootbbs.libs.Result;
+import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.*;
 import com.springbootbbs.service.AttachService;
 import com.springbootbbs.service.PostService;
@@ -105,7 +106,11 @@ public class TopicController extends BaseController {
 
         Page<Post> page = postRepository.findAllByTopicIdAndDeleted(id, pageable, false);
 
-        String metaDescription = page.getContent().get(0).getContent();
+        String metaDescription = page.getContent().get(0).getContent()
+                .replaceAll("[\r\n]+", " ")
+                .replaceAll("\s+", " ")
+                .replaceAll("\\[附件\\d+\\]", "");
+        metaDescription = Utils.subTextString(metaDescription, 180);
 
         m.addAttribute("title", topic.getTitle() + " - Spring Boot BBS");
         m.addAttribute("topic", topic);
