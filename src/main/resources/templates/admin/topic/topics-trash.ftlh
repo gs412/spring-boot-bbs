@@ -21,7 +21,7 @@
                     </tr>
 	                <#list page.getContent() as topic>
                         <tr>
-                            <td>${topic.getId()}.</td>
+                            <td>${topic.getIdStr()}.</td>
                             <td>${topic.getTitle()}</td>
                             <td>
                                 ${topic.user.getUsername()}
@@ -31,8 +31,8 @@
                             </td>
                             <td>${show_date(topic.getCreatedAt())}</td>
                             <td>
-                                <a href="/admin/topic/topic/${topic.getId()}/resume" data-method="post">恢复</a>
-                                <a href="/admin/topic/topic/${topic.getId()}/remove-hard" data-method="post" data-confirm="删除后不可恢复，确定删除吗？">彻底删除</a>
+                                <a href="/admin/topic/topic/${topic.getIdStr()}/resume" data-method="post">恢复</a>
+                                <a href="/admin/topic/topic/${topic.getIdStr()}/remove-hard" data-method="post" data-confirm="删除后不可恢复，确定删除吗？">彻底删除</a>
                             </td>
                         </tr>
 	                </#list>

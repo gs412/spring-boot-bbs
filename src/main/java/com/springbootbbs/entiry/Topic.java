@@ -147,4 +147,8 @@ public class Topic {
 	public void setShortTitle(String shortTitle) {
 		this.shortTitle = shortTitle;
 	}
+
+	public String getIdStr() {
+		return Long.toString(id);
+	}
 }

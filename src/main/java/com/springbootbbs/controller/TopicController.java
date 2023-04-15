@@ -211,7 +211,7 @@ public class TopicController extends BaseController {
         topic.setRepliedAt(new Date());
         topicService.save(topic);
 
-        return "redirect:/topic/"+topic.getId();
+        return "redirect:/topic/"+topic.getIdStr();
     }
 
     @RequiresRoles("admin")

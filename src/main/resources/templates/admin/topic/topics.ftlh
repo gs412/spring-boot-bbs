@@ -18,7 +18,7 @@
                     </tr>
 	                <#list page.getContent() as topic>
                         <tr>
-                            <td>${topic.getId()}.</td>
+                            <td>${topic.getIdStr()}.</td>
                             <td>${topic.getTitle()}</td>
                             <td>
                                 ${topic.user.getUsername()}
@@ -28,7 +28,7 @@
                             </td>
                             <td>${show_date(topic.getCreatedAt())}</td>
                             <td>
-                                <a href="/admin/topic/topic/${topic.getId()}/remove" data-method="post">删除</a>
+                                <a href="/admin/topic/topic/${topic.getIdStr()}/remove" data-method="post">删除</a>
                             </td>
                         </tr>
 	                </#list>

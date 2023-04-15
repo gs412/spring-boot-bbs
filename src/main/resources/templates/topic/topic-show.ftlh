@@ -4,7 +4,7 @@
 <script src="/static/topic/js/topic-show.js"></script>
 <script src="/static/topic/js/topic-edit.js"></script>
 
-<h2 class="title" data-id="${topic.id}">${topic.getTitle()}</h2>
+<h2 class="title" data-id="${topic.idStr}">${topic.getTitle()}</h2>
 
 <#list page.getContent() as post>
 	<div class="post clearfix" id="post_${post.getId()}">
@@ -35,9 +35,9 @@
 			<div>
 				<#if user?? && (user.username == 'admin' || user == post.user)>
 					<#if post.isFirst >
-						<a href="/topic/${topic.getId()}/edit"><i class="fa fa-edit"></i>${local("edit")}</a>
+						<a href="/topic/${topic.getIdStr()}/edit"><i class="fa fa-edit"></i>${local("edit")}</a>
 						<#if user.username == 'admin'>
-							<a href="/topic/${topic.getId()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
+							<a href="/topic/${topic.getIdStr()}/remove" data-method="post"><i class="fa fa-remove"></i>${local("delete")}</a>
 							<#if topic.stick>
 								<a href="javascript:void(0);" class="topic-stick-off"><i class="fa fa-thumb-tack"></i>${local("stick_off")}</a>
 							<#else>
@@ -67,7 +67,7 @@
 
 <br>
 <#if user??>
-	<form class="form-horizontal" action="/topic/${topic.getId()}/reply" method="post">
+	<form class="form-horizontal" action="/topic/${topic.getIdStr()}/reply" method="post">
         <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
 		<fieldset>
 			<legend>${local("quick_reply")}</legend>

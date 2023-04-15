@@ -50,13 +50,13 @@
             let title = $('#title').val()
             let content = $('#content').val()
 
-            $.post('/topic/${topic.getId()}/edit_post', {
+            $.post('/topic/${topic.getIdStr()}/edit_post', {
                 category_id: category_id,
                 title: title,
                 content: content
             }, function (json) {
                 if (json.success) {
-                    window.location = "/topic/${topic.getId()}";
+                    window.location = "/topic/${topic.getIdStr()}";
                 }
             });
 

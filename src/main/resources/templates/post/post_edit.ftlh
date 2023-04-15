@@ -31,7 +31,7 @@
 
             $.post('/post/${post.getId()}/edit_post', {content: content}, function (json) {
                 if (json.success) {
-                    window.location = "/topic/${post.topic.getId()}#post_${post.getId()}";
+                    window.location = "/topic/${post.topic.getIdStr()}#post_${post.getId()}";
                 }
             });
 
