@@ -30,7 +30,7 @@
 			<label for="captcha" class="control-label">${local("captcha")}</label>
 			<div class="controls">
 				<input type="text" class="input-xlarge" name="captcha" id="captcha" maxlength="4" style="width: 70px;">
-				<img src="/seccode/en">
+				<img src="/seccode/en" id="seccodeImg" style="cursor: pointer;">
 			</div>
 		</div>
 		<div class="form-actions">
@@ -38,5 +38,14 @@
 		</div>
 	</fieldset>
 </form>
+
+<script>
+	$(function() {
+		$('img#seccodeImg').click(function () {
+			let $this = $(this);
+			$this.attr('src', "/seccode/en?v=" + Math.random());
+		});
+	});
+</script>
 
 <#include "../inc/foot.ftlh">
