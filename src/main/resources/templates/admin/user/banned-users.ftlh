@@ -18,13 +18,13 @@
                     </tr>
 	                <#list page.getContent() as user>
                         <tr>
-                            <td>${user.getId()}.</td>
+                            <td>${user.getIdStr()}.</td>
                             <td>${user.getUsername()}</td>
                             <td>${user.getLang()}</td>
                             <td>${show_date(user.getCreatedAt())}</td>
                             <td>
-                                <a href="/admin/user/user/${user.getId()}/unban" data-method="post">解禁</a>
-                                <a href="/admin/user/user/${user.getId()}/remove" data-confirm="删除后不可恢复，确定删除吗？" data-method="post">删除</a>
+                                <a href="/admin/user/user/${user.getIdStr()}/unban" data-method="post">解禁</a>
+                                <a href="/admin/user/user/${user.getIdStr()}/remove" data-confirm="删除后不可恢复，确定删除吗？" data-method="post">删除</a>
                             </td>
                         </tr>
 	                </#list>

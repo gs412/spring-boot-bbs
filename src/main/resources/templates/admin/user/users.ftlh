@@ -18,12 +18,12 @@
                     </tr>
 	                <#list page.getContent() as user>
                         <tr>
-                            <td>${user.getId()}.</td>
+                            <td>${user.getIdStr()}.</td>
                             <td>${user.getUsername()}</td>
                             <td>${user.getLang()}</td>
                             <td>${show_date(user.getCreatedAt())}</td>
                             <td>
-                                <a href="/admin/user/user/${user.getId()}/ban" data-method="post">封禁</a>
+                                <a href="/admin/user/user/${user.getIdStr()}/ban" data-method="post">封禁</a>
                             </td>
                         </tr>
 	                </#list>

@@ -114,4 +114,8 @@ public class User implements Serializable {
     public String getUserFaceLink() {
         return "/attach/show_user_face/" + this.id;
     }
+
+	public String getIdStr() {
+		return Long.toString(id);
+	}
 }
