@@ -61,7 +61,7 @@ public class UserController {
 
 		String msg = "";
 
-		if (captcha != session.getAttribute("seccode")) {
+		if (captcha.equalsIgnoreCase(session.getAttribute("seccode").toString())) {
 			msg = "验证码错误";
 			session.setAttribute("seccode", RandomStringUtils.random(4, "ABCDEFGHJKLPQRSTUVXY"));
 		} else if (userRepository.findByUsername(username) != null) {
