@@ -4,6 +4,7 @@ import com.springbootbbs.entiry.User;
 import com.springbootbbs.exception.PageNotFoundException;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.UserService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,14 +54,17 @@ public class UserController {
 	}
 
 	@RequestMapping("/register_save")
-	public String register_save(String username, String password, String password_confirm, ModelMap m) {
+	public String register_save(String username, String password, String password_confirm, String captcha, HttpSession session, ModelMap m) {
 		username = StringUtils.trimToEmpty(username);
 		password = StringUtils.trimToEmpty(password);
 		password_confirm = StringUtils.trimToEmpty(password_confirm);
 
 		String msg = "";
 
-		if (userRepository.findByUsername(username) != null) {
+		if (captcha != session.getAttribute("seccode")) {
+			msg = "验证码错误";
+			session.setAttribute("seccode", RandomStringUtils.random(4, "ABCDEFGHJKLPQRSTUVXY"));
+		} else if (userRepository.findByUsername(username) != null) {
 			msg = "用户名已存在";
 		} else if (username.length() < 3) {
 			msg = "用户名最少3个字符";
@@ -86,6 +91,8 @@ public class UserController {
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			token.setRememberMe(true);
 			currentUser.login(token);
+
+			session.removeAttribute("seccode");
 
 			return "redirect:/";
 		}

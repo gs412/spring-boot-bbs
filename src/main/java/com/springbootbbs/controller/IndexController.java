@@ -9,6 +9,7 @@ import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.CategoryRepository;
 import com.springbootbbs.repository.TopicRepository;
 import com.springbootbbs.repository.UserRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,11 +168,7 @@ public class IndexController extends BaseController {
         rgb.add(rands(10, 210));
         rgb.add(rands(10, 210));
 
-        String[] chars = "ABCDEFGHJKLPQRSTUVXY".split("");
-        StringBuilder text = new StringBuilder();
-        for (int i=0; i<4; i++) {
-            text.append(chars[randi(0, chars.length)]);
-        }
+        String text = RandomStringUtils.random(4, "ABCDEFGHJKLPQRSTUVXY");
 
         session.setAttribute("seccode", text);
 
@@ -206,9 +203,9 @@ public class IndexController extends BaseController {
         String i_to_s = String.valueOf(i);
         String textColor = "rgba(" + String.join(", ", rgb) + ", 1)";
         String rotate = String.valueOf(90);
-        String swirl = new String[]{"+", "-"}[randi(0, 1)] + rands(20, 30);
-        String wave1 = new String[]{"+", "-"}[randi(0, 1)] + rands(2, 4) + "x" + rands(120, 150);
-        String wave2 = new String[]{"+", "-"}[randi(0, 1)] + rands(2, 4) + "x" + rands(120, 150);
+        String swirl = RandomStringUtils.random(1, "+-") + rands(20, 30);
+        String wave1 = RandomStringUtils.random(1, "+-") + rands(2, 4) + "x" + rands(120, 150);
+        String wave2 = RandomStringUtils.random(1, "+-") + rands(2, 4) + "x" + rands(120, 150);
         String fontPath = Utils.getBasePath() + "/vendor/fonts/huawencaiyun.ttf";
 
         String command = """
