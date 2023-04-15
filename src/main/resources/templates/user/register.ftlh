@@ -26,6 +26,13 @@
 				<input type="password" class="input-xlarge" name="password_confirm" id="password_confirm">
 			</div>
 		</div>
+		<div class="control-group">
+			<label for="captcha" class="control-label">${local("captcha")}</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" name="captcha" id="captcha" maxlength="4" style="width: 70px;">
+				<img src="/seccode/en">
+			</div>
+		</div>
 		<div class="form-actions">
 			<button type="submit" class="btn btn-primary">${local("register")}</button>
 		</div>
