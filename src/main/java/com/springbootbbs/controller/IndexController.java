@@ -177,7 +177,7 @@ public class IndexController extends BaseController {
             makeFontPngs(chr, i + 1, fileNamePre, rgb);
         }
 
-        StringBuilder command = new StringBuilder("convert -size 120x47 xc:white ");
+        StringBuilder command = new StringBuilder("convert -size 120x60 xc:white ");
         for (int i=1; i<=4; i++) {
             command.append(
                     "/tmp/#{fileNamePre}#{i}.png -geometry +#{geometry}+3 -composite "
@@ -203,20 +203,20 @@ public class IndexController extends BaseController {
         String i_to_s = String.valueOf(i);
         String textColor = "rgba(" + String.join(", ", rgb) + ", 1)";
         String rotate = String.valueOf(90);
-        String swirl = RandomStringUtils.random(1, "+-") + rands(20, 30);
+        String swirl = RandomStringUtils.random(1, "+-") + rands(40, 50);
         String wave1 = RandomStringUtils.random(1, "+-") + rands(2, 4) + "x" + rands(120, 150);
         String wave2 = RandomStringUtils.random(1, "+-") + rands(2, 4) + "x" + rands(120, 150);
         String fontPath = Utils.getBasePath() + "/vendor/fonts/LondrinaShadow-Regular.otf";
 
         String command = """
-                /usr/bin/convert -size 40x40 -fill '#{textColor}' -background none \
+                /usr/bin/convert -size 40x50 -fill '#{textColor}' -background none \
                 -swirl #{swirl} \
                 -rotate -#{rotate} \
                 -wave #{wave1} \
                 -rotate +#{rotate} \
                 -wave #{wave2} \
                 -font #{fontPath} \
-                -pointsize 40 -gravity Center label:#{char} \
+                -pointsize 60 -gravity Center label:#{char} \
                 /tmp/#{fileNamePre}#{i_to_s}.png
                 """
                 .replace("#{textColor}", textColor)
