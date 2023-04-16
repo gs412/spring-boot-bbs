@@ -206,7 +206,7 @@ public class IndexController extends BaseController {
         String swirl = RandomStringUtils.random(1, "+-") + rands(20, 30);
         String wave1 = RandomStringUtils.random(1, "+-") + rands(2, 4) + "x" + rands(120, 150);
         String wave2 = RandomStringUtils.random(1, "+-") + rands(2, 4) + "x" + rands(120, 150);
-        String fontPath = Utils.getBasePath() + "/vendor/fonts/LondrinaShadow-Regular.otf";
+        String fontPath = Utils.getBasePath() + "/vendor/fonts/LondrinaShadow-Regular.otf ";
 
         String command = """
                 /usr/bin/convert -size 40x40 -fill '#{textColor}' -background none \
