@@ -2,6 +2,7 @@ package com.springbootbbs.controller;
 
 import com.springbootbbs.entiry.User;
 import com.springbootbbs.exception.PageNotFoundException;
+import com.springbootbbs.libs.Utils;
 import com.springbootbbs.repository.UserRepository;
 import com.springbootbbs.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -50,6 +51,8 @@ public class UserController {
 
 	@RequestMapping("/register")
 	public String register(ModelMap m) {
+		m.addAttribute("seccodeSize", Utils.seccodeSize);
+
 		return "user/register";
 	}
 

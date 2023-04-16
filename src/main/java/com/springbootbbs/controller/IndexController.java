@@ -168,17 +168,17 @@ public class IndexController extends BaseController {
         rgb.add(rands(10, 210));
         rgb.add(rands(10, 210));
 
-        String text = RandomStringUtils.random(4, "ABCDEFGHJKLPQRSTUVXY");
+        String text = RandomStringUtils.random(Utils.seccodeSize, "ABCDEFGJKLPQRSTUVXY");
 
         session.setAttribute("seccode", text);
 
-        for (int i=0; i<4; i++) {
+        for (int i=0; i<Utils.seccodeSize; i++) {
             String chr = text.toString().split("")[i];
             makeFontPngs(chr, i + 1, fileNamePre, rgb);
         }
 
-        StringBuilder command = new StringBuilder("convert -size 120x60 xc:white ");
-        for (int i=1; i<=4; i++) {
+        StringBuilder command = new StringBuilder("convert -size " + (Utils.seccodeSize*25+20) + "x60 xc:white ");
+        for (int i=1; i<=Utils.seccodeSize; i++) {
             command.append(
                     "/tmp/#{fileNamePre}#{i}.png -geometry +#{geometry}+3 -composite "
                             .replace("#{fileNamePre}", fileNamePre)
@@ -191,7 +191,7 @@ public class IndexController extends BaseController {
         ps.waitFor();
         InputStream in = ps.getInputStream();
 
-        for (int i=1; i<=4; i++) {
+        for (int i=1; i<=Utils.seccodeSize; i++) {
             Runtime.getRuntime().exec("rm /tmp/" + fileNamePre + i + ".png");
         }
 
