@@ -102,6 +102,7 @@ public class UserController {
 
 		m.addAttribute("username", username);
 		m.addAttribute("msg", msg);
+		m.addAttribute("seccodeSize", Utils.seccodeSize);
 
 		return "user/register";
 	}

@@ -168,7 +168,7 @@ public class IndexController extends BaseController {
         rgb.add(rands(10, 210));
         rgb.add(rands(10, 210));
 
-        String text = RandomStringUtils.random(Utils.seccodeSize, "ABCDEFGJKLPQRSTUVXY");
+        String text = RandomStringUtils.random(Utils.seccodeSize, "ABCDEFGJKLPQRSTUVY");
 
         session.setAttribute("seccode", text);
 
