@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class Utils {
 
-	public static int seccodeSize = 6;
+	public static int seccodeSize = 9;
 
 	public static String subTextString(String str,int len) {
 		return subTextString(str, len, "");
