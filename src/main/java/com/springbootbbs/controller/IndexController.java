@@ -203,7 +203,7 @@ public class IndexController extends BaseController {
         String i_to_s = String.valueOf(i);
         String textColor = "rgba(" + String.join(", ", rgb) + ", 1)";
         String rotate = String.valueOf(90);
-        String swirl = RandomStringUtils.random(1, "+-") + rands(40, 50);
+        String swirl = RandomStringUtils.random(1, "+-") + rands(50, 60);
         String wave1 = RandomStringUtils.random(1, "+-") + rands(2, 4) + "x" + rands(120, 150);
         String wave2 = RandomStringUtils.random(1, "+-") + rands(2, 4) + "x" + rands(120, 150);
         String fontPath = Utils.getBasePath() + "/vendor/fonts/LondrinaShadow-Regular.otf";
