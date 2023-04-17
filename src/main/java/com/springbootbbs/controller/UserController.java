@@ -64,9 +64,9 @@ public class UserController {
 
 		String msg = "";
 
-		if (captcha.equals("") || !captcha.equalsIgnoreCase(session.getAttribute("seccode").toString())) {
+		if (captcha.equals("") || !captcha.equalsIgnoreCase(session.getAttribute("seccodeEn").toString())) {
 			msg = "验证码错误";
-			session.setAttribute("seccode", RandomStringUtils.random(4, "ABCDEFGHJKLPQRSTUVXY"));
+			session.setAttribute("seccodeEn", RandomStringUtils.random(4, "ABCDEFGHJKLPQRSTUVXY"));
 		} else if (userRepository.findByUsername(username) != null) {
 			msg = "用户名已存在";
 		} else if (username.length() < 3) {
@@ -95,7 +95,7 @@ public class UserController {
 			token.setRememberMe(true);
 			currentUser.login(token);
 
-			session.removeAttribute("seccode");
+			session.removeAttribute("seccodeEn");
 
 			return "redirect:/";
 		}

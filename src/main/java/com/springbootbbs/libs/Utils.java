@@ -13,6 +13,8 @@ public class Utils {
 
 	public static int seccodeSize = 9;
 
+	public static int seccodeType = 2;	// 1:en, 2:zh
+
 	public static String subTextString(String str,int len) {
 		return subTextString(str, len, "");
 	}
