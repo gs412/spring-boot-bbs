@@ -30,7 +30,7 @@
 			<label for="captcha" class="control-label">${local("captcha")}</label>
 			<div class="controls">
 				<input type="text" class="input-xlarge" name="captcha" id="captcha" maxlength="${seccodeSize}" style="width: ${seccodeSize*10+10}px;">
-				<img src="/seccode/en" id="seccodeImg" style="cursor: pointer;">
+				<img src="/session/seccode/en" id="seccodeImg" style="cursor: pointer;">
 			</div>
 		</div>
 		<div class="form-actions">
