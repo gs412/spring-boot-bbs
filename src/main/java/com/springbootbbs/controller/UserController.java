@@ -51,7 +51,19 @@ public class UserController {
 
 	@RequestMapping("/register")
 	public String register(ModelMap m) {
+		String seccodeSrc;
+		int inputWidth;
+		if (Utils.seccodeType == 2) {
+			Utils.seccodeSize = 4;
+			seccodeSrc = "/session/seccode/zh";
+			inputWidth = 100;
+		} else {
+			seccodeSrc = "/session/seccode/en";
+			inputWidth = Utils.seccodeSize * 10 + 10;
+		}
 		m.addAttribute("seccodeSize", Utils.seccodeSize);
+		m.addAttribute("seccodeSrc", seccodeSrc);
+		m.addAttribute("inputWidth", inputWidth);
 
 		return "user/register";
 	}
@@ -63,10 +75,11 @@ public class UserController {
 		password_confirm = StringUtils.trimToEmpty(password_confirm);
 
 		String msg = "";
+		String sessionName = Utils.seccodeType == 1 ? "seccodeEn" : "seccodeZh";
 
-		if (captcha.equals("") || !captcha.equalsIgnoreCase(session.getAttribute("seccodeEn").toString())) {
+		if (captcha.equals("") || !captcha.equalsIgnoreCase(session.getAttribute(sessionName).toString())) {
 			msg = "验证码错误";
-			session.setAttribute("seccodeEn", RandomStringUtils.random(4, "ABCDEFGHJKLPQRSTUVXY"));
+			session.setAttribute(sessionName, RandomStringUtils.random(4, "ABCDEFGHJKLPQRSTUVXY"));
 		} else if (userRepository.findByUsername(username) != null) {
 			msg = "用户名已存在";
 		} else if (username.length() < 3) {
@@ -95,14 +108,27 @@ public class UserController {
 			token.setRememberMe(true);
 			currentUser.login(token);
 
-			session.removeAttribute("seccodeEn");
+			session.removeAttribute(sessionName);
 
 			return "redirect:/";
 		}
 
 		m.addAttribute("username", username);
 		m.addAttribute("msg", msg);
+
+		String seccodeSrc;
+		int inputWidth;
+		if (Utils.seccodeType == 2) {
+			Utils.seccodeSize = 4;
+			seccodeSrc = "/session/seccode/zh";
+			inputWidth = 100;
+		} else {
+			seccodeSrc = "/session/seccode/en";
+			inputWidth = Utils.seccodeSize * 10 + 10;
+		}
 		m.addAttribute("seccodeSize", Utils.seccodeSize);
+		m.addAttribute("seccodeSrc", seccodeSrc);
+		m.addAttribute("inputWidth", inputWidth);
 
 		return "user/register";
 	}

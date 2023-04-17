@@ -29,8 +29,8 @@
 		<div class="control-group">
 			<label for="captcha" class="control-label">${local("captcha")}</label>
 			<div class="controls">
-				<input type="text" class="input-xlarge" name="captcha" id="captcha" maxlength="${seccodeSize}" style="width: ${seccodeSize*10+10}px;">
-				<img src="/session/seccode/en" id="seccodeImg" style="cursor: pointer;">
+				<input type="text" class="input-xlarge" name="captcha" id="captcha" maxlength="${seccodeSize}" style="width: ${inputWidth}px;">
+				<img src="${seccodeSrc}" id="seccodeImg" style="cursor: pointer;">
 			</div>
 		</div>
 		<div class="form-actions">
@@ -43,7 +43,7 @@
 	$(function() {
 		$('img#seccodeImg').click(function () {
 			let $this = $(this);
-			$this.attr('src', "/seccode/en?v=" + Math.random());
+			$this.attr('src', "${seccodeSrc}?v=" + Math.random());
 		});
 	});
 </script>
